@@ -15,7 +15,7 @@ public class boUtilisateur {
 		private int credit;
 		private boolean administrateur;
 		
-		
+	
 		
 		public int getNo_utilisateur() {
 			return no_utilisateur;
