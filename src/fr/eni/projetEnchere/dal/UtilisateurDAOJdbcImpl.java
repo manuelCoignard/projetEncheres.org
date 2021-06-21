@@ -14,7 +14,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 									   + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 
 	@Override
-	public void insertNewUser(boUtilisateur nouvelUtilisateur) {
+	public void insert(boUtilisateur nouvelUtilisateur) {
 		
 		try(Connection cnx = JdbcTools.getConnection()){
 			

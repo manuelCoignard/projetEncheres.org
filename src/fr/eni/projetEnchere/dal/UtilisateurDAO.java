@@ -4,7 +4,7 @@ import fr.eni.projetEnchere.bo.boUtilisateur;
 
 public interface UtilisateurDAO {
 	
-	void insertNewUser(boUtilisateur nouvelUtilisateur);
+	void insert(boUtilisateur nouvelUtilisateur);
 	
 
 }
