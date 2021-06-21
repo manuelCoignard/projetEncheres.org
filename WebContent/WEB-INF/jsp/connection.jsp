@@ -13,10 +13,12 @@
 			<label for="identifiant">Identifiant : </label>
 			<input type="text" id="identifiant" name="identifiant">
 		</div>
+		<br>
 		<div class="login">
 			<label for="motdepasse">Motdepasse : </label>
 			<input type="password" id="motdepasse" name="motdepasse">
 		</div>
+		<br>
 		<button type="submit">Se connecter</button>
 	</form>
 
