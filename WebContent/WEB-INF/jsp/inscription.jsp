@@ -17,15 +17,15 @@
 		<br>
 		<div>
 			<label for="pseuso">Pseudo :</label><br>
-	        <input type="text" id="pseudo" name="pseudo"><br>
+	        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?"><br>
 		    <br>
 		    <label for="nom">Nom :<span style="color: darkred;">*</span></label><br>
-		    <input type="text" id="text" name="nom" required><br>
+		    <input type="text" id="text" name="nom" placeholder="votre nom ?" required><br>
 	    <br>
 	    </div>
 	    <div>
 		    <label for="prenom">Prenom :<span style="color: darkred;">*</span></label><br>
-		    <input type="text" id="prenom" name="prenom" required><br>	    
+		    <input type="text" id="prenom" name="prenom" placeholder="votre prénom ?" required><br>	    
 		    <br>
 		    <label for="email">Email : <span style="color: darkred;">*</span></label><br>	    	    
 	        <input type="email" name="email" id="email" placeholder="votre email ?" size="15" pattern="^[\w+.-]+@\w+.\w{2,5}$" required><br>
