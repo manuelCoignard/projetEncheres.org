@@ -58,7 +58,7 @@
 	    <div>
 	        <button type="submit" value="ok">Créer</button><br>
 	        <br>
-	        <button type="reset">Annuler</button><!-- Le bouton annuler est de type "reset"-->
+	        <a href="http://localhost:8080/projetEncheres.org/ServletConnection">Annuler</a>
         </div> 	     
     </form>
     

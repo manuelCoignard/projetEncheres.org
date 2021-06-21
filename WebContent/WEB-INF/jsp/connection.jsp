@@ -20,6 +20,7 @@
 		</div>
 		<br>
 		<button type="submit">Se connecter</button>
+		<a href="http://localhost:8080/projetEncheres.org/ServletInscription">Créer un compte</a>
 	</form>
 
 </body>
