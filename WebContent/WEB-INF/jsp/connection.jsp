@@ -8,21 +8,27 @@
 <title>Connection</title>
 </head>
 <body>
-	<form method="POST" action="ServletConnection">
+	<form method="POST" action="${pageContext.request.contextPath}/ServletConnection">
 		
 		<div class="login">
 			<label for="identifiant">Identifiant : </label>
-			<input type="text" id="identifiant" name="identifiant">
+			<input type="text" id="identifiant" name="identifiant" required>
 		</div>
 		<br>
 		<div class="login">
-			<label for="motdepasse">Motdepasse : </label>
-			<input type="password" id="motdepasse" name="motdepasse">
+			<label for="motdepasse">Mot de passe : </label>
+			<input type="password" id="motdepasse" name="motdepasse" required>
 		</div>
 		<br>
-		<button type="submit">Se connecter</button>
-		<a href="${pageContext.request.contextPath}/ServletInscription">Créer un compte</a>
+		<input type="submit" value="Se connecter">
 	</form>
-
+	<br>
+	<a href="${pageContext.request.contextPath}/ServletInscription">
+		<input type="button" value="Créer un compte"> 
+	</a>
+	<br>
+	<a href="${pageContext.request.contextPath}">
+		<input type="button" value="Retour à l'accueil"> 
+	</a>
 </body>
 </html>
