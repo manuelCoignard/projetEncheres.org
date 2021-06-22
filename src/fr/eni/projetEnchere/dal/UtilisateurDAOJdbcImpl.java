@@ -3,6 +3,7 @@ package fr.eni.projetEnchere.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
@@ -10,8 +11,8 @@ import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	
 	private static final String INSERT = "INSERT INTO "
-									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur"
-									   + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit"
+									   + " VALUES (?,?,?,?,?,?,?,?,?,100);";
 
 	@Override
 	public void insert(boUtilisateur nouvelUtilisateur) {
@@ -29,8 +30,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 			pstmt.setString(7, nouvelUtilisateur.getCodePostal());
 			pstmt.setString(8, nouvelUtilisateur.getVille());
 			pstmt.setString(9, nouvelUtilisateur.getMotDePpasse());
-			pstmt.setInt(10, nouvelUtilisateur.getCredit());
-			pstmt.setBoolean(11, nouvelUtilisateur.isAdministrateur());
 			
 			pstmt.executeUpdate();
 			
@@ -41,7 +40,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				nouvelUtilisateur.setNoUtilisateur(rs.getInt(1));
 			}
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
