@@ -4,8 +4,14 @@ import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.UtilisateurDAO;
 import fr.eni.projetEnchere.dal.jdbcTools.DAOFactory;
 
+/**
+ * Classe contenant les méthodes utiles pour intéragir avec l'objet boUtilisateur
+ * @author Groupe G (LORENT Maxime, TANGUY Cyril, COIGNARD Manuel
+ *
+ */
 public class UtilisateurManager {
 
+//////////////////////////////////////// SINGLETON /////////////////////////////////////////////////////////////////
 	/**
 	 * Mise en place d'un singleton pour l'utilisation du Manager	
 	 */
@@ -17,14 +23,31 @@ public class UtilisateurManager {
 		}
 		return instance;
 	}
-	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////// ATTRIBUTS D'INSTANCE ////////////////////////////////////////////////////
 	/**
 	 * Mise en place des attributs et méthodes utiles au Manager
 	 */
 	//Attribut d'instance
 	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateur();
-	
-	//Liste des méthodes
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+///////////////////////////////////////// METHODES ////////////////////////////////////////////////////////////////
+	/**
+	 * Méthode permettant l'ajout d'un nouvel utilisateur dans la base de données
+	 * @param pseudo			pseudonyme de l'utilisateur sur la plate-forme 			(String)
+	 * @param nom 				nom de l'utilisateur									(String)
+	 * @param prenom			prénom de l'utilisateur									(String)
+	 * @param email				adresse mail de l'utilisateur							(String)
+	 * @param telephone			numéro de téléphone de l'utilisateur					(String)
+	 * @param rue				numéro et nom de la rue de l'utilisateur				(String)
+	 * @param code_postal		code postal de l'utilisateur							(String)
+	 * @param ville				nom de la ville de l'utilisateur						(String)
+	 * @param mdp				mot de passe pour le profil de l'utilisateur			(String)
+	 * @param credit			crédit initial du compte de l'utilisateur				(int)
+	 * @param administrateur	statut de l'utilisateur (est-il administrateur ou non)	(boolean)
+	 */
 	public void ajoutNouvelUtilisateur(
 			String pseudo,
 			String nom,
@@ -47,6 +70,12 @@ public class UtilisateurManager {
 		utilisateurDAO.insert(nvlUtilisateur);
 	}
 	
+	/**
+	 * Méthode permettant de retourner un utilisateur présent dans la base de données via un identifiant et un mot de passe
+	 * @param identifiant	adresse mail ou pseudo de l'utilisateur (String)
+	 * @param mdp			mot de passe du compte de l'utilisateur (String)
+	 * @return				un objet de la classe boUtilisateur		(boUtilisateur)
+	 */
 	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) {
 		boUtilisateur utilisateurConnecte = null;
 		

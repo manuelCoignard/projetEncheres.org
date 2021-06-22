@@ -41,7 +41,7 @@ public class ServletConnection extends HttpServlet {
 		//Envoi vers le UtilisateurManager
 		boUtilisateur utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
 		
-		
+		//Récupération de l'utilisateur
 		if(utilisateur == null) {
 			response.getWriter().append("Utilisateur inconnu ou mdp de passe erroné");
 		}else {
