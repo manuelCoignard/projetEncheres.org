@@ -2,7 +2,6 @@ package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +40,7 @@ public class ServletConnection extends HttpServlet {
 		//Envoi vers le UtilisateurManager
 		boUtilisateur utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
 		
-		
+		//Récupération de l'utilisateur
 		if(utilisateur == null) {
 			response.getWriter().append("Utilisateur inconnu ou mdp de passe erroné");
 		}else {
