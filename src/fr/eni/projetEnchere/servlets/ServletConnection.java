@@ -10,20 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetEnchere.bll.UtilisateurManager;
+
 /**
  * Servlet implementation class servletConnection
  */
 @WebServlet("/ServletConnection")
 public class ServletConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletConnection() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +32,13 @@ public class ServletConnection extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		
+		//Récupération de l'identifiant et du mot de passe
+		String id = request.getParameter("identifiant");
+		String mdp = request.getParameter("motdepasse");
+		
+		//Envoi vers le UtilisateurManager
+		UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
+		
 }
 }
