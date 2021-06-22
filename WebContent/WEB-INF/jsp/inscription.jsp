@@ -1,15 +1,10 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!-- ajoute la librairie JSTL à la page -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="ISO-8859-1"%>
->>>>>>> branch 'main' of https://github.com/manuelCoignard/projetEncheres.org
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PageInscription</title>
 </head>
 <body>
@@ -23,15 +18,15 @@
 		<br>
 		<div>
 			<label for="pseuso">Pseudo :</label><br>
-	        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?"><br>
+	        <input type="text" id="pseudo" name="pseudo"><br>
 		    <br>
 		    <label for="nom">Nom :<span style="color: darkred;">*</span></label><br>
-		    <input type="text" id="text" name="nom" placeholder="votre nom ?" required><br>
+		    <input type="text" id="text" name="nom" required><br>
 	    <br>
 	    </div>
 	    <div>
 		    <label for="prenom">Prenom :<span style="color: darkred;">*</span></label><br>
-		    <input type="text" id="prenom" name="prenom" placeholder="votre prénom ?" required><br>	    
+		    <input type="text" id="prenom" name="prenom" required><br>	    
 		    <br>
 		    <label for="email">Email : <span style="color: darkred;">*</span></label><br>	    	    
 	        <input type="email" name="email" id="email" placeholder="votre email ?" size="15" pattern="^[\w+.-]+@\w+.\w{2,5}$" required><br>
@@ -64,13 +59,7 @@
 	    <div>
 	        <button type="submit" value="ok">Créer</button><br>
 	        <br>
-<<<<<<< HEAD
 	        <a href="${pageContext.request.contextPath}/ServletConnection">Annuler</a>
-=======
-
-	        <a href="http://localhost:8080/projetEncheres.org/ServletConnection">Annuler</a>
-
->>>>>>> branch 'main' of https://github.com/manuelCoignard/projetEncheres.org
         </div> 	     
     </form>
     
