@@ -162,4 +162,15 @@ public class boUtilisateur {
 		this.administrateur = administrateur;
 	}
 
+	
+	//Affichage des données de l'utilisateur
+	@Override
+	public String toString() {
+		return "boUtilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
+				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal="
+				+ codePostal + ", ville=" + ville + ", motDePpasse=" + motDePpasse + ", credit=" + credit
+				+ ", administrateur=" + administrateur + "]";
+	}
+
+
 }

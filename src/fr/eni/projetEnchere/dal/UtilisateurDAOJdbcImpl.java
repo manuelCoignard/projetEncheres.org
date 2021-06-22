@@ -47,6 +47,18 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		}
 		
 	}
+
+	@Override
+	public boUtilisateur connectionEmail(String email, String mdp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boUtilisateur connectionPseudo(String pseudo, String mdp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

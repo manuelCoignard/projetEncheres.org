@@ -6,5 +6,8 @@ public interface UtilisateurDAO {
 	
 	void insert(boUtilisateur nouvelUtilisateur);
 	
+	boUtilisateur connectionEmail(String email, String mdp);
+	
+	boUtilisateur connectionPseudo(String pseudo, String mdp);
 
 }
