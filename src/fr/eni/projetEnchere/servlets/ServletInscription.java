@@ -1,8 +1,6 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,7 +55,7 @@ public class ServletInscription extends HttpServlet {
 		
 		//3. 
 		
-		doGet(request, response);
+		
 	}
 
 }
