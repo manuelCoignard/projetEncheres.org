@@ -12,6 +12,8 @@
 	
 	
 <a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
+<br>
+<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
 
 </body>
 </html>

@@ -4,14 +4,12 @@
   <welcome-file-list>
     <welcome-file>index</welcome-file>
   </welcome-file-list>
-
   <servlet>
-  	<servlet-name>pageAccueil</servlet-name>
-  	<jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>  
+    <servlet-name>pageAccueil</servlet-name>
+    <jsp-file>/WEB-INF/jsp/index.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>pageAccueil</servlet-name>
-  <url-pattern>/index</url-pattern>
+    <servlet-name>pageAccueil</servlet-name>
+    <url-pattern>/index</url-pattern>
   </servlet-mapping>
- 
 </web-app>
