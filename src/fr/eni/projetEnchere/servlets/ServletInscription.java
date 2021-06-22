@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import fr.eni.projetEnchere.bll.UtilisateurManager;
 
 
@@ -30,6 +32,9 @@ public class ServletInscription extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");//permet de gerer les accents
 		
+		// quand on rentre ds le formulaire reviens sur la page d'accueil
+		
+		
 		//1. je crée mes variables implémentées par les infos de l'utilisateur
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
@@ -40,12 +45,11 @@ public class ServletInscription extends HttpServlet {
 		String codePostal = request.getParameter("codepostal");
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("password");
-		String motDePasseBis = request.getParameter("passwordbis");
 		
 		//2. on envoie le tout à la BLL
 		try {
 			
-			UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 100, false);
+			UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 			
 		} catch (Exception e) {
 			//TODO gerer validation erreur
@@ -54,8 +58,8 @@ public class ServletInscription extends HttpServlet {
 		
 		
 		//3. 
-		
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+		rd.forward(request, response);	
 	}
 
 }

@@ -119,7 +119,7 @@ public class boUtilisateur {
 
 	}
 
-	// constructeur inscription
+	// constructeur inscription et de connexion
 	public boUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostal, String ville, String motDePpasse, int credit, boolean administrateur) {
 		super();
@@ -135,14 +135,6 @@ public class boUtilisateur {
 		this.motDePpasse = motDePpasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
-	}
-
-	// constructeur connection
-	public boUtilisateur(String pseudo, String email, String motDePpasse) {
-		super();
-		this.pseudo = pseudo;
-		this.email = email;
-		this.motDePpasse = motDePpasse;
 	}
 
 	// constructeur sans id d'utilisateur
@@ -162,6 +154,22 @@ public class boUtilisateur {
 		this.administrateur = administrateur;
 	}
 
+	// constructeur sans administrateur
+		public boUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+				String codePostal, String ville, String motDePpasse) {
+			super();
+			this.pseudo = pseudo;
+			this.nom = nom;
+			this.prenom = prenom;
+			this.email = email;
+			this.telephone = telephone;
+			this.rue = rue;
+			this.codePostal = codePostal;
+			this.ville = ville;
+			this.motDePpasse = motDePpasse;
+			
+		}
+	
 	
 	//Affichage des données de l'utilisateur
 	@Override
