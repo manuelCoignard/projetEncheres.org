@@ -20,7 +20,7 @@
 	        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?"><br>
 		    <br>
 		    <label for="nom">Nom :<span style="color: darkred;">*</span></label><br>
-		    <input type="text" id="text" name="nom" placeholder="votre nom ?" required><br>
+		    <input type="text" id="nom" name="nom" placeholder="votre nom ?" required><br>
 	    <br>
 	    </div>
 	    <div>
@@ -33,7 +33,7 @@
         </div>
         <div>
 	        <label for="phone">Téléphone :</label><br>
-	        <input type="phone" name="telephone" id="phone" placeholder="votre telephone ?" size="15"><br>
+	        <input type="phone" name="telephone" id="telephone" placeholder="votre telephone ?" size="15"><br>
 			<br>
 			<label for="rue">Rue :</label><br>
 			<input type="text" name="rue" id="rue" placeholder="votre rue ?"><br>
@@ -41,10 +41,10 @@
 		</div>
 		<div>
 			<label for="cp">Code postal :</label><br>
-			<input type="text" name="codepostale" id="cp" placeholder="votre cp ?"><br>
+			<input type="text" name="codepostale" id="codepostale" placeholder="votre cp ?"><br>
 			<br>
 			<label for="ville">Ville :</label><br>
-			<input type="text" name="ville" id="town" placeholder="votre ville ?"><br>
+			<input type="text" name="ville" id="ville" placeholder="votre ville ?"><br>
 		<br>
 		</div>
 		<div>
