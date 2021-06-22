@@ -32,7 +32,8 @@ public class ServletInscription extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");//permet de gerer les accents
 		
-		response.getWriter().append("test");
+		// quand on rentre ds le formulaire reviens sur la page d'accueil
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		
 		//1. je crée mes variables implémentées par les infos de l'utilisateur
 		String pseudo = request.getParameter("pseudo");
@@ -44,12 +45,11 @@ public class ServletInscription extends HttpServlet {
 		String codePostal = request.getParameter("codepostal");
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("password");
-		String motDePasseBis = request.getParameter("passwordbis");
 		
 		//2. on envoie le tout à la BLL
 		try {
 			
-			UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 100, false);
+			UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 			
 		} catch (Exception e) {
 			//TODO gerer validation erreur
@@ -58,7 +58,7 @@ public class ServletInscription extends HttpServlet {
 		
 		
 		//3. 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
+		
 		rd.forward(request, response);	
 	}
 

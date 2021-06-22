@@ -23,11 +23,11 @@ public class UtilisateurManager {
 		}
 		return instance;
 	}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 ///////////////////////////////////////// ATTRIBUTS D'INSTANCE ////////////////////////////////////////////////////
 	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateur();
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
 
 ///////////////////////////////////////// METHODES PUBLICS/////////////////////////////////////////////////////////
 	/**
@@ -41,8 +41,6 @@ public class UtilisateurManager {
 	 * @param codePostal		code postal de l'utilisateur							(String)
 	 * @param ville				nom de la ville de l'utilisateur						(String)
 	 * @param mdp				mot de passe pour le profil de l'utilisateur			(String)
-	 * @param credit			crédit initial du compte de l'utilisateur				(int)
-	 * @param administrateur	statut de l'utilisateur (est-il administrateur ou non)	(boolean)
 	 */
 	public void ajoutNouvelUtilisateur(
 			String pseudo,
@@ -53,16 +51,16 @@ public class UtilisateurManager {
 			String rue,
 			String codePostal,
 			String ville,
-			String mdp,
-			int credit,
-			boolean administrateur) {
+			String mdp
+			) {
 		
+		System.out.println("je suis dans le manager");
 		//Vérification des données provenant du formulaire
 		
 		//Après vérification, création de l'utilisateur
 		try {
 			//Création de l'utilisateur
-			boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdp,credit,administrateur);
+			boUtilisateur nvlUtilisateur = new boUtilisateur();
 			
 			//Ajout dans la BDD
 			utilisateurDAO.insert(nvlUtilisateur);
