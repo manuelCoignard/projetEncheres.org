@@ -38,7 +38,7 @@ public class UtilisateurManager {
 	 * @param email				adresse mail de l'utilisateur							(String)
 	 * @param telephone			numéro de téléphone de l'utilisateur					(String)
 	 * @param rue				numéro et nom de la rue de l'utilisateur				(String)
-	 * @param code_postal		code postal de l'utilisateur							(String)
+	 * @param codePostal		code postal de l'utilisateur							(String)
 	 * @param ville				nom de la ville de l'utilisateur						(String)
 	 * @param mdp				mot de passe pour le profil de l'utilisateur			(String)
 	 * @param credit			crédit initial du compte de l'utilisateur				(int)
@@ -51,7 +51,7 @@ public class UtilisateurManager {
 			String email,
 			String telephone,
 			String rue,
-			String code_postal,
+			String codePostal,
 			String ville,
 			String mdp,
 			int credit,
