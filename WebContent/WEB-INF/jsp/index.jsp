@@ -5,10 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Accueil</title>
 </head>
 <body>
-
+	<h1>Page Accueil</h1>
+	
+	
 <a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 
 </body>
