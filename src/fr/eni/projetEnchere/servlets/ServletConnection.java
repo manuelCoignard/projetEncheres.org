@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetEnchere.bll.UtilisateurManager;
+import fr.eni.projetEnchere.bo.boUtilisateur;
 
 /**
  * Servlet implementation class servletConnection
@@ -38,7 +39,15 @@ public class ServletConnection extends HttpServlet {
 		String mdp = request.getParameter("motdepasse");
 		
 		//Envoi vers le UtilisateurManager
-		UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
+		boUtilisateur utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
+		
+		
+		if(utilisateur == null) {
+			response.getWriter().append("Utilisateur inconnu ou mdp de passe erroné");
+		}else {
+			response.getWriter().append(utilisateur.toString());
+		}
+		
 		
 }
 }
