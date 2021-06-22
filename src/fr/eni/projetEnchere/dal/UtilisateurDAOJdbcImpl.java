@@ -13,7 +13,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
 									   + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=? AND mot_de_passe=?;";
-	private static final String SELECT_BY_PSEUDO = "";
+	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?;";
 
 	@Override
 	public void insert(boUtilisateur nouvelUtilisateur) {
