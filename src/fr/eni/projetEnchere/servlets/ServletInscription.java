@@ -1,8 +1,6 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,22 +39,23 @@ public class ServletInscription extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String codePostal = request.getParameter("codepostal");
 		String ville = request.getParameter("ville");
-		String motDePasse = request.getParameter("password");
+		String mdp = request.getParameter("password");
 		String motDePasseBis = request.getParameter("passwordbis");
 		
 		//2. on envoie le tout à la BLL
 		try {
 			
-			
+			UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, 100, false);
 			
 		} catch (Exception e) {
+			//TODO gerer validation erreur
 			e.printStackTrace();
 		}
 		
 		
 		//3. 
 		
-		doGet(request, response);
+		
 	}
 
 }
