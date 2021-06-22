@@ -2,25 +2,26 @@ package fr.eni.projetEnchere.bo;
 
 public class boUtilisateur {
 
-	private int no_utilisateur;
+	private int noUtilisateur;
 	private String pseudo;
 	private String nom;
 	private String prenom;
 	private String email;
 	private String telephone;
 	private String rue;
-	private String code_postal;
+	private String codePostal;
 	private String ville;
-	private String mot_de_passe;
+	private String motDePpasse;
 	private int credit;
 	private boolean administrateur;
-
-	public int getNo_utilisateur() {
-		return no_utilisateur;
+	
+	//////////// GETTER SETTER //////////
+	public int getNoUtilisateur() {
+		return noUtilisateur;
 	}
 
-	public void setNo_utilisateur(int no_utilisateur) {
-		this.no_utilisateur = no_utilisateur;
+	public void setNoUtilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
 	}
 
 	public String getPseudo() {
@@ -71,12 +72,12 @@ public class boUtilisateur {
 		this.rue = rue;
 	}
 
-	public String getCode_postal() {
-		return code_postal;
+	public String getCodePostal() {
+		return codePostal;
 	}
 
-	public void setCode_postal(String code_postal) {
-		this.code_postal = code_postal;
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 
 	public String getVille() {
@@ -87,12 +88,12 @@ public class boUtilisateur {
 		this.ville = ville;
 	}
 
-	public String getMot_de_passe() {
-		return mot_de_passe;
+	public String getMotDePpasse() {
+		return motDePpasse;
 	}
 
-	public void setMot_de_passe(String mot_de_passe) {
-		this.mot_de_passe = mot_de_passe;
+	public void setMotDePpasse(String motDePpasse) {
+		this.motDePpasse = motDePpasse;
 	}
 
 	public int getCredit() {
@@ -119,34 +120,34 @@ public class boUtilisateur {
 	}
 
 	// constructeur inscription
-	public boUtilisateur(int no_utilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur) {
+	public boUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePpasse, int credit, boolean administrateur) {
 		super();
-		this.no_utilisateur = no_utilisateur;
+		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.code_postal = code_postal;
+		this.codePostal = codePostal;
 		this.ville = ville;
-		this.mot_de_passe = mot_de_passe;
+		this.motDePpasse = motDePpasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}
 
 	// constructeur connection
-	public boUtilisateur(String pseudo, String email, String mot_de_passe) {
+	public boUtilisateur(String pseudo, String email, String motDePpasse) {
 		super();
 		this.pseudo = pseudo;
 		this.email = email;
-		this.mot_de_passe = mot_de_passe;
+		this.motDePpasse = motDePpasse;
 	}
 
 	// constructeur sans id d'utilisateur
 	public boUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur) {
+			String codePostal, String ville, String motDePpasse, int credit, boolean administrateur) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -154,9 +155,9 @@ public class boUtilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.code_postal = code_postal;
+		this.codePostal = codePostal;
 		this.ville = ville;
-		this.mot_de_passe = mot_de_passe;
+		this.motDePpasse = motDePpasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
 	}

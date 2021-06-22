@@ -26,9 +26,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 			pstmt.setString(4, nouvelUtilisateur.getEmail());			
 			pstmt.setString(5, nouvelUtilisateur.getTelephone().equals("")?null:nouvelUtilisateur.getTelephone());
 			pstmt.setString(6, nouvelUtilisateur.getRue());
-			pstmt.setString(7, nouvelUtilisateur.getCode_postal());
+			pstmt.setString(7, nouvelUtilisateur.getCodePostal());
 			pstmt.setString(8, nouvelUtilisateur.getVille());
-			pstmt.setString(9, nouvelUtilisateur.getMot_de_passe());
+			pstmt.setString(9, nouvelUtilisateur.getMotDePpasse());
 			pstmt.setInt(10, nouvelUtilisateur.getCredit());
 			pstmt.setBoolean(11, nouvelUtilisateur.isAdministrateur());
 			
@@ -38,7 +38,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 			
 			if(rs.next())
 			{
-				nouvelUtilisateur.setNo_utilisateur(rs.getInt(1));
+				nouvelUtilisateur.setNoUtilisateur(rs.getInt(1));
 			}
 		}
 		catch(Exception e)

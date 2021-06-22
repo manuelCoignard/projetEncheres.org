@@ -34,14 +34,14 @@ public class UtilisateurManager {
 			String rue,
 			String code_postal,
 			String ville,
-			String mot_de_passe,
+			String mdp,
 			int credit,
 			boolean administrateur) {
 		
 		//Vérification des données provenant du formulaire
 		
 		//Après vérification, création de l'utilisateur
-		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur);
+		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mdp,credit,administrateur);
 		
 		//Ajout dans la BDD
 		utilisateur.insert(nvlUtilisateur);
