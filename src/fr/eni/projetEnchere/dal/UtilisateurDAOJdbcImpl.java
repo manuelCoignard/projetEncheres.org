@@ -11,7 +11,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	
 	private static final String INSERT = "INSERT INTO "
 									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
-									   + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+									   + " VALUES (?,?,?,?,?,?,?,?,?,?,100,0);";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=? AND mot_de_passe=?;";
 	private static final String SELECT_BY_PSEUDO = "";
 
@@ -31,8 +31,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 			pstmt.setString(7, nouvelUtilisateur.getCodePostal());
 			pstmt.setString(8, nouvelUtilisateur.getVille());
 			pstmt.setString(9, nouvelUtilisateur.getMotDePpasse());
-			pstmt.setInt(10, nouvelUtilisateur.getCredit());
-			pstmt.setBoolean(11, nouvelUtilisateur.isAdministrateur());
 			
 			pstmt.executeUpdate();
 			

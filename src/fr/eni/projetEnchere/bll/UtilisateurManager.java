@@ -60,7 +60,7 @@ public class UtilisateurManager {
 		//Après vérification, création de l'utilisateur
 		try {
 			//Création de l'utilisateur
-			boUtilisateur nvlUtilisateur = new boUtilisateur();
+			boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdp);
 			
 			//Ajout dans la BDD
 			utilisateurDAO.insert(nvlUtilisateur);

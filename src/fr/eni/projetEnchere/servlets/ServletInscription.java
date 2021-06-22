@@ -33,7 +33,7 @@ public class ServletInscription extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");//permet de gerer les accents
 		
 		// quand on rentre ds le formulaire reviens sur la page d'accueil
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+		
 		
 		//1. je crée mes variables implémentées par les infos de l'utilisateur
 		String pseudo = request.getParameter("pseudo");
@@ -58,7 +58,7 @@ public class ServletInscription extends HttpServlet {
 		
 		
 		//3. 
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		rd.forward(request, response);	
 	}
 
