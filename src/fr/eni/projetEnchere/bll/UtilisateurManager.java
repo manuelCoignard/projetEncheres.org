@@ -54,12 +54,12 @@ public class UtilisateurManager {
 		
 		//Choix de la connexion via pseudo ou adresse mail
 		if(identifiant.contains("@")) {
-			
+			//utilisation de la méthode avec email
+			utilisateurConnecte = utilisateurDAO.connectionEmail(identifiant, mdp);
 		} else {
-			
+			//utilisation de la méthode avec pseudo
+			utilisateurConnecte = utilisateurDAO.connectionPseudo(identifiant, mdp);
 		}
-		
-		
 		//Récupération de l'utilisateur complet
 		
 		//Retour de l'utilisateur
