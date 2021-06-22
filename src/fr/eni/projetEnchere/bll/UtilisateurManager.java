@@ -26,14 +26,10 @@ public class UtilisateurManager {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////// ATTRIBUTS D'INSTANCE ////////////////////////////////////////////////////
-	/**
-	 * Mise en place des attributs et méthodes utiles au Manager
-	 */
-	//Attribut d'instance
 	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateur();
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
-///////////////////////////////////////// METHODES ////////////////////////////////////////////////////////////////
+///////////////////////////////////////// METHODES PUBLICS/////////////////////////////////////////////////////////
 	/**
 	 * Méthode permettant l'ajout d'un nouvel utilisateur dans la base de données
 	 * @param pseudo			pseudonyme de l'utilisateur sur la plate-forme 			(String)
@@ -64,7 +60,7 @@ public class UtilisateurManager {
 		//Vérification des données provenant du formulaire
 		
 		//Après vérification, création de l'utilisateur
-		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mdp,credit,administrateur);
+		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdp,credit,administrateur);
 		
 		//Ajout dans la BDD
 		utilisateurDAO.insert(nvlUtilisateur);
@@ -94,5 +90,21 @@ public class UtilisateurManager {
 		//Retour de l'utilisateur
 		return utilisateurConnecte;
 	}
+///////////////////////////////////////// METHODES PRIVEES /////////////////////////////////////////////////////////
+	/**
+	 * Méthode permettant de vérifier qu'une données de type String est bien renseignée
+	 * @param data	donnée à vérifier			(String)
+	 * @return		statut de la vérification	(boolean)
+	 */
+	private boolean verifDataString(String data) {
+		boolean statut = false;
+		
+		if(!data.equals("")) {
+			statut = true;
+		}
+		
+		return statut;
+	}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 }
