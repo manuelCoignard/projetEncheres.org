@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import fr.eni.projetEnchere.bll.UtilisateurManager;
 
 
@@ -29,6 +31,8 @@ public class ServletInscription extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");//permet de gerer les accents
+		
+		response.getWriter().append("test");
 		
 		//1. je crée mes variables implémentées par les infos de l'utilisateur
 		String pseudo = request.getParameter("pseudo");
@@ -54,8 +58,8 @@ public class ServletInscription extends HttpServlet {
 		
 		
 		//3. 
-		
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
+		rd.forward(request, response);	
 	}
 
 }
