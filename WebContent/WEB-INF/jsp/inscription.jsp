@@ -42,7 +42,7 @@
 		</div>
 		<div>
 			<label for="cp">Code postal :</label><br>
-			<input type="text" name="codepostale" id="codepostale" placeholder="votre cp ?"><br>
+			<input type="text" name="codepostal" id="codepostal" placeholder="votre cp ?"><br>
 			<br>
 			<label for="ville">Ville :</label><br>
 			<input type="text" name="ville" id="ville" placeholder="votre ville ?"><br>
