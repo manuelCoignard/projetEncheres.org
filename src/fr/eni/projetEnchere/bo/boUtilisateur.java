@@ -154,25 +154,6 @@ public class boUtilisateur {
 		this.administrateur = administrateur;
 	}
 
-	// constructeur sans administrateur
-	
-	public boUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePpasse, int credit) {
-		super();
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.motDePpasse = motDePpasse;
-		this.credit = credit;
-	}
-	
-	
-	
 	//Affichage des données de l'utilisateur
 	@Override
 	public String toString() {

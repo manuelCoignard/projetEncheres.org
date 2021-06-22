@@ -8,9 +8,8 @@
 <title>Accueil</title>
 </head>
 <body>
-	<h1>Page Accueil</h1>
-	
-	
+<h1>Page Accueil</h1>
+
 <a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 
 </body>
