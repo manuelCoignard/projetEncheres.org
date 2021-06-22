@@ -22,7 +22,7 @@ public class UtilisateurManager {
 	 * Mise en place des attributs et méthodes utiles au Manager
 	 */
 	//Attribut d'instance
-	private UtilisateurDAO utilisateur = DAOFactory.getUtilisateur();
+	private UtilisateurDAO utilisateurDAO = DAOFactory.getUtilisateur();
 	
 	//Liste des méthodes
 	public void ajoutNouvelUtilisateur(
@@ -44,7 +44,26 @@ public class UtilisateurManager {
 		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mdp,credit,administrateur);
 		
 		//Ajout dans la BDD
-		utilisateur.insert(nvlUtilisateur);
+		utilisateurDAO.insert(nvlUtilisateur);
+	}
+	
+	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) {
+		boUtilisateur utilisateurConnecte = null;
+		
+		//Vérification des données provenant du formulaire
+		
+		//Choix de la connexion via pseudo ou adresse mail
+		if(identifiant.contains("@")) {
+			
+		} else {
+			
+		}
+		
+		
+		//Récupération de l'utilisateur complet
+		
+		//Retour de l'utilisateur
+		return utilisateurConnecte;
 	}
 	
 }
