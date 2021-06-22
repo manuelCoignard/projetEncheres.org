@@ -54,7 +54,6 @@ public class UtilisateurManager {
 			String mdp
 			) {
 		
-		System.out.println("je suis dans le manager");
 		//Vérification des données provenant du formulaire
 		
 		//Après vérification, création de l'utilisateur
@@ -110,5 +109,4 @@ public class UtilisateurManager {
 		return statut;
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 }

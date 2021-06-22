@@ -17,7 +17,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 
 	@Override
 	public void insert(boUtilisateur nouvelUtilisateur) {
-		System.out.println("je suis dans l'insert");
+
 		try(Connection cnx = JdbcTools.getConnection()){
 			
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
