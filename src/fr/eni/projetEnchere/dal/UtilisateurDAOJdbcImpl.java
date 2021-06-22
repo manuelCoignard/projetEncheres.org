@@ -10,7 +10,7 @@ import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	
 	private static final String INSERT = "INSERT INTO "
-									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur"
+									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
 									   + " VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=? AND mot_de_passe=?;";
 	private static final String SELECT_BY_PSEUDO = "";
