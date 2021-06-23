@@ -1,7 +1,5 @@
 package fr.eni.projetEnchere.bll;
 
-import javax.print.DocFlavor.STRING;
-
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.UtilisateurDAO;
