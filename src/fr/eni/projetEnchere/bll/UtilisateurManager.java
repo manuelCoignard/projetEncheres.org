@@ -1,5 +1,9 @@
 package fr.eni.projetEnchere.bll;
 
+import javax.security.auth.kerberos.KerberosKey;
+
+import org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference;
+
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.UtilisateurDAO;
@@ -75,9 +79,8 @@ public class UtilisateurManager {
 	 * @param identifiant	adresse mail ou pseudo de l'utilisateur (String)
 	 * @param mdp			mot de passe du compte de l'utilisateur (String)
 	 * @return				un objet de la classe boUtilisateur		(boUtilisateur)
-	 * @throws BusinessException 
 	 */
-	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) throws BusinessException {
+	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) {
 		boUtilisateur utilisateurConnecte = null;
 		
 		//Vérification des données provenant du formulaire
@@ -95,6 +98,7 @@ public class UtilisateurManager {
 		//Retour de l'utilisateur
 		return utilisateurConnecte;
 	}
+	
 ///////////////////////////////////////// METHODES PRIVEES /////////////////////////////////////////////////////////
 	/**
 	 * Méthode permettant de vérifier qu'une données de type String est bien renseignée
@@ -110,5 +114,35 @@ public class UtilisateurManager {
 		
 		return statut;
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+
+	
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///                          PARTIES CONCERNANT LES GESTIONS D'ERREURS											///
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+/**
+ * Methode Mere qui a en parametres un utilisateur et une businessException, qui appel les methodes enfants concernant elles-memes chaque erreur precise.
+ * 	
+ */
+	
+	private void methodeGestionErreur(boUtilisateur utilisateur, BusinessException businessException) {
+		validerEmail(utilisateur, businessException);
+}
+	
+	private void validerEmail(boUtilisateur utilisateur, BusinessException businessException) {
+		String checkEmail = "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/";
+		if(!utilisateur.getEmail().matches(checkEmail)) {
+			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_NOM_ERREUR);
+		}
+		
+		
+	}
+	
+	
 }
