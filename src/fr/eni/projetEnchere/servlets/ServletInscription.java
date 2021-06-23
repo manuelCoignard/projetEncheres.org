@@ -51,15 +51,21 @@ public class ServletInscription extends HttpServlet {
 			
 			UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 			
+			//3. Si L'inscription s'est bien passée je pars vers l'accueil
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+			rd.forward(request, response);
+			
 		} catch (Exception e) {
 			//TODO gerer validation erreur
 			e.printStackTrace();
+			
+			//4. Si pb lors de l'insertion réaffiche le formulaire			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
+			rd.forward(request, response);
 		}
 		
 		
-		//3. 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-		rd.forward(request, response);	
+			
 	}
 
 }

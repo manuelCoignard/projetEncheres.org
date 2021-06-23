@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,8 @@ import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	private static final String INSERT = "INSERT INTO "
-			+ "ARTICLES_VENDUS (no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente)"
-			+ "VALUES(?,?,?,?,?,?,?)";
+			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente)"
+			+ "VALUES(?,?,?,?,?,?)";
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente"
 											+ "FROM ARTICLEVENDU";
@@ -28,13 +29,12 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 
-			pstmt.setInt(1, nvlArticle.getNoArticle());
-			pstmt.setString(2, nvlArticle.getNomArticle());
-			pstmt.setString(3, nvlArticle.getDescription());
-			pstmt.setDate(4, nvlArticle.getDateDebutEncheres());
-			pstmt.setDate(5, nvlArticle.getFinDebutEncheres());
-			pstmt.setInt(6, nvlArticle.getPrixInitial());
-			pstmt.setInt(7, nvlArticle.getPrixVente());
+			pstmt.setString(1, nvlArticle.getNomArticle());
+			pstmt.setString(2, nvlArticle.getDescription());
+			pstmt.setDate(3, Date.valueOf(nvlArticle.getDateDebutEncheres()));
+			pstmt.setDate(4, Date.valueOf(nvlArticle.getFinDebutEncheres()));
+			pstmt.setInt(5, nvlArticle.getPrixInitial());
+			pstmt.setInt(6, nvlArticle.getPrixVente());
 
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
@@ -57,8 +57,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					int noArticle = rs.getInt("no_article");
 					String nomArticle = rs.getString("nom_article");
 					String description = rs.getString("description");
-					Date dateDebutEncheres = rs.getDate("date_debut_encheres");
-					Date dateFinEncheres = rs.getDate("date_fin_encheres");
+					LocalDate dateDebutEncheres = rs.getDate("date_debut_encheres").toLocalDate();
+					LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
 					int prixInitial = rs.getInt("prix_initial");
 					int prixVente = rs.getInt("prix_vente");
 					

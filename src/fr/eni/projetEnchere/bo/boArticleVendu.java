@@ -1,13 +1,14 @@
 package fr.eni.projetEnchere.bo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class boArticleVendu {
 	private int noArticle;
 	private String nomArticle;
 	private String description;
-	private Date dateDebutEncheres;
-	private Date finDebutEncheres;
+	private LocalDate dateDebutEncheres;
+	private LocalDate finDebutEncheres;
 	private int prixInitial;
 	private int prixVente;
 	private int noUtilisateur;
@@ -36,16 +37,16 @@ public class boArticleVendu {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getDateDebutEncheres() {
+	public LocalDate getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-	public void setDateDebutEncheres(Date dateDebutEncheres) {
+	public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public Date getFinDebutEncheres() {
+	public LocalDate getFinDebutEncheres() {
 		return finDebutEncheres;
 	}
-	public void setFinDebutEncheres(Date finDebutEncheres) {
+	public void setFinDebutEncheres(LocalDate finDebutEncheres) {
 		this.finDebutEncheres = finDebutEncheres;
 	}
 	public int getPrixInitial() {
@@ -85,10 +86,20 @@ public class boArticleVendu {
 	public boArticleVendu() {
 		
 	}
-	
+	//constructeur ajout de l'article
+	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate finDebutEncheres, int prixInitial, int prixVente) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.finDebutEncheres = finDebutEncheres;
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+	}
 	// constructeur de l'article 
-	public boArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date finDebutEncheres, int prixInitial, int prixVente) {
+	public boArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate finDebutEncheres, int prixInitial, int prixVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
