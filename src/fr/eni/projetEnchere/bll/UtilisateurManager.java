@@ -1,9 +1,12 @@
 package fr.eni.projetEnchere.bll;
 
+<<<<<<< HEAD
 import javax.security.auth.kerberos.KerberosKey;
 
 import org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference;
 
+=======
+>>>>>>> branch 'main' of https://github.com/manuelCoignard/projetEncheres.org
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.UtilisateurDAO;
@@ -79,8 +82,9 @@ public class UtilisateurManager {
 	 * @param identifiant	adresse mail ou pseudo de l'utilisateur (String)
 	 * @param mdp			mot de passe du compte de l'utilisateur (String)
 	 * @return				un objet de la classe boUtilisateur		(boUtilisateur)
+	 * @throws BusinessException 
 	 */
-	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) {
+	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) throws BusinessException {
 		boUtilisateur utilisateurConnecte = null;
 		
 		//Vérification des données provenant du formulaire

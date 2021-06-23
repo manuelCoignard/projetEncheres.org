@@ -34,13 +34,16 @@ public class ArticleVenduManager {
 			LocalDate dateDebutEnchere,
 			LocalDate finDebutEnchere,
 			int prixInitial,
-			int prixVente) {
+			int prixVente,
+			int idUtilisateur,
+			int categorie)
+			 {
 
 		// Vérification des données provenant du formulaire
 
 		// Après vérification, création de l'article
 		boArticleVendu nvlArticle = new boArticleVendu(nomArticle, description, dateDebutEnchere,
-				finDebutEnchere, prixInitial, prixVente);
+				finDebutEnchere, prixInitial, prixVente, idUtilisateur, categorie);
 
 		// Ajout à la BDD
 		articleVendu.insert(nvlArticle);

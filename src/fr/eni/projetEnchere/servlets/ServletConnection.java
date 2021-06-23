@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 
@@ -38,7 +39,13 @@ public class ServletConnection extends HttpServlet {
 		String mdp = request.getParameter("motdepasse");
 		
 		//Envoi vers le UtilisateurManager
-		boUtilisateur utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
+		boUtilisateur utilisateur = null;
+		try {
+			utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Récupération de l'utilisateur
 		if(utilisateur == null) {

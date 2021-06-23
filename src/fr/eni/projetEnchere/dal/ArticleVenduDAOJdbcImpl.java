@@ -16,8 +16,8 @@ import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	private static final String INSERT = "INSERT INTO "
-			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente)"
-			+ "VALUES(?,?,?,?,?,?)";
+			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie)"
+			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente"
 											+ "FROM ARTICLEVENDU";
@@ -35,6 +35,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			pstmt.setDate(4, Date.valueOf(nvlArticle.getFinDebutEncheres()));
 			pstmt.setInt(5, nvlArticle.getPrixInitial());
 			pstmt.setInt(6, nvlArticle.getPrixVente());
+			pstmt.setInt(7, nvlArticle.getNoUtilisateur());
+			pstmt.setInt(8, nvlArticle.getNoCategorie());
 
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();

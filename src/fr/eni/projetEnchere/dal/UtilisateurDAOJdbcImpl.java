@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 
@@ -18,7 +19,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	private static final String INSERT = "INSERT INTO "
 									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
 									   + " VALUES (?,?,?,?,?,?,?,?,?,100,0);";
-	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=? AND mot_de_passe=?;";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?;";
 	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?;";
 	///////////////////////////////////////////////////////////////////////////////////////
 	
@@ -63,7 +64,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 * et retournant un objet boUtilisateur
 	 */
 	@Override
-	public boUtilisateur connectionEmail(String email, String mdp) {
+	public boUtilisateur connectionEmail(String email, String mdp) throws BusinessException {
 		
 		boUtilisateur utilisateur = null;
 		
@@ -72,9 +73,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
 			
 			pstmt.setString(1, email);
-			pstmt.setString(2, mdp);
 			
 			ResultSet rs = pstmt.executeQuery();
+			
+			//rs.fir
 			
 			if(rs.next())
 			{
@@ -95,6 +97,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		catch(SQLException e)
 		{
 			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			//be.ajouterErreur(CodesErreurDAL.SELECT_BY_EMAIL);
+			throw be;
 		}
 
 		return utilisateur;
@@ -105,7 +110,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 * et retournant un objet boUtilisateur
 	 */
 	@Override
-	public boUtilisateur connectionPseudo(String pseudo, String mdp) {
+	public boUtilisateur connectionPseudo(String pseudo, String mdp) throws BusinessException {
 		
 		boUtilisateur utilisateur = null;
 		
