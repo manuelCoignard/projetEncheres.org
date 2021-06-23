@@ -1,5 +1,7 @@
 package fr.eni.projetEnchere.bll;
 
+import javax.print.DocFlavor.STRING;
+
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.UtilisateurDAO;
@@ -128,16 +130,74 @@ public class UtilisateurManager {
  */
 	
 	private void methodeGestionErreur(boUtilisateur utilisateur, BusinessException businessException) {
+		validerPseudo(utilisateur, businessException);
+		validerNom(utilisateur, businessException);
+		validerPrenom(utilisateur, businessException);
 		validerEmail(utilisateur, businessException);
+		validerTelephone(utilisateur, businessException);
+		validerCodePostal(utilisateur, businessException);
+		validerPassword(utilisateur, businessException);
 }
+	
+	
+	private	void validerPseudo(boUtilisateur utilisateur, BusinessException businessException) {
+		String checkPseudoAlphanumeric = "/[[A-Za-z0-9]";
+		
+		if(utilisateur.getPseudo().length() < 5 && utilisateur.getPseudo().length() > 20 ) {
+			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_TAILLE_ERREUR);
+		}
+		
+		if(utilisateur.getPseudo().matches(checkPseudoAlphanumeric)) {
+			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_ALPHANUMERIC_ERREUR);
+		}		
+	}
+	
+	private	void validerNom(boUtilisateur utilisateur, BusinessException businessException) {
+		
+		if(utilisateur.getNom().length() < 3 && utilisateur.getNom().length() > 30) {
+			businessException.ajouterErreur(CodesErreursBLL.NOM_UTILISATEUR_ERREUR);
+		}
+	}
+	
+	private	void validerPrenom(boUtilisateur utilisateur, BusinessException businessException) {
+		
+		if(utilisateur.getPrenom().length() < 3 && utilisateur.getPrenom().length() > 30) {
+			businessException.ajouterErreur(CodesErreursBLL.PRENOM_UTILISATEUR_ERREUR);
+		}
+	}
 	
 	private void validerEmail(boUtilisateur utilisateur, BusinessException businessException) {
 		String checkEmail = "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/";
+		
 		if(!utilisateur.getEmail().matches(checkEmail)) {
-			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_NOM_ERREUR);
+			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_ERREUR);
 		}
+	}
+	
+	private void validerTelephone(boUtilisateur utilisateur, BusinessException businessException) {
+		String checkTelephone = "^(0|\\+33|33|0033)[0-9]{9}$";
 		
+		if(!utilisateur.getEmail().matches(checkTelephone)) {
+			businessException.ajouterErreur(CodesErreursBLL.TELEPHONE_REGEX_ERREUR);
+		}
+	}
+	
+	private void validerCodePostal(boUtilisateur utilisateur, BusinessException businessException) {
+		String checkCodePostal = "^[0-9]{5}";
 		
+		if(!utilisateur.getEmail().matches(checkCodePostal)) {
+			businessException.ajouterErreur(CodesErreursBLL.CODEPOSTAL_REGEX_ERREUR);
+		}
+	}
+	
+	private void validerPassword(boUtilisateur utilisateur, BusinessException businessException) {
+		// Contient minimum un chiffre, une minuscule, une majuscule, un caractère spécial et fait minimum 6 caractères
+		String checkPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$€%&+=!])(?=\\S+$).{​6,}​$";
+		   
+		if (utilisateur.getMotDePpasse().length() < 6 && utilisateur.getMotDePpasse().length() > 30 && !utilisateur.getMotDePpasse().matches(checkPassword)) {
+			businessException.ajouterErreur(CodesErreursBLL.PASSWORD_REGEX_ERREUR);
+		}
+				
 	}
 	
 	

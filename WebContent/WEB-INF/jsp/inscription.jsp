@@ -50,10 +50,10 @@
 		</div>
 		<div>
 			<label for="password">Mot de passe :</label><br>
-	        <input type="password" name="password" id="password" size="15" minlength="6" required><br>
+	        <input type="password" name="password" id="password" size="30" minlength="6" required><br>
 			<br>
 	        <label for="passwordbis">Répéter le mot de passe :</label><br>
-	        <input type="password" name="passwordbis" id="passwordbis" size="15" minlength="6" required><br>
+	        <input type="password" name="passwordbis" id="passwordbis" size="30" minlength="6" required><br>
 		    <br>
 	    </div>
 	    <div>
