@@ -21,7 +21,14 @@
 	        <input type="text" id="nomArticle" name="nomArticle" required><br>
 		    <br>
 		    <label for="description">Description :<span style="color: darkred;">*</span></label><br>
-		    <input type="text" id="description" name="description"required><br>
+		    <input type="text" id="description" name="description"required><br><br>
+		    <label for="categorie">Catégories :</label><br>
+                <select name="categorie" id="categorie">
+                    <option value="1">Informatique</option>
+                    <option value="2">Ameublement</option>
+                    <option value="3">Vêtement</option>
+                    <option value="4">Sport&Loisirs</option>
+                </select><br>
 	    <br>
 	    </div>
 	    <div>

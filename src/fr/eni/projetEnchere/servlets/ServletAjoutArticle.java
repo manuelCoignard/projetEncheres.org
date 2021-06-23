@@ -1,6 +1,8 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.projetEnchere.bll.ArticleVenduManager;
 
 /**
  * Servlet implementation class ServletAjoutArticle
@@ -36,7 +40,22 @@ public class ServletAjoutArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		request.setCharacterEncoding("UTF-8");
+		
+		String nomArticle = request.getParameter("nomArticle");
+		String description = request.getParameter("description");
+		LocalDate dateDebutEnchere = LocalDate.parse(request.getParameter("dateDebutEncheres"));
+		LocalDate dateFinEnchere = LocalDate.parse(request.getParameter("dateFinEncheres"));
+		int prixInitial = Integer.parseInt(request.getParameter("prixInitial"));
+		int prixVente = Integer.parseInt(request.getParameter("prixVente"));
+		
+		//
+		try {
+			ArticleVenduManager.getInstance().ajoutArticle(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, prixVente);
+		}catch (Exception e) {
+			//TODO gerer validation erreur
+			e.printStackTrace();
+		}
 		doGet(request, response);
 	}
 
