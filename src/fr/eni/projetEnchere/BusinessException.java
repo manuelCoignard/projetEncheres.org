@@ -14,18 +14,27 @@ public class BusinessException extends Exception {
 	//------------------------- CONSTANTES --------------------------//
 	private static final long serialVersionUID = 1L;
 	//---------------------------------------------------------------//
+	
 	//------------------------- ATTRIBUTS D'INSTANCE -----------------//
 	private List<Integer> listeCodesErreur;
 	//----------------------------------------------------------------//
+	
+	//----------------------- CONSTRUCTEURS --------------------------//
+	/**
+	 * Constructeur de la classe créant une nouvelle liste de codes erreurs
+	 */
 	public BusinessException() {
 		super();
 		this.listeCodesErreur=new ArrayList<>();
 	}
+	//----------------------------------------------------------------//
 	
+	//-------------------------- METHODES ---------------------------//
 	/**
+	 * Méthode permettant l'ajout d'un code erreur dans la liste des codes erreurs
+	 * @param code Code de l'erreur (int)
 	 * 
-	 * @param code Code de l'erreur. 
-	 * Doit avoir un message associé dans un fichier properties.
+	 * ATTENTION : Ce code doit avoir un message associé dans un fichier properties !!
 	 */
 	public void ajouterErreur(int code)
 	{
@@ -35,14 +44,22 @@ public class BusinessException extends Exception {
 		}
 	}
 	
+	/**
+	 * Méthode permettant de savoir si des erreurs ont été remontées
+	 * @return false s'il existe au moins 1 erreur dans la liste
+	 */
 	public boolean hasErreurs()
 	{
 		return this.listeCodesErreur.size()>0;
 	}
 	
+	/**
+	 * Méthode retournant la liste des codes erreurs
+	 * @return la liste des codes erreurs (List<Integer>)
+	 */
 	public List<Integer> getListeCodesErreur()
 	{
 		return this.listeCodesErreur;
 	}
-
+	//---------------------------------------------------------------//
 }
