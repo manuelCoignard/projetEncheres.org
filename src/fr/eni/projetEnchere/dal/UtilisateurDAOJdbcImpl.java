@@ -7,14 +7,23 @@ import java.sql.ResultSet;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 
+/**
+ * Classe contenant les transactions SQL Server pour la gestion de l'utilisateur
+ * @author Groupe G (LORENT Maxime, TANGUY Cyril, COIGNARD Manuel
+ *
+ */
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
-	
+	/////////////////////////////////// CONSTANTES ////////////////////////////////////////
 	private static final String INSERT = "INSERT INTO "
 									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
 									   + " VALUES (?,?,?,?,?,?,?,?,?,100,0);";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=? AND mot_de_passe=?;";
 	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?;";
-
+	///////////////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Méthode permet d'insérer un nouvel utilisateur dans la base de données 
+	 */
 	@Override
 	public void insert(boUtilisateur nouvelUtilisateur) {
 
@@ -47,7 +56,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		}
 		
 	}
-
+	
+	/**
+	 * Méthode permettant de récupérer un utilisateur dans la base de données via son adresse mail
+	 * et retournant un objet boUtilisateur
+	 */
 	@Override
 	public boUtilisateur connectionEmail(String email, String mdp) {
 		
@@ -85,11 +98,47 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 
 		return utilisateur;
 	}
-
+	
+	/**
+	 * Méthode permettant de récupérer un utilisateur dans la base de données via son pseudo
+	 * et retournant un objet boUtilisateur
+	 */
 	@Override
 	public boUtilisateur connectionPseudo(String pseudo, String mdp) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		boUtilisateur utilisateur = null;
+		
+		try(Connection cnx = JdbcTools.getConnection()){
+			
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			
+			pstmt.setString(1, pseudo);
+			pstmt.setString(2, mdp);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next())
+			{
+				int noId = rs.getInt("no_utilisateur");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String email = rs.getString("email");
+				String tel = rs.getString("telephone");
+				String adresse = rs.getString("rue");
+				String cp = rs.getString("code_postal");
+				String ville = rs.getString("ville");
+				int credit = rs.getInt("credit");
+				boolean admin = rs.getBoolean("administrateur");
+				
+				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return utilisateur;
 	}
 	
 	
