@@ -3,6 +3,7 @@ package fr.eni.projetEnchere.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
@@ -41,7 +42,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				nouvelUtilisateur.setNoUtilisateur(rs.getInt(1));
 			}
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
@@ -78,7 +79,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
 			}
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
