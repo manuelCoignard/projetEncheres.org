@@ -27,6 +27,7 @@
 		<input type="button" value="Créer un compte"> 
 	</a>
 	<br>
+	<br>
 	<a href="${pageContext.request.contextPath}">
 		<input type="button" value="Retour à l'accueil"> 
 	</a>
