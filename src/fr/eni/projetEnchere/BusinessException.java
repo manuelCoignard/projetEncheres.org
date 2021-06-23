@@ -10,6 +10,7 @@ import java.util.List;
  * Classe listant l'ensemble des erreurs (par leur code) pouvant survenir lors d'un traitement
  * quel que soit la couche à l'origine.
  */
+
 public class BusinessException extends Exception {
 	//------------------------- CONSTANTES --------------------------//
 	private static final long serialVersionUID = 1L;
