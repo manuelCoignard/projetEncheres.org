@@ -87,8 +87,9 @@ public class boArticleVendu {
 		
 	}
 	//constructeur ajout de l'article
+	
 	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate finDebutEncheres, int prixInitial, int prixVente) {
+			LocalDate finDebutEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -96,7 +97,11 @@ public class boArticleVendu {
 		this.finDebutEncheres = finDebutEncheres;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
+		this.noUtilisateur = noUtilisateur;
+		this.noCategorie = noCategorie;
 	}
+
+	
 	// constructeur de l'article 
 	public boArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, int prixInitial, int prixVente) {
