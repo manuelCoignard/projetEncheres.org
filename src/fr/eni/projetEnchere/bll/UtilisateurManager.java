@@ -80,7 +80,7 @@ public class UtilisateurManager {
 	 * @param mdp			mot de passe du compte de l'utilisateur (String)
 	 * @return				un objet de la classe boUtilisateur		(boUtilisateur)
 	 */
-	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) {
+	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) throws BusinessException {
 		boUtilisateur utilisateurConnecte = null;
 		
 		//Vérification des données provenant du formulaire
