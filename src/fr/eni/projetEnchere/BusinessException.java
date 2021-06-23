@@ -14,9 +14,11 @@ public class BusinessException extends Exception {
 	//------------------------- CONSTANTES --------------------------//
 	private static final long serialVersionUID = 1L;
 	//---------------------------------------------------------------//
+	
 	//------------------------- ATTRIBUTS D'INSTANCE -----------------//
 	private List<Integer> listeCodesErreur;
 	//----------------------------------------------------------------//
+	
 	public BusinessException() {
 		super();
 		this.listeCodesErreur=new ArrayList<>();
