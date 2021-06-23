@@ -43,8 +43,7 @@ public class ServletConnection extends HttpServlet {
 		try {
 			utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 		}
 		
 		//Récupération de l'utilisateur

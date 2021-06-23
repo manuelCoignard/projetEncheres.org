@@ -79,8 +79,9 @@ public class UtilisateurManager {
 	 * @param identifiant	adresse mail ou pseudo de l'utilisateur (String)
 	 * @param mdp			mot de passe du compte de l'utilisateur (String)
 	 * @return				un objet de la classe boUtilisateur		(boUtilisateur)
+	 * @throws BusinessException 
 	 */
-	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) {
+	public boUtilisateur connexionUtilisateur(String identifiant, String mdp) throws BusinessException {
 		boUtilisateur utilisateurConnecte = null;
 		
 		//Vérification des données provenant du formulaire
