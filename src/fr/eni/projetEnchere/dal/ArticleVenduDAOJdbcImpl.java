@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boArticleVendu;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 
@@ -23,7 +24,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 											+ "FROM ARTICLEVENDU";
 
 	@Override
-	public void insert(boArticleVendu nvlArticle) {
+	public void insert(boArticleVendu nvlArticle) throws BusinessException {
 		// TODO Auto-generated method stub
 		try (Connection cnx = JdbcTools.getConnection()) {
 
@@ -47,10 +48,12 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
 		}
 	}
 
-	public List<boArticleVendu> listeArticle() {
+	public List<boArticleVendu> listeArticle() throws BusinessException {
 		List<boArticleVendu> listeArticle = new ArrayList<>();
 			try(Connection cnx = JdbcTools.getConnection()){
 				Statement stmt = cnx.createStatement();
@@ -68,8 +71,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				listeArticle.add(articleVendu);
 				}
 
-			} catch (SQLException e) {
-				// TODO: handle exception
+			} catch (Exception e) {
+				BusinessException businessException = new BusinessException();
+				businessException.ajouterErreur(CodesErreursDAL.ARTICLE_SELECTALL_ERREUR);
 			}
 		return listeArticle;
 	}
