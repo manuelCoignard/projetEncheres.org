@@ -17,7 +17,7 @@
 	</center>	
 		<br>
 		<div>
-			<label for="pseuso">Pseudo :</label><br>
+			<label for="pseuso">Pseudo :<span style="color: darkred;">*</span></label><br>
 	        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?"><br>
 		    <br>
 		    <label for="nom">Nom :<span style="color: darkred;">*</span></label><br>
@@ -36,24 +36,24 @@
 	        <label for="phone">Téléphone :</label><br>
 	        <input type="phone" name="telephone" id="telephone" placeholder="votre telephone ?" size="15"><br>
 			<br>
-			<label for="rue">Rue :</label><br>
+			<label for="rue">Rue :<span style="color: darkred;">*</span></label><br>
 			<input type="text" name="rue" id="rue" placeholder="votre rue ?"><br>
 		<br>
 		</div>
 		<div>
-			<label for="cp">Code postal :</label><br>
+			<label for="cp">Code postal :<span style="color: darkred;">*</span></label><br>
 			<input type="text" name="codepostal" id="codepostal" placeholder="votre cp ?"><br>
 			<br>
-			<label for="ville">Ville :</label><br>
+			<label for="ville">Ville :<span style="color: darkred;">*</span></label><br>
 			<input type="text" name="ville" id="ville" placeholder="votre ville ?"><br>
 		<br>
 		</div>
 		<div>
-			<label for="password">Mot de passe :</label><br>
-	        <input type="password" name="password" id="password" size="15" minlength="6" required><br>
+			<label for="password">Mot de passe :<span style="color: darkred;">*</span></label><br>
+	        <input type="password" name="password" id="password" size="30" minlength="6" required><br>
 			<br>
-	        <label for="passwordbis">Répéter le mot de passe :</label><br>
-	        <input type="password" name="passwordbis" id="passwordbis" size="15" minlength="6" required><br>
+	        <label for="passwordbis">Répéter le mot de passe :<span style="color: darkred;">*</span></label><br>
+	        <input type="password" name="passwordbis" id="passwordbis" size="30" minlength="6" required><br>
 		    <br>
 	    </div>
 	    <div>

@@ -21,5 +21,7 @@ public class CodesErreursDAL {
 	 * Plusieurs utilisateurs retournés lors de la recherche
 	 */
 	public static final int MULTIPLE_USERS_FOUND = 11002;
+	public static final int ARTICLE_INSERT_ERREUR = 10100;
 
+	public static final int ARTICLE_SELECTALL_ERREUR = 10101;
 }
