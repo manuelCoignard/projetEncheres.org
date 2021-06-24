@@ -1,6 +1,7 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
@@ -44,8 +46,15 @@ public class ServletConnection extends HttpServlet {
 		//Envoi vers le UtilisateurManager
 		boUtilisateur utilisateur = null;
 		try {
+			PrintWriter pw = response.getWriter();
+			
 			utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
-			response.getWriter().append(utilisateur.toString());
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("connectedUser", utilisateur.getPseudo());
+			
+			response.sendRedirect("ServletPageAccueil");
+			
 		} catch (BusinessException be) {
 			List<String> lstMsgError = new ArrayList<>();
 			for (int code : be.getListeCodesErreur()) {

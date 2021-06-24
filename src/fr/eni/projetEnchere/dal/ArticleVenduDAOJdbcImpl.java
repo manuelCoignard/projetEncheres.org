@@ -20,7 +20,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie)"
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
-	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
+	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
 
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
@@ -68,9 +68,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
 					int prixInitial = rs.getInt("prix_initial");
 					int prixVente = rs.getInt("prix_vente");
+					int idUtilisateur = rs.getInt("no_utilisateur");
+					int categorie = rs.getInt("no_categorie");
 
 				
-				boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente);
+				boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, idUtilisateur, categorie);
 				listeArticle.add(articleVendu);
 				System.out.println(articleVendu.toString());
 				}
