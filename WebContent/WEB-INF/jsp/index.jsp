@@ -11,10 +11,19 @@
 <h1>Page Accueil</h1>
 
 
-      	
-        
-	 
-<p>${connectedUser}</p>
+	<table>
+  <c:forEach items="${listeArticle}" var="article">
+    <tr>
+      <td><c:out value="${article.nomArticle}" /></td>
+      <td><c:out value="${article.description}" /></td>
+      <td><c:out value="${article.dateDebutEncheres}" /></td>
+      <td><c:out value="${article.finDebutEncheres}" /></td>
+      <td><c:out value="${article.prixInitial}" /></td>
+      <td><c:out value="${article.prixVente}" /></td>
+      <td><c:out value="${article.noCategorie}" /></td>
+    </tr>
+  </c:forEach>
+</table> 
 
 <a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 <br>
