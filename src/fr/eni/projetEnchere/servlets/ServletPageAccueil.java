@@ -1,6 +1,7 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -41,7 +42,8 @@ public class ServletPageAccueil extends HttpServlet {
         request.setAttribute("listeCourse", listeCourse);*/
 
 	try {
-		List<boArticleVendu> listeArticle = ArticleVenduManager.getInstance().selectAll();
+		List<boArticleVendu> listeArticle = new ArrayList<>();
+		listeArticle = ArticleVenduManager.getInstance().selectAll();
 		request.setAttribute("listeArticle", listeArticle);
 	} catch (BusinessException e) {
 		// TODO Auto-generated catch block
