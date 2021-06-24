@@ -14,7 +14,7 @@ public class boArticleVendu {
 	private int noUtilisateur;
 	private int noCategorie;
 	private int noRetrait;
-	
+	private boUtilisateur vendeur;
 	
 	//////GETTERS ET SETTERS//////
 	
@@ -127,6 +127,22 @@ public class boArticleVendu {
 		this.finDebutEncheres = finDebutEncheres;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;	
+	}
+	
+	// constructeur pour selectAll
+	
+	
+	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate finDebutEncheres, int prixInitial, int noUtilisateur, int noCategorie, boUtilisateur vendeur) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.finDebutEncheres = finDebutEncheres;
+		this.prixInitial = prixInitial;
+		this.noUtilisateur = noUtilisateur;
+		this.noCategorie = noCategorie;
+		this.vendeur = vendeur;
 	}
 	@Override
 	public String toString() {

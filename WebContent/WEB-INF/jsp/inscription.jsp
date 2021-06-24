@@ -60,6 +60,9 @@
 	        <button type="submit" value="ok">Créer</button><br>
 	        <br>
 
+
+
+
 	        <a href="http://localhost:8080/projetEncheres.org/ServletConnection">Annuler</a>
 
         </div> 	     

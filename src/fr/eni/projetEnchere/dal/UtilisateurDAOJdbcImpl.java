@@ -21,18 +21,42 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	private static final String INSERT = "INSERT INTO "
 									   + "UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)"
 									   + " VALUES (?,?,?,?,?,?,?,?,?,100,0);";
+	
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?;";
-	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?;";
+	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
+	
+	
 	///////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * Méthode permet d'insérer un nouvel utilisateur dans la base de données 
+	 * @throws BusinessException 
 	 */
 	@Override
-	public void insert(boUtilisateur nouvelUtilisateur) {
-
+	public void insert(boUtilisateur nouvelUtilisateur) throws BusinessException {
+		BusinessException be = new BusinessException();
+		
 		try(Connection cnx = JdbcTools.getConnection()){
 			
+			// 1.Verification si email deja en bdd
+			PreparedStatement verifMail = cnx.prepareStatement(SELECT_BY_EMAIL);						
+			verifMail.setString(1,nouvelUtilisateur.getEmail());			
+			ResultSet rs = verifMail.executeQuery();
+			if (rs.next()) {
+				be.ajouterErreur(CodesErreursDAL.INSERT_EMAIL_ERREUR);
+				throw be;
+			}
+			
+			// 2. Verification si pseudo deja en bdd
+			PreparedStatement verifPseudo = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			verifPseudo.setString(1,nouvelUtilisateur.getPseudo());			
+			ResultSet rSet = verifPseudo.executeQuery();
+			if (rSet.next()){
+				be.ajouterErreur(CodesErreursDAL.INSERT_PSEUDO_ERREUR);
+				throw be;
+			}		
+			
+			// 3. Si email et pseudo ne sont pas déjà en bdd, fait l'insert
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setString(1, nouvelUtilisateur.getPseudo());
@@ -47,9 +71,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 			
 			pstmt.executeUpdate();
 			
-			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSet resultSet = pstmt.getGeneratedKeys();
 			
-			if(rs.next())
+			if(resultSet.next())
 			{
 				nouvelUtilisateur.setNoUtilisateur(rs.getInt(1));
 			}
@@ -57,6 +81,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		catch(SQLException e)
 		{
 			e.printStackTrace();
+			BusinessException be1 = new BusinessException();
+			be1.ajouterErreur(CodesErreursDAL.INSERT_EMAIL_ERREUR);
 		}
 		
 	}
