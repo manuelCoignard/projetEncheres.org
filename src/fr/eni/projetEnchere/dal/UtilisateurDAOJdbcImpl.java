@@ -93,7 +93,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 */
 	@Override
 	public boUtilisateur connectionEmail(String email, String mdp) throws BusinessException {
-		//TODO créer la variable BusinessException dès le début de la méthode
 		
 		boUtilisateur utilisateur = null;
 		
@@ -126,7 +125,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				//Vérfication de la concordance des mots de passe
 				if(!rs.getString("mot_de_passe").equals(mdp)) {
 					BusinessException be = new BusinessException();
-					//TODO ajout du message d'erreur
+					be.ajouterErreur(CodesErreursDAL.WRONG_PASSWORD);
+					throw be;
 				}
 				
 				//Récupération des données de l'utilisateur 
@@ -141,13 +141,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				int credit = rs.getInt("credit");
 				boolean admin = rs.getBoolean("administrateur");
 					
+				//Construction de l'utilisateur
 				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 			BusinessException be = new BusinessException();
-			be.ajouterErreur(CodesErreursDAL.SELECT_INVALID_USER);
+			be.ajouterErreur(CodesErreursDAL.SELECT_USER_ERROR);
 			throw be;
 		}
 

@@ -20,8 +20,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie)"
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
-	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente"
-											+ "FROM ARTICLES_VENDUS";
+	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente FROM ARTICLES_VENDUS";
 
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
@@ -52,8 +51,10 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
 		}
 	}
-
-	public List<boArticleVendu> listeArticle() throws BusinessException {
+	
+	
+	
+	public List<boArticleVendu> selectAll() throws BusinessException {
 		//System.out.println("je suis dans le select");
 		List<boArticleVendu> listeArticle = new ArrayList<>();
 			try(Connection cnx = JdbcTools.getConnection()){

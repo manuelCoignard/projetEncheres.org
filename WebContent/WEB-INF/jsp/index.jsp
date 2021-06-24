@@ -11,9 +11,7 @@
 <h1>Page Accueil</h1>
 
 
-      	<c:forEach var="element" items="${listeArticle}">
-	        	${element.toString}
-        	</c:forEach>
+      	
         
 	 
 

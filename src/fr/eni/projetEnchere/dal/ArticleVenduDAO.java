@@ -9,5 +9,5 @@ public interface ArticleVenduDAO {
 
 	void insert(boArticleVendu nvlArticle) throws BusinessException;
 
-	List<boArticleVendu> listeArticle() throws BusinessException;
+	List<boArticleVendu> selectAll() throws BusinessException;
 }

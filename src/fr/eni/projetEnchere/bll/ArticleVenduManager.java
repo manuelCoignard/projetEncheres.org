@@ -24,10 +24,13 @@ public class ArticleVenduManager {
 	}
 
 	// attribut d'instance
-	public ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
+	
+	private ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVendu();
+	
+	//public ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
 
-	public List<boArticleVendu> listeArticle() throws BusinessException{
-		return listeArticle();
+	public List<boArticleVendu> selectAll() throws BusinessException{
+		return articleVenduDAO.selectAll();
 	}
 	// Méthode
 
@@ -43,7 +46,8 @@ public class ArticleVenduManager {
 				prixInitial, prixVente, idUtilisateur, categorie);
 
 		// Ajout à la BDD
-		articleVendu.insert(nvlArticle);
+		articleVenduDAO.insert(nvlArticle);
+		//articleVendu.insert(nvlArticle);
 	}
 
 	/*******************************************************************************
