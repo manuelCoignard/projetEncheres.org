@@ -142,7 +142,7 @@ public class UtilisateurManager {
 	private	void validerPseudo(boUtilisateur utilisateur, BusinessException businessException) {
 		String checkPseudoAlphanumeric = "/[[A-Za-z0-9]";
 		
-		if(utilisateur.getPseudo().length() < 5 && utilisateur.getPseudo().length() > 20 ) {
+		if(utilisateur.getPseudo().length() < 3 && utilisateur.getPseudo().length() > 20 ) {
 			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_TAILLE_ERREUR);
 		}
 		
