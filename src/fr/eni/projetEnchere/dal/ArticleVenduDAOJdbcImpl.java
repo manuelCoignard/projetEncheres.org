@@ -20,8 +20,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie)"
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
-	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS";
+	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur";
 
+	
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
 		// TODO Auto-generated method stub
@@ -74,7 +75,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				
 				boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, idUtilisateur, categorie);
 				listeArticle.add(articleVendu);
-				System.out.println(articleVendu.toString());
 				}
 
 			} catch (Exception e) {
