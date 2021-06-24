@@ -24,10 +24,12 @@ public class ArticleVenduManager {
 	}
 
 	// attribut d'instance
+	
+	private ArticleVenduDAO articleVenduDAO;
 	public ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
 
-	public List<boArticleVendu> listeArticle() throws BusinessException{
-		return listeArticle();
+	public List<boArticleVendu> selectAll() throws BusinessException{
+		return articleVenduDAO.selectAll();
 	}
 	// Méthode
 

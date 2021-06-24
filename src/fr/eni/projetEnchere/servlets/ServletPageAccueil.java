@@ -41,7 +41,7 @@ public class ServletPageAccueil extends HttpServlet {
         request.setAttribute("listeCourse", listeCourse);*/
 
 	try {
-		List<boArticleVendu> listeArticle = ArticleVenduManager.getInstance().listeArticle();
+		List<boArticleVendu> listeArticle = ArticleVenduManager.getInstance().selectAll();
 		request.setAttribute("listeArticle", listeArticle);
 	} catch (BusinessException e) {
 		// TODO Auto-generated catch block
