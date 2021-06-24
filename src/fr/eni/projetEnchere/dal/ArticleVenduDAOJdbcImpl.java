@@ -21,7 +21,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente"
-											+ "FROM ARTICLE_VENDU";
+											+ "FROM ARTICLES_VENDUS";
 
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
