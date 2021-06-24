@@ -14,7 +14,7 @@
       	
         
 	 
-
+<p>${connectedUser}</p>
 
 <a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 <br>
