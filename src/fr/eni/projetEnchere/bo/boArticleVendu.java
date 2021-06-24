@@ -91,6 +91,20 @@ public class boArticleVendu {
 	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
 		super();
+		
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.finDebutEncheres = finDebutEncheres;
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+		this.noUtilisateur = noUtilisateur;
+		this.noCategorie = noCategorie;
+	}
+	public boArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate finDebutEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
+		super();
+		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
