@@ -2,6 +2,7 @@ package fr.eni.projetEnchere.bll;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boArticleVendu;
@@ -23,8 +24,11 @@ public class ArticleVenduManager {
 	}
 
 	// attribut d'instance
-	private ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
+	public ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
 
+	public List<boArticleVendu> listeArticle() throws BusinessException{
+		return listeArticle();
+	}
 	// Méthode
 
 	public void ajoutArticle(

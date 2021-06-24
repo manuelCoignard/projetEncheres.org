@@ -10,9 +10,18 @@
 <body>
 <h1>Page Accueil</h1>
 
+
+      	<c:forEach var="element" items="${listeArticle}">
+	        	${element.toString}
+        	</c:forEach>
+        
+	 
+
+
 <a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 <br>
 <a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
+
 
 </body>
 </html>

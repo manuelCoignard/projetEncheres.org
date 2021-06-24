@@ -21,7 +21,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT_ALL = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente"
-											+ "FROM ARTICLEVENDU";
+											+ "FROM ARTICLE_VENDU";
 
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
@@ -54,6 +54,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 
 	public List<boArticleVendu> listeArticle() throws BusinessException {
+		//System.out.println("je suis dans le select");
 		List<boArticleVendu> listeArticle = new ArrayList<>();
 			try(Connection cnx = JdbcTools.getConnection()){
 				Statement stmt = cnx.createStatement();
@@ -66,14 +67,17 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
 					int prixInitial = rs.getInt("prix_initial");
 					int prixVente = rs.getInt("prix_vente");
-					
+
+				
 				boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente);
 				listeArticle.add(articleVendu);
+				System.out.println(articleVendu.toString());
 				}
 
 			} catch (Exception e) {
 				BusinessException businessException = new BusinessException();
 				businessException.ajouterErreur(CodesErreursDAL.ARTICLE_SELECTALL_ERREUR);
+				throw businessException;
 			}
 		return listeArticle;
 	}
