@@ -140,32 +140,58 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		
 		try(Connection cnx = JdbcTools.getConnection()){
 			
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			/* Utilisation des constantes ResultSet.TYPE_SCROLL_INSENSITIVE pour permettre la navigation dans le ResultSet
+			 * et de ResultSet.CONCUR_READ_ONLY pour ne permettre que la lecture seule
+			 */
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			
 			pstmt.setString(1, pseudo);
-			pstmt.setString(2, mdp);
 			
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next())
-			{
+			ResultSet rs= pstmt.executeQuery();
+
+				int nb = isUnique(rs);
+				
+				if(nb!=1) {
+					BusinessException be = new BusinessException();
+					switch(nb) {
+						case 0  : be.ajouterErreur(CodesErreursDAL.NO_USER_FOUND);
+								  break;
+						default : be.ajouterErreur(CodesErreursDAL.MULTIPLE_USERS_FOUND);
+					}
+					throw be;
+				}
+				
+				//Positionne le curseur sur la 1ère ligne de résultat du ResultSet
+				rs.absolute(1);
+				
+				//Vérfication de la concordance des mots de passe
+				if(!rs.getString("mot_de_passe").equals(mdp)) {
+					BusinessException be = new BusinessException();
+					be.ajouterErreur(CodesErreursDAL.WRONG_PASSWORD);
+					throw be;
+				}
+				
+				//Récupération des données de l'utilisateur 
 				int noId = rs.getInt("no_utilisateur");
+				String email = rs.getString("email");
 				String nom = rs.getString("nom");
 				String prenom = rs.getString("prenom");
-				String email = rs.getString("email");
 				String tel = rs.getString("telephone");
 				String adresse = rs.getString("rue");
 				String cp = rs.getString("code_postal");
 				String ville = rs.getString("ville");
 				int credit = rs.getInt("credit");
 				boolean admin = rs.getBoolean("administrateur");
-				
+					
+				//Construction de l'utilisateur
 				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
-			}
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
 			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesErreursDAL.SELECT_USER_ERROR);
+			throw be;
 		}
 
 		return utilisateur;
