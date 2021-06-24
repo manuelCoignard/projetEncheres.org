@@ -20,6 +20,10 @@
 <br>
 <a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
 
+<c:if test="${connectedUser}!=null">
+	<br>
+	<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
+</c:if>
 
 </body>
 </html>
