@@ -45,7 +45,7 @@ public abstract class LecteurMessage {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			message="Une erreur inconnue est survenue";
+			message="Une erreur WTF est survenue";
 		}
 		return message;
 	}
