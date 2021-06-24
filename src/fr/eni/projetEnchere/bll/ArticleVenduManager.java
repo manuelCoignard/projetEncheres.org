@@ -25,8 +25,9 @@ public class ArticleVenduManager {
 
 	// attribut d'instance
 	
-	private ArticleVenduDAO articleVenduDAO;
-	public ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
+	private ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVendu();
+	
+	//public ArticleVenduDAO articleVendu = DAOFactory.getArticleVendu();
 
 	public List<boArticleVendu> selectAll() throws BusinessException{
 		return articleVenduDAO.selectAll();
@@ -45,7 +46,8 @@ public class ArticleVenduManager {
 				prixInitial, prixVente, idUtilisateur, categorie);
 
 		// Ajout à la BDD
-		articleVendu.insert(nvlArticle);
+		articleVenduDAO.insert(nvlArticle);
+		//articleVendu.insert(nvlArticle);
 	}
 
 	/*******************************************************************************
