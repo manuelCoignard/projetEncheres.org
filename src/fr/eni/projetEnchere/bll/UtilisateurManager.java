@@ -128,6 +128,9 @@ public class UtilisateurManager {
  * 	
  */
 	
+	
+	
+	
 	private void methodeGestionErreur(boUtilisateur utilisateur, BusinessException businessException) {
 		validerPseudo(utilisateur, businessException);
 		validerNom(utilisateur, businessException);
@@ -141,6 +144,7 @@ public class UtilisateurManager {
 	
 	private	void validerPseudo(boUtilisateur utilisateur, BusinessException businessException) {
 		String checkPseudoAlphanumeric = "/[[A-Za-z0-9]";
+		
 		
 		if(utilisateur.getPseudo().length() < 3 && utilisateur.getPseudo().length() > 20 ) {
 			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_TAILLE_ERREUR);

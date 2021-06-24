@@ -5,7 +5,7 @@ import fr.eni.projetEnchere.bo.boUtilisateur;
 
 public interface UtilisateurDAO {
 	
-	void insert(boUtilisateur nouvelUtilisateur);
+	void insert(boUtilisateur nouvelUtilisateur) throws BusinessException;
 	
 	boUtilisateur connectionEmail(String email, String mdp) throws BusinessException;
 	
