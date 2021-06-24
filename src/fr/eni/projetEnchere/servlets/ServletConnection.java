@@ -1,6 +1,8 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,12 +45,16 @@ public class ServletConnection extends HttpServlet {
 		boUtilisateur utilisateur = null;
 		try {
 			utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
-		} catch (BusinessException e) {
-			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-			for (int code : e.getListeCodesErreur()) {
-				response.getWriter().append(LecteurMessage.getMessageErreur(code));
+			response.getWriter().append(utilisateur.toString());
+		} catch (BusinessException be) {
+			List<String> lstMsgError = new ArrayList<>();
+			for (int code : be.getListeCodesErreur()) {
+				lstMsgError.add(LecteurMessage.getMessageErreur(code));
 			}
+			
+			request.setAttribute("listeMessagesErreur", lstMsgError);
+			
+			doGet(request, response);
 		}
-		response.getWriter().append(utilisateur.toString());
 	}
 }

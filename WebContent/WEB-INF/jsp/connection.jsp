@@ -31,5 +31,13 @@
 	<a href="${pageContext.request.contextPath}">
 		<input type="button" value="Retour à l'accueil"> 
 	</a>
+	<c:if test="${!empty requestScope.listeMessagesErreur }">
+		<br>
+		<ul>
+			<c:forEach var="msg" items="${requestScope.listeMessagesErreur }">
+				<li>${msg}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 </body>
 </html>

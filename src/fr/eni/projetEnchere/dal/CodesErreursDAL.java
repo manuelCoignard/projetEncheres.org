@@ -8,9 +8,9 @@ public class CodesErreursDAL {
 	public static final int INSERT_USER_NULL=10000;
 	
 	/**
-	 * Echec général lors de la recherche d'un utilisateur
+	 * Erreur majeure dans la recherche de l'utilisateur
 	 */
-	public static final int SELECT_INVALID_USER = 11000;
+	public static final int SELECT_USER_ERROR = 11000;
 	
 	/**
 	 * Aucun utilisateur retourné lors de la recherche
@@ -21,6 +21,9 @@ public class CodesErreursDAL {
 	 * Plusieurs utilisateurs retournés lors de la recherche
 	 */
 	public static final int MULTIPLE_USERS_FOUND = 11002;
+	
+	public static final int WRONG_PASSWORD = 11003;
+	
 	public static final int ARTICLE_INSERT_ERREUR = 10100;
 
 	public static final int ARTICLE_SELECTALL_ERREUR = 10101;
