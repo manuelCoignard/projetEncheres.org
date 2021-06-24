@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
 import fr.eni.projetEnchere.bo.boUtilisateur;
+import fr.eni.projetEnchere.exceptions.LecteurMessage;
 
 /**
  * Servlet implementation class servletConnection
@@ -43,17 +44,11 @@ public class ServletConnection extends HttpServlet {
 		try {
 			utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+			for (int code : e.getListeCodesErreur()) {
+				response.getWriter().append(LecteurMessage.getMessageErreur(code));
+			}
 		}
-		
-		//Récupération de l'utilisateur
-		if(utilisateur == null) {
-			response.getWriter().append("Utilisateur inconnu ou mdp de passe erroné");
-		}else {
-			response.getWriter().append(utilisateur.toString());
-		}
-		
-		
-}
+		response.getWriter().append(utilisateur.toString());
+	}
 }

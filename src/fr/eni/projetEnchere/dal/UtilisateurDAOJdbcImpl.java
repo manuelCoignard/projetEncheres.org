@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
@@ -65,21 +67,43 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 */
 	@Override
 	public boUtilisateur connectionEmail(String email, String mdp) throws BusinessException {
+		//TODO créer la variable BusinessException dès le début de la méthode
 		
 		boUtilisateur utilisateur = null;
 		
 		try(Connection cnx = JdbcTools.getConnection()){
 			
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
+			/* Utilisation des constantes ResultSet.TYPE_SCROLL_INSENSITIVE pour permettre la navigation dans le ResultSet
+			 * et de ResultSet.CONCUR_READ_ONLY pour ne permettre que la lecture seule
+			 */
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			
 			pstmt.setString(1, email);
 			
-			ResultSet rs = pstmt.executeQuery();
-			
-			//rs.fir
-			
-			if(rs.next())
-			{
+			ResultSet rs= pstmt.executeQuery();
+
+				int nb = isUnique(rs);
+				
+				if(nb!=1) {
+					BusinessException be = new BusinessException();
+					switch(nb) {
+						case 0  : be.ajouterErreur(CodesErreursDAL.NO_USER_FOUND);
+								  break;
+						default : be.ajouterErreur(CodesErreursDAL.MULTIPLE_USERS_FOUND);
+					}
+					throw be;
+				}
+				
+				//Positionne le curseur sur la 1ère ligne de résultat du ResultSet
+				rs.absolute(1);
+				
+				//Vérfication de la concordance des mots de passe
+				if(!rs.getString("mot_de_passe").equals(mdp)) {
+					BusinessException be = new BusinessException();
+					//TODO ajout du message d'erreur
+				}
+				
+				//Récupération des données de l'utilisateur 
 				int noId = rs.getInt("no_utilisateur");
 				String pseudo = rs.getString("pseudo");
 				String nom = rs.getString("nom");
@@ -90,21 +114,20 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				String ville = rs.getString("ville");
 				int credit = rs.getInt("credit");
 				boolean admin = rs.getBoolean("administrateur");
-				
+					
 				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
-			}
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 			BusinessException be = new BusinessException();
-			//be.ajouterErreur(CodesErreurDAL.SELECT_BY_EMAIL);
+			be.ajouterErreur(CodesErreursDAL.SELECT_INVALID_USER);
 			throw be;
 		}
 
 		return utilisateur;
 	}
-	
+
 	/**
 	 * Méthode permettant de récupérer un utilisateur dans la base de données via son pseudo
 	 * et retournant un objet boUtilisateur
@@ -147,6 +170,24 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		return utilisateur;
 	}
 	
-	
+	/**
+	 * Méthode permettant de connaître le nombre de ligne dans le résultat de la transaction SQL
+	 * @param rs résultat de la transaction SQL exécutée (ResultSet)
+	 * @return le nombre de ligne contenu dans le rs
+	 * @throws SQLException en cas d'erreur, remonte l'exception pour être gérée par la méthode appelante
+	 */
+	private int isUnique(ResultSet rs) throws SQLException {
+		//Initialisation du compteur de ligne
+		int nb=0;
+		
+		//Positionne le curseur sur la dernière ligne du rs
+		if(rs.last()) {
+			//récupère le numéro de la ligne
+			nb = rs.getRow();
+		}
+		
+		//Retourne le numéro de ligne récupérée
+		return nb;
+	}
 
 }
