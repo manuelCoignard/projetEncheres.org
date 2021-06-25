@@ -8,25 +8,33 @@
 <title>Accueil</title>
 </head>
 <body>
+	<center>	
+		<h1>Page Accueil</h1>
+	</center>
 	
-	<h1>Page Accueil</h1>
+	
 	<c:if test="${not empty connectedUser}">
-		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
+		<h4>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h4>
 	</c:if>
 	
 	<nav>
+	
 		<c:choose>
 			<c:when test="${empty connectedUser}">
 				<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 			</c:when>
 			<c:otherwise>
 				<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
+				<a href="${pageContext.request.contextPath}/ServletProfil">Profil</a>
 				<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
+				
 		    </c:otherwise>   
 		
 		</c:choose>
 	</nav>
-
+	<br>
+	<h2>Enchères en cours :</h2>
+	<br>
 	<table>
   	<c:forEach items="${listeArticle}" var="article">
 	    <tr>

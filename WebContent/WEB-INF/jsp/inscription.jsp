@@ -71,7 +71,7 @@
 			</ul>
 		</c:if>
 
-	        <a href="http://localhost:8080/projetEncheres.org/ServletConnection">Annuler</a>
+	        <a href="${pageContext.request.contextPath}/ServletConnection">Annuler</a>
 
         </div> 	     
     </form>
