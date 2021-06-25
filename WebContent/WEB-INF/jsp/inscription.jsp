@@ -60,8 +60,16 @@
 	        <button type="submit" value="ok">Créer</button><br>
 	        <br>
 
-
-
+		<c:if test="${!empty requestScope.ListeMessageErreur }">
+		<br>
+			<ul>
+			
+				<c:forEach var="msg" items="${requestScope.ListeMessageErreur }">
+					<li>${msg }</li>
+					
+				</c:forEach>
+			</ul>
+		</c:if>
 
 	        <a href="http://localhost:8080/projetEncheres.org/ServletConnection">Annuler</a>
 
