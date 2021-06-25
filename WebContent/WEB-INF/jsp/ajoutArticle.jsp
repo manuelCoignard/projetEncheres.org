@@ -52,7 +52,7 @@
 	        <button type="submit" value="ok">Ajouter</button><br>
 	        <br>
 
-	        <a href="http://localhost:8080/projetEncheres.org/ServletConnection">Annuler</a>
+	        <a href="${pageContext.request.contextPath}/ServletPageAccueil">Annuler</a>
 
         </div> 	     
     </form>
