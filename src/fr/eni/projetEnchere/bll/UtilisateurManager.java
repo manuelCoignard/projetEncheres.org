@@ -43,31 +43,26 @@ public class UtilisateurManager {
 	 * @param ville				nom de la ville de l'utilisateur						(String)
 	 * @param mdp				mot de passe pour le profil de l'utilisateur			(String)
 	 */
-	public void ajoutNouvelUtilisateur(
-			String pseudo,
-			String nom,
-			String prenom,
-			String email,
-			String telephone,
-			String rue,
-			String codePostal,
-			String ville,
-			String mdp
-			) {
+	public void ajoutNouvelUtilisateur (String pseudo,String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp) throws BusinessException {
+			BusinessException be = new BusinessException();
 		
-		//Vérification des données provenant du formulaire
-		
-		//Après vérification, création de l'utilisateur
-		try {
-			//Création de l'utilisateur
+			// Création de l'utilisateur
 			boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdp);
 			
-			//Ajout dans la BDD
+			// Vérification des données provenant du formulaire
+			
+			methodeGestionErreur(nvlUtilisateur,be);
+			
+			if (be.hasErreurs()) {
+				throw be;
+			}
+			// Si pas erreur : Ajout dans la BDD
 			utilisateurDAO.insert(nvlUtilisateur);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			
+			
+			
+			
 	}
 	
 	/**
@@ -81,6 +76,8 @@ public class UtilisateurManager {
 		boUtilisateur utilisateurConnecte = null;
 		
 		//Vérification des données provenant du formulaire
+		
+		
 		
 		//Choix de la connexion via pseudo ou adresse mail
 		if(identifiant.contains("@")) {
@@ -113,11 +110,7 @@ public class UtilisateurManager {
 	}
 	
 	
-	
-	
 
-	
-	
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///                          PARTIES CONCERNANT LES GESTIONS D'ERREURS											///
@@ -127,8 +120,6 @@ public class UtilisateurManager {
  * Methode Mere qui a en parametres un utilisateur et une businessException, qui appel les methodes enfants concernant elles-memes chaque erreur precise.
  * 	
  */
-	
-	
 	
 	
 	private void methodeGestionErreur(boUtilisateur utilisateur, BusinessException businessException) {
@@ -143,7 +134,7 @@ public class UtilisateurManager {
 	
 	
 	private	void validerPseudo(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkPseudoAlphanumeric = "/[[A-Za-z0-9]";
+		String checkPseudoAlphanumeric = "/[A-Za-z][0-9]";
 		
 		
 		if(utilisateur.getPseudo().length() < 3 && utilisateur.getPseudo().length() > 20 ) {
@@ -170,7 +161,7 @@ public class UtilisateurManager {
 	}
 	
 	private void validerEmail(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkEmail = "/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/";
+		String checkEmail = "^[\\w+.-]+@\\w+.\\w{2,5}$";
 		
 		if(!utilisateur.getEmail().matches(checkEmail)) {
 			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_ERREUR);
@@ -178,7 +169,7 @@ public class UtilisateurManager {
 	}
 	
 	private void validerTelephone(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkTelephone = "^(0|\\+33|33|0033)[0-9]{9}$";
+		String checkTelephone = "(\\+[0-9]{3}( [0-9][0-9])+)|([0-9]+)";
 		
 		if(!utilisateur.getEmail().matches(checkTelephone)) {
 			businessException.ajouterErreur(CodesErreursBLL.TELEPHONE_REGEX_ERREUR);
@@ -186,7 +177,7 @@ public class UtilisateurManager {
 	}
 	
 	private void validerCodePostal(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkCodePostal = "^[0-9]{5}";
+		String checkCodePostal = "[0-9]{5}";
 		
 		if(!utilisateur.getEmail().matches(checkCodePostal)) {
 			businessException.ajouterErreur(CodesErreursBLL.CODEPOSTAL_REGEX_ERREUR);
@@ -194,8 +185,8 @@ public class UtilisateurManager {
 	}
 	
 	private void validerPassword(boUtilisateur utilisateur, BusinessException businessException) {
-		// Contient minimum un chiffre, une minuscule, une majuscule, un caractère spécial et fait minimum 6 caractères
-		String checkPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$€%&+=!])(?=\\S+$).{​6,}​$";
+		// Doit contenir au minimum 8 caracteres, au minimum une minuscule, une majuscule, un chiffre, un caractere special
+		String checkPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 		   
 		if (utilisateur.getMotDePpasse().length() < 6 && utilisateur.getMotDePpasse().length() > 30 && !utilisateur.getMotDePpasse().matches(checkPassword)) {
 			businessException.ajouterErreur(CodesErreursBLL.PASSWORD_REGEX_ERREUR);

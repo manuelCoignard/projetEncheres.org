@@ -1,6 +1,9 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
+import fr.eni.projetEnchere.exceptions.LecteurMessage;
 
 
 
@@ -53,15 +58,21 @@ public class ServletInscription extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 			rd.forward(request, response);
 			
-		} catch (Exception e) {
-			//TODO gerer validation erreur
-			e.printStackTrace();
+		} catch (BusinessException be) {			
+			List<String> listeMsgError = new ArrayList<>();
+			for (int code : be.getListeCodesErreur()) {
+				listeMsgError.add(LecteurMessage.getMessageErreur(code));
+					
+			}
+			//Envoi de la liste 
+			request.setAttribute("ListeMessageErreur",listeMsgError);
 			
 			//4. Si pb lors de l'insertion réaffiche le formulaire			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
 			rd.forward(request, response);
+			
+			
 		}
-		
 		
 			
 	}
