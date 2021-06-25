@@ -33,10 +33,7 @@ public class ArticleVenduManager {
 	}
 	// Méthode
 
-	public void ajoutArticle(
-
-			String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate finDebutEnchere,
-			int prixInitial, int prixVente, int idUtilisateur, int categorie) throws BusinessException {
+	public void ajoutArticle (String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate finDebutEnchere,int prixInitial, int prixVente, int idUtilisateur, int categorie) throws BusinessException {
 
 		// Vérification des données provenant du formulaire
 

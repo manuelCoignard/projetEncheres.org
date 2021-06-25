@@ -12,6 +12,7 @@ import java.util.List;
 
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boArticleVendu;
+import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 
 public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
@@ -69,11 +70,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
 					int prixInitial = rs.getInt("prix_initial");
 					int prixVente = rs.getInt("prix_vente");
-					int idUtilisateur = rs.getInt("no_utilisateur");
 					int categorie = rs.getInt("no_categorie");
+					
+					int idVendeur = rs.getInt("no_utilisateur");
+					String pseudoVendeur = rs.getString("pseudo");
 
-				
-				boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, idUtilisateur, categorie);
+				boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+				//boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, idUtilisateur, categorie);
 				listeArticle.add(articleVendu);
 				}
 

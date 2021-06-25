@@ -184,6 +184,17 @@ public class boUtilisateur {
 		this.codePostal = codePostal;
 		this.ville = ville;
 	}
+	
+	
+	/**
+	 * Constructeur pour l'affichage de l'utilisateur sur la fiche article
+	 * @param noUtilisateur
+	 * @param pseudo
+	 */
+	public boUtilisateur(int noUtilisateur, String pseudo) {
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+	}
 
 	//Affichage des données de l'utilisateur
 	@Override

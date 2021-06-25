@@ -53,12 +53,9 @@
 				<c:forEach items="${listeArticle}" var="article">
 					<tr>
 						<td><c:out value="${article.nomArticle}" /></td>
-						<td><c:out value="${article.description}" /></td>
-						<td><c:out value="${article.dateDebutEncheres}" /></td>
-						<td><c:out value="${article.finDebutEncheres}" /></td>
-						<td><c:out value="${article.prixInitial}" /></td>
-						<td><c:out value="${article.prixVente}" /></td>
-						<td><c:out value="${article.noCategorie}" /></td>
+						<td><c:out value="Fin de l'enchère : ${article.finDebutEncheres}" /></td>
+						<td><c:out value="Prix : ${article.prixVente}" /></td>
+						<td><c:out value="Vendeur : ${article.getVendeur().getPseudo()}" /></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -70,7 +67,13 @@
 	</c:choose>	
 
 	<footer>
-		
+		<c:if test="${!empty requestScope.listeMessagesErreur }">
+		<ul>
+			<c:forEach var="msg" items="${requestScope.listeMessagesErreur }">
+				<li>${msg}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 	</footer>
 
 </body>

@@ -79,9 +79,16 @@ public class boArticleVendu {
 	public void setNoRetrait(int noRetrait) {
 		this.noRetrait = noRetrait;
 	}
+	
+	public boUtilisateur getVendeur() {
+		return vendeur;
+	}
+	public void setVendeur(boUtilisateur vendeur) {
+		this.vendeur = vendeur;
+	}
+	
 	//////CONSTRUCTEURS///////
 	
-
 	// constructeur vide
 	public boArticleVendu() {
 		
@@ -144,6 +151,27 @@ public class boArticleVendu {
 		this.noCategorie = noCategorie;
 		this.vendeur = vendeur;
 	}
+	
+	/**
+	 * Constructeur pour selectAll avec affichage du pseudo du vendeur - Manuel 25/06/2021
+	 * @param noArticle
+	 * @param nomArticle
+	 * @param finDebutEncheres
+	 * @param prixVente
+	 * @param vendeur
+	 */
+	public boArticleVendu(int noArticle, String nomArticle, LocalDate finDebutEncheres, int prixVente, boUtilisateur vendeur) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.finDebutEncheres = finDebutEncheres;
+		this.prixVente = prixVente;
+		this.vendeur = vendeur;
+	}
+	
+	/**
+	 * Méthode toString pour l'affichage des données de l'article
+	 */
 	@Override
 	public String toString() {
 		return "boArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
@@ -151,5 +179,6 @@ public class boArticleVendu {
 				+ ", prixInitial=" + prixInitial + ", prixVente=" + prixVente + ", noUtilisateur=" + noUtilisateur
 				+ ", noCategorie=" + noCategorie + ", noRetrait=" + noRetrait + "]";
 	}
+	
 	
 }

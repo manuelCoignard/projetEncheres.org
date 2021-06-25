@@ -27,13 +27,6 @@ public class ServletPageAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ServletPageAccueil() {
-
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -55,8 +48,6 @@ public class ServletPageAccueil extends HttpServlet {
 			List<boCategorie> lstCategorie = new ArrayList<>();
 			lstCategorie = CategorieManager.getInstance().selectAllCategories();
 			request.setAttribute("lstCategorie", lstCategorie);
-			
-			
 
 		} catch (BusinessException be) {
 			List<String> lstMsgError = new ArrayList<>();
