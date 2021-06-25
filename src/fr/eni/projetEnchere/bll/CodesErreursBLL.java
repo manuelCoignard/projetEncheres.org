@@ -28,4 +28,10 @@ public abstract class CodesErreursBLL {
 	public static final int ARTICLE_PRIX_ERREUR = 20103;
 	
 	public static final int ARTICLE_INSERT_ERREUR = 20104;
+	
+	
+	/**
+	 * Mauvais mot de passe renseigné
+	 */
+	public static final int CONNECT_WRONG_PASSWORD = 21000;
 }

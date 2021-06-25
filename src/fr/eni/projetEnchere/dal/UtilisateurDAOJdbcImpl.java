@@ -122,13 +122,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				//Positionne le curseur sur la 1ère ligne de résultat du ResultSet
 				rs.absolute(1);
 				
-				//Vérfication de la concordance des mots de passe
-				if(!rs.getString("mot_de_passe").equals(mdp)) {
-					BusinessException be = new BusinessException();
-					be.ajouterErreur(CodesErreursDAL.WRONG_PASSWORD);
-					throw be;
-				}
-				
 				//Récupération des données de l'utilisateur 
 				int noId = rs.getInt("no_utilisateur");
 				String pseudo = rs.getString("pseudo");
@@ -189,13 +182,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				
 				//Positionne le curseur sur la 1ère ligne de résultat du ResultSet
 				rs.absolute(1);
-				
-				//Vérfication de la concordance des mots de passe
-				if(!rs.getString("mot_de_passe").equals(mdp)) {
-					BusinessException be = new BusinessException();
-					be.ajouterErreur(CodesErreursDAL.WRONG_PASSWORD);
-					throw be;
-				}
 				
 				//Récupération des données de l'utilisateur 
 				int noId = rs.getInt("no_utilisateur");

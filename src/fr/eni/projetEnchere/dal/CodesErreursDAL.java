@@ -33,8 +33,6 @@ public class CodesErreursDAL {
 	 */
 	public static final int MULTIPLE_USERS_FOUND = 11002;
 	
-	public static final int WRONG_PASSWORD = 11003;
-	
 	public static final int ARTICLE_INSERT_ERREUR = 10100;
 
 	public static final int ARTICLE_SELECTALL_ERREUR = 10101;

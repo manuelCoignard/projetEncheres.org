@@ -86,12 +86,19 @@ public class UtilisateurManager {
 		if(identifiant.contains("@")) {
 			//utilisation de la méthode avec email
 			utilisateurConnecte = utilisateurDAO.connectionEmail(identifiant, mdp);
+			
 		} else {
 			//utilisation de la méthode avec pseudo
 			utilisateurConnecte = utilisateurDAO.connectionPseudo(identifiant, mdp);
 		}
-		//Récupération de l'utilisateur complet
 		
+		//Vérfication de la concordance des mots de passe
+		if(!utilisateurConnecte.getMotDePpasse().equals(mdp)) {
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesErreursBLL.CONNECT_WRONG_PASSWORD);
+			throw be;
+		}
+				
 		//Retour de l'utilisateur
 		return utilisateurConnecte;
 	}
