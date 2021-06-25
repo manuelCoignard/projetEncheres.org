@@ -21,7 +21,9 @@ public class ServletDeconnexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		session.removeAttribute("pseudo");
+		System.out.println(session.getAttribute("connectedUser"));
+		session.removeAttribute("connectedUser");
+		System.out.println(session.getAttribute("connectedUser"));
 		response.sendRedirect("ServletPageAccueil");
 	}
 

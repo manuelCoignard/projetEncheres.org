@@ -30,10 +30,10 @@
 <c:choose>
 	<c:when test="${empty connectedUser}">
 		<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
-		<br>
-		<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
 	</c:when>
 	<c:otherwise>
+		<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
+		<br>
 		<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
     </c:otherwise>   
 

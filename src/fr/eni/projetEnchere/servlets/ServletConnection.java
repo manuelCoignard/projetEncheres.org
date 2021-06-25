@@ -38,6 +38,8 @@ public class ServletConnection extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Impose l'UTF-8 lors de la lecture des données
+		request.setCharacterEncoding("UTF-8");
 		
 		//Récupération de l'identifiant et du mot de passe
 		String id = request.getParameter("identifiant");
