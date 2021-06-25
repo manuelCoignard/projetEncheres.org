@@ -82,11 +82,11 @@ public class UtilisateurManager {
 		//Choix de la connexion via pseudo ou adresse mail
 		if(identifiant.contains("@")) {
 			//utilisation de la méthode avec email
-			utilisateurConnecte = utilisateurDAO.connectionEmail(identifiant, mdp);
+			utilisateurConnecte = utilisateurDAO.connectionEmail(identifiant);
 			
 		} else {
 			//utilisation de la méthode avec pseudo
-			utilisateurConnecte = utilisateurDAO.connectionPseudo(identifiant, mdp);
+			utilisateurConnecte = utilisateurDAO.connectionPseudo(identifiant);
 		}
 		
 		//Vérfication de la concordance des mots de passe

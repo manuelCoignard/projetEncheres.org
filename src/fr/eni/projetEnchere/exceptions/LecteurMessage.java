@@ -45,7 +45,7 @@ public abstract class LecteurMessage {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			message="Une erreur WTF est survenue";
+			message="Impossible de lire le message correspondant au code " + String.valueOf(code);
 		}
 		return message;
 	}

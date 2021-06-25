@@ -92,7 +92,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 * et retournant un objet boUtilisateur
 	 */
 	@Override
-	public boUtilisateur connectionEmail(String email, String mdp) throws BusinessException {
+	public boUtilisateur connectionEmail(String email) throws BusinessException {
 		
 		boUtilisateur utilisateur = null;
 		
@@ -128,6 +128,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				String nom = rs.getString("nom");
 				String prenom = rs.getString("prenom");
 				String tel = rs.getString("telephone");
+				String mdp = rs.getString("mot_de_passe");
 				String adresse = rs.getString("rue");
 				String cp = rs.getString("code_postal");
 				String ville = rs.getString("ville");
@@ -153,7 +154,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 * et retournant un objet boUtilisateur
 	 */
 	@Override
-	public boUtilisateur connectionPseudo(String pseudo, String mdp) throws BusinessException {
+	public boUtilisateur connectionPseudo(String pseudo) throws BusinessException {
 		
 		boUtilisateur utilisateur = null;
 		
@@ -189,6 +190,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				String nom = rs.getString("nom");
 				String prenom = rs.getString("prenom");
 				String tel = rs.getString("telephone");
+				String mdp = rs.getString("mot_de_passe");
 				String adresse = rs.getString("rue");
 				String cp = rs.getString("code_postal");
 				String ville = rs.getString("ville");
