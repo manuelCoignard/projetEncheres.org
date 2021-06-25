@@ -8,36 +8,38 @@
 <title>Accueil</title>
 </head>
 <body>
-<h1>Page Accueil</h1>
-
+	
+	<h1>Page Accueil</h1>
+	<c:if test="${not empty connectedUser}">
+		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
+	</c:if>
+	
+	<nav>
+		<c:choose>
+			<c:when test="${empty connectedUser}">
+				<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
+			</c:when>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
+				<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
+		    </c:otherwise>   
+		
+		</c:choose>
+	</nav>
 
 	<table>
-  <c:forEach items="${listeArticle}" var="article">
-    <tr>
-      <td><c:out value="${article.nomArticle}" /></td>
-      <td><c:out value="${article.description}" /></td>
-      <td><c:out value="${article.dateDebutEncheres}" /></td>
-      <td><c:out value="${article.finDebutEncheres}" /></td>
-      <td><c:out value="${article.prixInitial}" /></td>
-      <td><c:out value="${article.prixVente}" /></td>
-      <td><c:out value="${article.noCategorie}" /></td>
-    </tr>
-  </c:forEach>
+  	<c:forEach items="${listeArticle}" var="article">
+	    <tr>
+	      <td><c:out value="${article.nomArticle}" /></td>
+	      <td><c:out value="${article.description}" /></td>
+	      <td><c:out value="${article.dateDebutEncheres}" /></td>
+	      <td><c:out value="${article.finDebutEncheres}" /></td>
+	      <td><c:out value="${article.prixInitial}" /></td>
+	      <td><c:out value="${article.prixVente}" /></td>
+	      <td><c:out value="${article.noCategorie}" /></td>
+	    </tr>
+  	</c:forEach>
 </table> 
-
-<p>${connectedUser }</p>
-
-<c:choose>
-	<c:when test="${empty connectedUser}">
-		<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
-	</c:when>
-	<c:otherwise>
-		<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
-		<br>
-		<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
-    </c:otherwise>   
-
-</c:choose>
 
 </body>
 </html>
