@@ -33,6 +33,11 @@ public class CodesErreursDAL {
 	 */
 	public static final int MULTIPLE_USERS_FOUND = 11002;
 	
+	/**
+	 * Erreur majeure dans la recherche des catégories
+	 */
+	public static final int SELECT_CATEGORIE_ERROR = 12000;
+	
 	public static final int ARTICLE_INSERT_ERREUR = 10100;
 
 	public static final int ARTICLE_SELECTALL_ERREUR = 10101;
