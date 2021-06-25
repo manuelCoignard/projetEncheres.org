@@ -53,7 +53,7 @@ public class ServletConnection extends HttpServlet {
 			utilisateur = UtilisateurManager.getInstance().connexionUtilisateur(id, mdp);
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("connectedUser", utilisateur.getPseudo());
+			session.setAttribute("connectedUser", utilisateur);
 			
 			response.sendRedirect("ServletPageAccueil");
 			
