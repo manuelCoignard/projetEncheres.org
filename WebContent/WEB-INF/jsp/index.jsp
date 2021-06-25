@@ -43,6 +43,12 @@
 						<option value="${categorie.getId()}">${categorie.getLibelle()}</option>
 					</c:forEach>
 				</select>
+				<fieldset>
+					<input type="radio" id="radioAchats" value=0>
+					<label for="radioAchats">Achats</label>
+					<input type="radio" id="radioMesVentes" value=0>
+					<label for="radioMesVentes">Mes ventes</label>
+				</fieldset>
 			</fieldset>
 		</form>
 	</section>
