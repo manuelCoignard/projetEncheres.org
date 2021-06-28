@@ -29,42 +29,78 @@
 
 		</c:choose> 
 	</nav>
-
-	<section>
-		<form action="" method="POST">
-			<fieldset>
-				<legend>Filtres :</legend>
-				<input type="text" id="zone_recherche" name="zone_recherche">
-				<label for="lst_categories">Catégories : </label>
-				<select
-					name="lst_categories" id="lst_categories">
-						<option value="0">Toutes</option>
-					<c:forEach items="${lstCategorie}" var="categorie">
-						<option value="${categorie.getId()}">${categorie.getLibelle()}</option>
-					</c:forEach>
-				</select>
+	
+	<c:if test="${not empty connectedUser}">
+		<section>
+			<form action="" method="POST">
 				<fieldset>
-					<input type="radio" id="radioAchats" value=0>
-					<label for="radioAchats">Achats</label>
-					<input type="radio" id="radioMesVentes" value=0>
-					<label for="radioMesVentes">Mes ventes</label>
+					<legend>Filtres :</legend>
+					<input type="text" id="zone_recherche" name="zone_recherche">
+					<label for="categorie">Catégories : </label>
+					<select name="categorie" id="categorie" >
+							<option value="0">Toutes</option>
+						<c:forEach items="${lstCategories}" var="cat">
+							<option value="${cat.getId()}">${cat.getLibelle()}</option>
+						</c:forEach>
+					</select>
+					<fieldset>
+						<fieldset>
+							<input type="radio" id="optBtnAchats" name="achatsVente">
+							<label for="optBtnAchats">Achats</label>
+							<br>
+							<input type="checkbox" id="chkEncheresOuvertes" name="chkEncheresOuvertes">
+							<label for="chkEncheresOuvertes">Enchères ouvertes</label>
+							<input type="checkbox" id="chkMesEncheres" name="chkMesEncheres">
+							<label for="chkMesEncheres">Mes enchères</label>
+							<input type="checkbox" id="chkMesEncheresEmportees" name="chkMesEncheresEmportees">
+							<label for="chkMesEncheresEmportees">Mes enchères remportées</label>
+						</fieldset>
+						<fieldset>
+							<input type="radio" id="optBtnVentes" name="achatsVente">
+							<label for="optBtnVentes">Mes ventes</label>
+							<br>
+							<input type="checkbox" id="chkMesVentesEnCours" name="chkMesVentesEnCours">
+							<label for="chkMesVentesEnCours">Mes ventes en cours</label>
+							<input type="checkbox" id="chkVentesNonDebutees" name="chkVentesNonDebutees">
+							<label for="chkVentesNonDebutees">Mes ventes non débutées</label>
+							<input type="checkbox" id="chkVentesTerminees" name="chkVentesTerminees">
+							<label for="chkVentesTerminees">Mes ventes terminées</label>
+						</fieldset>
+					</fieldset>
+					
+					<input type="submit" value="Rechercher">
+					
 				</fieldset>
-			</fieldset>
-		</form>
-	</section>
+			</form>
+		</section>
+	</c:if>
+	
+	
 	
 	<c:choose>
 		<c:when test="${not empty listeArticle}">
-			<table>
-				<c:forEach items="${listeArticle}" var="article">
+			<c:forEach items="${listeArticle}" var="article">
+				<fieldset>
+				<table>
 					<tr>
-						<td><c:out value="${article.nomArticle}" /></td>
-						<td><c:out value="Fin de l'enchère : ${article.finDebutEncheres}" /></td>
-						<td><c:out value="Prix : ${article.prixVente}" /></td>
-						<td><c:out value="Vendeur : ${article.getVendeur().getPseudo()}" /></td>
+						<td><a href="http://www.google.fr">${article.nomArticle}</a></td>
 					</tr>
-				</c:forEach>
-			</table>
+					<tr>
+						<td>Fin de l'enchère</td>
+						<td><c:out value="${article.finDebutEncheres}" /></td>
+					</tr>
+					<tr>
+						<td>Prix</td>
+						<td><c:out value="${article.prixVente}" /></td>
+					</tr>
+					<tr>
+						<td>Vendeur</td>
+						<td><c:out value="${article.getVendeur().getPseudo()}" /></td>
+			
+					</tr>
+				</table>
+				</fieldset>
+			</c:forEach>
 		</c:when>
 		<c:otherwise>
 			Aucun article à afficher !
