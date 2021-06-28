@@ -44,6 +44,9 @@ public class ArticleVenduManager {
 		// Ajout à la BDD
 		articleVenduDAO.insert(nvlArticle);
 	}
+	public boArticleVendu selectById(int articleId) {
+		return articleVenduDAO.selectById(articleId);
+	}
 
 	/*******************************************************************************
 	 *

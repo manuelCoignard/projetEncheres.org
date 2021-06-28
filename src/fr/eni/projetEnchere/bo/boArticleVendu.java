@@ -14,6 +14,7 @@ public class boArticleVendu {
 	private int noCategorie;
 	private int noRetrait;
 	private boUtilisateur vendeur;
+	private boCategorie categorie;
 	
 	//////GETTERS ET SETTERS//////
 	
@@ -84,6 +85,12 @@ public class boArticleVendu {
 	}
 	public void setVendeur(boUtilisateur vendeur) {
 		this.vendeur = vendeur;
+	}
+	public boCategorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(boCategorie categorie) {
+		this.categorie = categorie;
 	}
 	
 	//////CONSTRUCTEURS///////
@@ -167,7 +174,19 @@ public class boArticleVendu {
 		this.prixVente = prixVente;
 		this.vendeur = vendeur;
 	}
-	
+/*Constructeur pour le select by id
+ */
+	public boArticleVendu(int noArticle, String nomArticle, String description, LocalDate finDebutEncheres,
+			 int prixVente, boCategorie categorie, boUtilisateur vendeur) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.finDebutEncheres = finDebutEncheres;
+		this.prixVente = prixVente;
+		this.vendeur = vendeur;
+		this.categorie = categorie;
+	}
 	/**
 	 * Méthode toString pour l'affichage des données de l'article
 	 */
