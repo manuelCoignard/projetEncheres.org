@@ -15,11 +15,12 @@
 		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
 	</c:if>
 
+	<input type="text" id="zoneRecherche" name="zoneRecherche" value=${not empty param.zoneRecherche?"${param.zoneRecherche}":"1"}>
+
 	<nav>
 		<c:choose>
 			<c:when test="${empty connectedUser}">
-				<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire
-					- se connecter</a>
+				<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
 			</c:when>
 			<c:otherwise>
 				<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
@@ -35,12 +36,26 @@
 			<form action="" method="POST">
 				<fieldset>
 					<legend>Filtres :</legend>
-					<input type="text" id="zone_recherche" name="zone_recherche">
+					<c:choose>
+						<c:when test="${not empty param.zoneRecherche}">
+							<input type="text" id="zoneRecherche" name="zoneRecherche" value="${param.zoneRecherche}">
+						</c:when>
+						<c:otherwise>
+							<input type="text" id="zoneRecherche" name="zoneRecherche" value ="">
+						</c:otherwise>
+					</c:choose>
 					<label for="categorie">Catégories : </label>
-					<select name="categorie" id="categorie" >
+					<select name="categorie" id="categorie">
 							<option value="0">Toutes</option>
 						<c:forEach items="${lstCategories}" var="cat">
-							<option value="${cat.getId()}">${cat.getLibelle()}</option>
+							<c:choose>
+								<c:when test="${param.categorie eq cat.getId()}">
+									<option value="${cat.getId()}" selected="${cat.getLibelle()}">${cat.getLibelle()}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${cat.getId()}">${cat.getLibelle()}</option>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select>
 					<fieldset>
