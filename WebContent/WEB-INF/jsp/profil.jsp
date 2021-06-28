@@ -12,7 +12,6 @@
 <center>
 	<h1>Profil</h1>
 </center>
-
 				
 				
 				<table>
