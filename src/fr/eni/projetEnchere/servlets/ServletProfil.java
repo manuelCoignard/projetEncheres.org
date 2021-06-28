@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JEditorPane;
-
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
 import fr.eni.projetEnchere.bo.boUtilisateur;
@@ -28,24 +26,30 @@ public class ServletProfil extends HttpServlet {
 		HttpSession session = request.getSession();		
 		boUtilisateur profilConnecte = (boUtilisateur) session.getAttribute("connectedUser");
 		
-		if(profilConnecte = !empty) {
-		//Je crée un utilisateur que je vais initialiser avec les données cherchées en bdd via la méthode connectionPseudo		
+		// Je crée un utilisateur "profilUtilisateur" que je vais initialiser avec les données cherchées en bdd via la méthode connectionPseudo
 		boUtilisateur profilUtilisateur = new boUtilisateur();
-		try {
-			profilUtilisateur = UtilisateurManager.getInstance().profilParPseudo(profilConnecte.getPseudo());
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if(profilConnecte == null) {
+
+			try {
+				profilUtilisateur = UtilisateurManager.getInstance().profilParPseudo("nini");
+			} catch (BusinessException e) {				
+				e.printStackTrace();
+			}
+				
+			
+		}else {
+			// recupere l'objet utilisateur en session et l'envoi dans "profilUtilisateur"
+			profilUtilisateur = profilConnecte;
+			
 		}
-		
-		// J'envoi l'objet l'utilisateur vers la jsp
-		request.setAttribute("profilConnecte", profilUtilisateur);
-		
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp");
-		rd.forward(request, response);
+			// J'envoi l'objet l'utilisateur "profilUtilisateur" vers la jsp
+			request.setAttribute("profilConnecte", profilUtilisateur);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp");
+			rd.forward(request, response);
 	}
-	}
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

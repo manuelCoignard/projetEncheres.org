@@ -98,7 +98,7 @@
 				<fieldset>
 				<table>
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/ServletDetailVente" name="nomArticle">${article.nomArticle}</a></td>
+						<td><a href="${pageContext.request.contextPath}/ServletDetailVente?id=${article.getNoArticle()}" name="nomArticle">${article.nomArticle}</a></td>
 					</tr>
 					<tr>
 						<td>Fin de l'enchère</td>
