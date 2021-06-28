@@ -10,8 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
-
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.ArticleVenduManager;
 import fr.eni.projetEnchere.bll.CategorieManager;
@@ -34,8 +32,9 @@ public class ServletPageAccueil extends HttpServlet {
 			throws ServletException, IOException {
 		/*
 		 * //2. on va chercher la liste en BDD ListeCourse listeCourse =
-		 * ListeCourseManager.getInstance().selectById(idListe); //3. on stocke la liste
-		 * de course dans la requête request.setAttribute("listeCourse", listeCourse);
+		 * ListeCourseManager.getInstance().selectById(idListe);
+		 * 
+		 * //3. on stocke la liste de course dans la requête request.setAttribute("listeCourse", listeCourse);
 		 */
 
 		try {
