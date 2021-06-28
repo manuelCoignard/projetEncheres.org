@@ -58,12 +58,26 @@ public class UtilisateurManager {
 			}
 			// Si pas erreur : Ajout dans la BDD
 			utilisateurDAO.insert(nvlUtilisateur);
-			
-			
-			
-			
-			
+								
 	}
+	
+	/**
+	 * Methode qui renvoi un objet utilisateur recupéré en bdd par son pseudo
+	 * @param pseudo
+	 * @return un objet utilisateur par son pseudo
+	 * @throws BusinessException
+	 */
+	public boUtilisateur profilParPseudo(String pseudo) throws BusinessException {
+		boUtilisateur profilParPseudo = null;
+		
+		profilParPseudo = utilisateurDAO.connectionPseudo(pseudo);
+		
+		return profilParPseudo;
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Méthode permettant de retourner un utilisateur présent dans la base de données via un identifiant et un mot de passe
@@ -141,14 +155,13 @@ public class UtilisateurManager {
 	
 	
 	private	void validerPseudo(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkPseudoAlphanumeric = "/[A-Za-z][0-9]";
-		
-		
+		String verifPseudoAlphanumeric = "/[A-Za-z][0-9]";
+				
 		if(utilisateur.getPseudo().length() < 3 && utilisateur.getPseudo().length() > 20 ) {
 			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_TAILLE_ERREUR);
 		}
 		
-		if(utilisateur.getPseudo().matches(checkPseudoAlphanumeric)) {
+		if(utilisateur.getPseudo().matches(verifPseudoAlphanumeric)) {
 			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_ALPHANUMERIC_ERREUR);
 		}		
 	}
@@ -168,34 +181,34 @@ public class UtilisateurManager {
 	}
 	
 	private void validerEmail(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkEmail = "^[\\w+.-]+@\\w+.\\w{2,5}$";
+		String verifEmail = "^[\\w+.-]+@\\w+.\\w{2,5}$";
 		
-		if(!utilisateur.getEmail().matches(checkEmail)) {
+		if(!utilisateur.getEmail().matches(verifEmail)) {
 			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_ERREUR);
 		}
 	}
 	
 	private void validerTelephone(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkTelephone = "(\\+[0-9]{3}( [0-9][0-9])+)|([0-9]+)";
+		String verifTelephone = "(\\+[0-9]{3}( [0-9][0-9])+)|([0-9]+)";
 		
-		if(!utilisateur.getEmail().matches(checkTelephone)) {
+		if(!utilisateur.getEmail().matches(verifTelephone)) {
 			businessException.ajouterErreur(CodesErreursBLL.TELEPHONE_REGEX_ERREUR);
 		}
 	}
 	
 	private void validerCodePostal(boUtilisateur utilisateur, BusinessException businessException) {
-		String checkCodePostal = "[0-9]{5}";
+		String verifCodePostal = "[0-9]{5}";
 		
-		if(!utilisateur.getEmail().matches(checkCodePostal)) {
+		if(!utilisateur.getEmail().matches(verifCodePostal)) {
 			businessException.ajouterErreur(CodesErreursBLL.CODEPOSTAL_REGEX_ERREUR);
 		}
 	}
 	
 	private void validerPassword(boUtilisateur utilisateur, BusinessException businessException) {
 		// Doit contenir au minimum 8 caracteres, au minimum une minuscule, une majuscule, un chiffre, un caractere special
-		String checkPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+		String verifPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 		   
-		if (utilisateur.getMotDePpasse().length() < 6 && utilisateur.getMotDePpasse().length() > 30 && !utilisateur.getMotDePpasse().matches(checkPassword)) {
+		if (utilisateur.getMotDePpasse().length() < 6 && utilisateur.getMotDePpasse().length() > 30 && !utilisateur.getMotDePpasse().matches(verifPassword)) {
 			businessException.ajouterErreur(CodesErreursBLL.PASSWORD_REGEX_ERREUR);
 		}
 				

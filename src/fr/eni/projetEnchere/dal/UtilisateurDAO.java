@@ -11,4 +11,5 @@ public interface UtilisateurDAO {
 	
 	boUtilisateur connectionPseudo(String pseudo) throws BusinessException;
 
+	
 }

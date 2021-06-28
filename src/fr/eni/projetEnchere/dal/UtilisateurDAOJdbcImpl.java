@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.naming.spi.DirStateFactory.Result;
-
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
@@ -86,6 +83,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		}
 		
 	}
+	
 	
 	/**
 	 * Méthode permettant de récupérer un utilisateur dans la base de données via son adresse mail
