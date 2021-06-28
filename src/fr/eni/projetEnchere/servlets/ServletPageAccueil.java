@@ -39,9 +39,9 @@ public class ServletPageAccueil extends HttpServlet {
 			request.setAttribute("listeArticle", listeArticle);
 			
 			//Récupération de la liste des catégories
-			List<boCategorie> lstCategorie = new ArrayList<>();
-			lstCategorie = CategorieManager.getInstance().selectAllCategories();
-			request.setAttribute("lstCategorie", lstCategorie);
+			List<boCategorie> lstCategories = new ArrayList<>();
+			lstCategories = CategorieManager.getInstance().selectAllCategories();
+			request.setAttribute("lstCategories", lstCategories);
 
 		} catch (BusinessException be) {
 			List<String> lstMsgError = new ArrayList<>();
