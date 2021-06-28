@@ -1,7 +1,6 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.ArticleVenduManager;
 
 /**
