@@ -33,16 +33,19 @@ public class ArticleVenduManager {
 	}
 	// Méthode
 
-	public void ajoutArticle (String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate finDebutEnchere,int prixInitial, int prixVente, int idUtilisateur, int categorie) throws BusinessException {
+	public void ajoutArticle (String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate finDebutEnchere,int prixInitial, int idUtilisateur, int categorie) throws BusinessException {
 
 		// Vérification des données provenant du formulaire
 
 		// Après vérification, création de l'article
 		boArticleVendu nvlArticle = new boArticleVendu(nomArticle, description, dateDebutEnchere, finDebutEnchere,
-				prixInitial, prixVente, idUtilisateur, categorie);
+				prixInitial, idUtilisateur, categorie);
 
 		// Ajout à la BDD
 		articleVenduDAO.insert(nvlArticle);
+	}
+	public boArticleVendu selectById(int articleId) {
+		return articleVenduDAO.selectById(articleId);
 	}
 
 	/*******************************************************************************

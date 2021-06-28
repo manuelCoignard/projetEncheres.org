@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.List;
 
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boArticleVendu;
+import fr.eni.projetEnchere.bo.boCategorie;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 
@@ -22,7 +22,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur";
-
+	
+	
+	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur  "
+											+ "	INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
+											+ "	WHERE no_article =?" ;
 	
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
@@ -86,5 +90,41 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				throw businessException;
 			}
 		return listeArticle;
+	}
+	
+	@Override
+	public boArticleVendu selectById(int noArticle) {
+		boArticleVendu articleId = null;
+				try (Connection cnx = JdbcTools.getConnection()) {
+
+					PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
+
+					pstmt.setInt(1, noArticle);
+
+					ResultSet rs = pstmt.executeQuery();
+
+					if (rs.next()) {
+						String nomArticle = rs.getString("nom_article");
+						String description = rs.getString("description");
+						LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+						int prixVente = rs.getInt("prix_vente");
+						int categorie = rs.getInt("no_categorie");
+						String libelle = rs.getString("libelle");
+						int idVendeur = rs.getInt("no_utilisateur");
+						String pseudoVendeur = rs.getString("pseudo");
+						String adresse = rs.getString("rue");
+						String codePostal = rs.getString("code_postal");
+						String ville = rs.getString("ville");
+						int credit = rs.getInt("credit");
+
+						articleId = new boArticleVendu(noArticle, nomArticle, description, dateFinEncheres,prixVente,new boCategorie(categorie, libelle), new boUtilisateur(idVendeur, pseudoVendeur, adresse, codePostal, ville, credit));
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					BusinessException businessException = new BusinessException();
+					businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+				}
+		return articleId;
 	}
 }

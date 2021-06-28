@@ -46,14 +46,13 @@ public class ServletAjoutArticle extends HttpServlet {
 		LocalDate dateDebutEnchere = LocalDate.parse(request.getParameter("dateDebutEncheres"));
 		LocalDate dateFinEnchere = LocalDate.parse(request.getParameter("dateFinEncheres"));
 		int prixInitial = Integer.parseInt(request.getParameter("prixInitial"));
-		int prixVente = Integer.parseInt(request.getParameter("prixVente"));
 		//TODO a modifier en session
 		int idUtilisateur = 1;
 		int categorie = Integer.parseInt(request.getParameter("categorie"));
 		
 		//
 		try {
-			ArticleVenduManager.getInstance().ajoutArticle(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, prixVente, idUtilisateur, categorie);
+			ArticleVenduManager.getInstance().ajoutArticle(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, idUtilisateur, categorie);
 		}catch (Exception e) {
 			//TODO gerer validation erreur
 			e.printStackTrace();
