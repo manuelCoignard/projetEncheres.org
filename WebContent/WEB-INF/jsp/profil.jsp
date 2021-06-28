@@ -12,6 +12,14 @@
 <center>
 	<h1>Profil</h1>
 </center>
+
+	<c:if test="${not empty connectedUser}">
+		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
+	</c:if>
+
+			
+
+
 <form action="<%=request.getContextPath()%>/ServletProfil" method="POST">
 <button type="submit" value="ok">Modifier le profil</button>
 </form>
