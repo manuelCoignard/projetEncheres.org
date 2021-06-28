@@ -30,12 +30,7 @@ public class ServletPageAccueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*
-		 * //2. on va chercher la liste en BDD ListeCourse listeCourse =
-		 * ListeCourseManager.getInstance().selectById(idListe);
-		 * 
-		 * //3. on stocke la liste de course dans la requête request.setAttribute("listeCourse", listeCourse);
-		 */
+
 
 		try {
 			// Récupération de la liste de tous les articles disponibles
