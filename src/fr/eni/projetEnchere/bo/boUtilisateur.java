@@ -196,6 +196,20 @@ public class boUtilisateur {
 		this.pseudo = pseudo;
 	}
 
+	/*
+	 * constructeur pour le select by id
+	 */
+	
+	public boUtilisateur(int noUtilisateur, String pseudo, String rue, String codePostal, String ville, int credit) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.credit = credit;
+	}
+
 	//Affichage des données de l'utilisateur
 	@Override
 	public String toString() {
