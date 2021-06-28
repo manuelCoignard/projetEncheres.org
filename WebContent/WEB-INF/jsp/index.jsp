@@ -52,16 +52,16 @@
 			</fieldset>
 		</form>
 	</section>
-	
+	<a href="${pageContext.request.contextPath}/ServletAjoutArticle"></a>
 	<c:choose>
 		<c:when test="${not empty listeArticle}">
 			<table>
 				<c:forEach items="${listeArticle}" var="article">
 					<tr>
-						<td><c:out value="${article.nomArticle}" /></td>
-						<td><c:out value="Fin de l'enchère : ${article.finDebutEncheres}" /></td>
-						<td><c:out value="Prix : ${article.prixVente}" /></td>
-						<td><c:out value="Vendeur : ${article.getVendeur().getPseudo()}" /></td>
+						<td><a href="${pageContext.request.contextPath}/ServletDetailVente" name="nomArticle">${article.nomArticle}</a></td>
+						<td> ${article.finDebutEncheres}</td>
+						<td>${article.prixVente}</td>
+						<td>${article.getVendeur().getPseudo()}</td>
 					</tr>
 				</c:forEach>
 			</table>

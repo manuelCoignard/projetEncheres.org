@@ -22,7 +22,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
 	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur";
-
+	
 	
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
