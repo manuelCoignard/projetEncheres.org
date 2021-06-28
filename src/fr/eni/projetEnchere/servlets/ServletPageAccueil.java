@@ -1,6 +1,7 @@
 package fr.eni.projetEnchere.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sound.midi.Soundbank;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequestWrapper;
+
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.ArticleVenduManager;
 import fr.eni.projetEnchere.bll.CategorieManager;
@@ -22,7 +25,7 @@ import fr.eni.projetEnchere.exceptions.LecteurMessage;
 /**
  * Servlet implementation class ServletPageAccueil
  */
-@WebServlet("/ServletPageAccueil")
+@WebServlet(urlPatterns = {"/ServletPageAccueil", "/choix"})
 public class ServletPageAccueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,24 +33,19 @@ public class ServletPageAccueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		/*
-		 * //2. on va chercher la liste en BDD ListeCourse listeCourse =
-		 * ListeCourseManager.getInstance().selectById(idListe); //3. on stocke la liste
-		 * de course dans la requête request.setAttribute("listeCourse", listeCourse);
-		 */
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
+			
 			// Récupération de la liste de tous les articles disponibles
 			List<boArticleVendu> listeArticle = new ArrayList<>();
 			listeArticle = ArticleVenduManager.getInstance().selectAll();
 			request.setAttribute("listeArticle", listeArticle);
 			
 			//Récupération de la liste des catégories
-			List<boCategorie> lstCategorie = new ArrayList<>();
-			lstCategorie = CategorieManager.getInstance().selectAllCategories();
-			request.setAttribute("lstCategorie", lstCategorie);
+			List<boCategorie> lstCategories = new ArrayList<>();
+			lstCategories = CategorieManager.getInstance().selectAllCategories();
+			request.setAttribute("lstCategories", lstCategories);
 
 		} catch (BusinessException be) {
 			List<String> lstMsgError = new ArrayList<>();
@@ -60,7 +58,7 @@ public class ServletPageAccueil extends HttpServlet {
 		
 		//Affichage de la .jsp
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-		rd.forward(request, response);
+		rd.forward(request , response);
 
 	}
 
@@ -68,8 +66,7 @@ public class ServletPageAccueil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
