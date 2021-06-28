@@ -43,9 +43,6 @@
 	        <label for="prixInitial">Prix initial de l'enchere :<span style="color: darkred;">*</span></label><br>
 	        <input type="number" name="prixInitial" id="prixInitial"required><br>
 			<br>
-			<label for="prixVente">Prix de vente :</label><br>
-			<input type="number" name="prixVente" id="prixVente" ><br>
-		<br>
 		</div>
 		
 	    <div>
@@ -56,7 +53,19 @@
 
         </div> 	     
     </form>
-    
+    <form>
+    	<div>
+    	<fieldset>
+    	<legend>Retrait</legend>
+    	<label for="rue">Rue : </label>
+    	<input type="text" name="rue" id="rue" value="${connectedUser.getRue()}"><br>
+    	<label for="codepostal">Code Postal : </label>
+    	<input type="text" name="codepostal" id="codepostal" value="${connectedUser.getCodePostal()}"><br>
+    	<label for="ville">Ville : </label>
+    	<input type="text" name="ville" id="ville" value="${connectedUser.getVille()}">
+    	</fieldset>
+    	</div>
+    </form>
 </main>
 
 </body>
