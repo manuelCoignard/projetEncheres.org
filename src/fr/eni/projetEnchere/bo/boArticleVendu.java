@@ -1,6 +1,5 @@
 package fr.eni.projetEnchere.bo;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class boArticleVendu {
@@ -96,7 +95,7 @@ public class boArticleVendu {
 	//constructeur ajout de l'article
 	
 	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate finDebutEncheres, int prixInitial, int prixVente, int noUtilisateur, int noCategorie) {
+			LocalDate finDebutEncheres, int prixInitial, int noUtilisateur, int noCategorie) {
 		super();
 		
 		this.nomArticle = nomArticle;
