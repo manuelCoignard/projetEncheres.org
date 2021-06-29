@@ -107,7 +107,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						String nomArticle = rs.getString("nom_article");
 						String description = rs.getString("description");
 						LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
-						int prixVente = rs.getInt("prix_vente");
+						int prixInitial = rs.getInt("prix_initial");
 						int categorie = rs.getInt("no_categorie");
 						String libelle = rs.getString("libelle");
 						int idVendeur = rs.getInt("no_utilisateur");
@@ -117,7 +117,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						String ville = rs.getString("ville");
 						int credit = rs.getInt("credit");
 
-						articleId = new boArticleVendu(noArticle, nomArticle, description, dateFinEncheres,prixVente,new boCategorie(categorie, libelle), new boUtilisateur(idVendeur, pseudoVendeur, adresse, codePostal, ville, credit));
+						articleId = new boArticleVendu(noArticle, nomArticle, description, dateFinEncheres,prixInitial,new boCategorie(categorie, libelle), new boUtilisateur(idVendeur, pseudoVendeur, adresse, codePostal, ville, credit));
 					}
 
 				} catch (Exception e) {

@@ -34,11 +34,9 @@ public class ServletDetailVente extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		int test = Integer.parseInt(request.getParameter("id"));
+		int articleId = Integer.parseInt(request.getParameter("id"));
 		
-		System.out.println(test);
-		boArticleVendu toto =ArticleVenduManager.getInstance().selectById(test);
-		System.out.println(toto.toString());
+		boArticleVendu toto =ArticleVenduManager.getInstance().selectById(articleId);
 		request.setAttribute("article", toto);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
 		rd.forward(request, response);
