@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+html {
+	font-family: sans-serif;
+}
+
+h1 {
+	text-align: center;
+	border: 1px solid #333;
+	  	
+}
+
+table {
+	display: flex;
+	border: 1px solid #333;
+	text-align: center;
+	flex-direction: column;
+	
+	
+}
+
+footer {
+	display: flex;
+	border: 1px solid #333;
+	text-align: center;
+}
