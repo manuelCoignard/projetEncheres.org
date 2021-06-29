@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="./css/styleInscription.css">
 <title>PageInscription</title>
 </head>
+
 <body>
 
 

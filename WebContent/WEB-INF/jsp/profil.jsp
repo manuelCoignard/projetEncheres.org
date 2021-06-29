@@ -5,13 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="./css/styleProfil.css">
 <title>profil</title>
 </head>
 <body>
 
-<center>
+
 	<h1>Profil utilisateur</h1>
-</center>
+
 				
 				
 				<table>
@@ -48,14 +49,12 @@
 						<td><c:out value="${profilConnecte.getVille()}" /></td>
 					</tr>
 				</table>
-				
-		<br>
-	<c:if test="${not empty connectedUser}">
-		<form action="<%=request.getContextPath()%>/ServletProfil" method="POST">
-		<button type="submit" value="ok">Modifier le profil</button>
-		</form>
-	</c:if>
-
+				<br>
+	<footer>		
+		<c:if test="${not empty connectedUser}">
+			<a href="<%=request.getContextPath()%>/ServletModificationProfil">Modifier le profil</a>
+		</c:if>
+	</footer>
 			
 
 

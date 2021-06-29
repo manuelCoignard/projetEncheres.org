@@ -3,3 +3,14 @@
 html {
 	 font-family: sans-serif;
 }
+
+h1 {
+	text-align: center;
+	border: 1px solid #333;
+	  	
+}
+
+nav {
+	display: flex;
+	flex-direction: row-reverse;
+}

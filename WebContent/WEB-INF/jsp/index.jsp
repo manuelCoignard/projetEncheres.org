@@ -9,9 +9,11 @@
 <link rel="stylesheet" href="./css/stylePageAccueil.css">
 <title>Accueil</title>
 </head>
+
 <body>
 
 	<h1>Page Accueil</h1>
+	
 	<c:if test="${not empty connectedUser}">
 		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
 	</c:if>
@@ -26,7 +28,6 @@
 				<a href="${pageContext.request.contextPath}/ServletProfil?pseudoProfil=${connectedUser.getPseudo()}">Profil</a>
 				<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
 			</c:otherwise>
-
 		</c:choose> 
 	</nav>
 	
