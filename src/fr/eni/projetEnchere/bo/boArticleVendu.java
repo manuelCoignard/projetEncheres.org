@@ -204,13 +204,13 @@ public class boArticleVendu {
 /*Constructeur pour le select by id
  */
 	public boArticleVendu(int noArticle, String nomArticle, String description, LocalDate finDebutEncheres,
-			 int prixVente, boCategorie categorie, boUtilisateur vendeur) {
+			 int prixInitial, boCategorie categorie, boUtilisateur vendeur) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.finDebutEncheres = finDebutEncheres;
-		this.prixVente = prixVente;
+		this.prixInitial = prixInitial;
 		this.vendeur = vendeur;
 		this.categorie = categorie;
 	}
