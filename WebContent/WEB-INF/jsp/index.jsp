@@ -31,11 +31,16 @@
 	
 	<c:if test="${not empty connectedUser}">
 		<section>
-			<form action="" method="POST">
+			<form action="${pageContext.request.contextPath}/Rechercher" method="POST">
 				<fieldset>
 					<legend>Filtres :</legend>
+					<input type="text" list="lstChoix" id="zoneRecherche" name="zoneRecherche" value=${not empty param.zoneRecherche?param.zoneRecherche:''}>
 					
-					<input type="text" id="zoneRecherche" name="zoneRecherche" value=${not empty param.zoneRecherche?param.zoneRecherche:''}>
+					<datalist id="lstChoix">
+						<c:forEach items="${listeArticle}" var="article">
+							<option value="${article.getNomArticle() }">
+						</c:forEach>
+					</datalist>
 					
 					<label for="categorie">Catégories : </label>
 					<select name="categorie" id="categorie">
@@ -46,10 +51,10 @@
 					</select>
 					
 					<fieldset>
-						<fieldset>						
-							<input type="radio" id="optBtnAchats" name="achatsVente" value="achat" ${param.achatsVente eq 'achat'?'checked':''}>
-							<label for="optBtnAchats">Achats</label>
-							<br>
+												
+						<input type="radio" id="optBtnAchats" name="achatsVente" value="achat" ${param.achatsVente != 'vente'?'checked':''} onclick="document.getElementById('frmAchats').disabled=false;document.getElementById('frmVentes').disabled=true;document.getElementById('chkMesVentesEnCours').checked=false;document.getElementById('chkVentesNonDebutees').checked=false;document.getElementById('chkVentesTerminees').checked=false;">
+						<label for="optBtnAchats">Achats</label>
+						<fieldset ${param.achatsVente == 'vente'?'disabled':''} id="frmAchats">
 							<input type="checkbox" id="chkEncheresOuvertes" name="chkEncheresOuvertes" ${param.chkEncheresOuvertes eq 'on'?'checked':''}>
 							<label for="chkEncheresOuvertes">Enchères ouvertes</label>
 							<input type="checkbox" id="chkMesEncheres" name="chkMesEncheres" ${param.chkMesEncheres eq 'on'?'checked':''}>
@@ -57,10 +62,10 @@
 							<input type="checkbox" id="chkMesEncheresEmportees" name="chkMesEncheresEmportees" ${param.chkMesEncheresEmportees eq 'on'?'checked':''}>
 							<label for="chkMesEncheresEmportees">Mes enchères remportées</label>
 						</fieldset>
-						<fieldset>
-							<input type="radio" id="optBtnVentes" name="achatsVente" value="vente" ${param.achatsVente eq 'vente'?'checked':''}>
-							<label for="optBtnVentes">Mes ventes</label>
-							<br>
+						
+						<input type="radio" id="optBtnVentes" name="achatsVente" value="vente" ${param.achatsVente eq 'vente'?'checked':''} onclick="document.getElementById('frmVentes').disabled=false;document.getElementById('frmAchats').disabled=true;document.getElementById('chkEncheresOuvertes').checked=false;document.getElementById('chkMesEncheres').checked=false;document.getElementById('chkMesEncheresEmportees').checked=false;">
+						<label for="optBtnVentes">Mes ventes</label>
+						<fieldset ${param.achatsVente != 'vente'?'disabled':''} id="frmVentes">
 							<input type="checkbox" id="chkMesVentesEnCours" name="chkMesVentesEnCours" ${param.chkMesVentesEnCours eq 'on'?'checked':''}>
 							<label for="chkMesVentesEnCours">Mes ventes en cours</label>
 							<input type="checkbox" id="chkVentesNonDebutees" name="chkVentesNonDebutees" ${param.chkVentesNonDebutees eq 'on'?'checked':''}>
