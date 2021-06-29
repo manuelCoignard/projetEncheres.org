@@ -95,11 +95,22 @@ public class boArticleVendu {
 	
 	//////CONSTRUCTEURS///////
 	
-	// constructeur vide
+	/**
+	 * Constructeur vide
+	 */
 	public boArticleVendu() {
 		
 	}
-	//constructeur ajout de l'article
+	/**
+	 * Constructeur ajout de l'article
+	 * @param nomArticle
+	 * @param description
+	 * @param dateDebutEncheres
+	 * @param finDebutEncheres
+	 * @param prixInitial
+	 * @param noUtilisateur
+	 * @param noCategorie
+	 */
 	
 	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, int prixInitial, int noUtilisateur, int noCategorie) {
@@ -110,7 +121,6 @@ public class boArticleVendu {
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.finDebutEncheres = finDebutEncheres;
 		this.prixInitial = prixInitial;
-		this.prixVente = prixVente;
 		this.noUtilisateur = noUtilisateur;
 		this.noCategorie = noCategorie;
 	}
@@ -129,7 +139,16 @@ public class boArticleVendu {
 	}
 
 	
-	// constructeur de l'article 
+	/**
+	 * Constructeur de l'article
+	 * @param noArticle
+	 * @param nomArticle
+	 * @param description
+	 * @param dateDebutEncheres
+	 * @param finDebutEncheres
+	 * @param prixInitial
+	 * @param prixVente
+	 */
 	public boArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, int prixInitial, int prixVente) {
 		super();
@@ -142,9 +161,17 @@ public class boArticleVendu {
 		this.prixVente = prixVente;	
 	}
 	
-	// constructeur pour selectAll
-	
-	
+	/**
+	 * Constructeur pour le selectAll
+	 * @param nomArticle
+	 * @param description
+	 * @param dateDebutEncheres
+	 * @param finDebutEncheres
+	 * @param prixInitial
+	 * @param noUtilisateur
+	 * @param noCategorie
+	 * @param vendeur
+	 */	
 	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, int prixInitial, int noUtilisateur, int noCategorie, boUtilisateur vendeur) {
 		super();
