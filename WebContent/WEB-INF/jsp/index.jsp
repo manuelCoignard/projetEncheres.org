@@ -15,8 +15,6 @@
 		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
 	</c:if>
 
-	<input type="text" id="zoneRecherche" name="zoneRecherche" value=${not empty param.zoneRecherche?"${param.zoneRecherche}":"1"}>
-
 	<nav>
 		<c:choose>
 			<c:when test="${empty connectedUser}">
