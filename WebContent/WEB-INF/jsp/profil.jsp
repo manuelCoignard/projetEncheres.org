@@ -10,14 +10,14 @@
 <body>
 
 <center>
-	<h1>Profil</h1>
+	<h1>Profil utilisateur</h1>
 </center>
 				
 				
 				<table>
 					<tr>
-						<td>Pseudo</td>
-						<td><c:out value="${profilConnecte.getPseudo()}" /></td>
+						<td><strong>Pseudo</strong></td>
+						<td><strong><c:out value="${profilConnecte.getPseudo()}" /></strong></td>
 					</tr>
 					<tr>
 						<td>Nom</td>

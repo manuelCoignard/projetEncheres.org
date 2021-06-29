@@ -30,9 +30,9 @@ public class ServletProfil extends HttpServlet {
 		boUtilisateur profilUtilisateur = new boUtilisateur();
 		
 		if(profilConnecte == null) {
-
+			String pseudo = request.getParameter("pseudoProfil");
 			try {
-				profilUtilisateur = UtilisateurManager.getInstance().profilParPseudo("nini");
+				profilUtilisateur = UtilisateurManager.getInstance().profilParPseudo(pseudo);
 			} catch (BusinessException e) {				
 				e.printStackTrace();
 			}

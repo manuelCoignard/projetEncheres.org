@@ -108,7 +108,7 @@
 					</tr>
 					<tr>
 						<td>Vendeur</td>
-						<td><c:out value="${article.getVendeur().getPseudo()}" /></td>
+						<td><a href="${pageContext.request.contextPath}/ServletProfil?pseudoProfil=${article.getVendeur().getPseudo()}"><c:out value="${article.getVendeur().getPseudo()}" /></a></td>
 			
 					</tr>
 				</table>
