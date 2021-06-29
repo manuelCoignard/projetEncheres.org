@@ -23,7 +23,7 @@
 			</c:when>
 			<c:otherwise>
 				<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
-				<a href="${pageContext.request.contextPath}/ServletProfil">Profil</a>
+				<a href="${pageContext.request.contextPath}/ServletProfil?pseudoProfil=${connectedUser.getPseudo()}">Profil</a>
 				<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
 			</c:otherwise>
 

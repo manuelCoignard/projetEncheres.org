@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
 import fr.eni.projetEnchere.bo.boUtilisateur;
@@ -21,28 +20,24 @@ public class ServletProfil extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		// Je recupère de la servlet le profil utilisateur en session
+	/**
+	 * 	// Je recupère de la servlet le profil utilisateur en session
 		HttpSession session = request.getSession();		
 		boUtilisateur profilConnecte = (boUtilisateur) session.getAttribute("connectedUser");
-		
-		// Je crée un utilisateur "profilUtilisateur" que je vais initialiser avec les données cherchées en bdd via la méthode connectionPseudo
+	 */
+			
+		// Je crée un utilisateur "profilUtilisateur" initialisé avec les données cherchées en bdd via méthode connectionPseudo()
 		boUtilisateur profilUtilisateur = new boUtilisateur();
-		
-		if(profilConnecte == null) {
+
 			String pseudo = request.getParameter("pseudoProfil");
-			try {
-				profilUtilisateur = UtilisateurManager.getInstance().profilParPseudo(pseudo);
-			} catch (BusinessException e) {				
-				e.printStackTrace();
+			if(pseudo != null) {
+				try {
+					profilUtilisateur = UtilisateurManager.getInstance().profilParPseudo(pseudo);
+				} catch (BusinessException e) {				
+					e.printStackTrace();
+				}
 			}
-				
 			
-		}else {
-			// recupere l'objet utilisateur en session et l'envoi dans "profilUtilisateur"
-			profilUtilisateur = profilConnecte;
-			
-		}
 			// J'envoi l'objet l'utilisateur "profilUtilisateur" vers la jsp
 			request.setAttribute("profilConnecte", profilUtilisateur);
 			
