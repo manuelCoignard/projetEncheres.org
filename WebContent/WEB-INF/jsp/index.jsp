@@ -12,12 +12,6 @@
 
 <body>
 
-	<h1>Page Accueil</h1>
-	
-	<c:if test="${not empty connectedUser}">
-		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
-	</c:if>
-
 	<nav>
 		<c:choose>
 			<c:when test="${empty connectedUser}">
@@ -30,6 +24,14 @@
 			</c:otherwise>
 		</c:choose> 
 	</nav>
+	
+	<h1>Page Accueil</h1>
+	
+	<c:if test="${not empty connectedUser}">
+		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
+	</c:if>
+
+	
 	
 	<c:if test="${not empty connectedUser}">
 		<section>

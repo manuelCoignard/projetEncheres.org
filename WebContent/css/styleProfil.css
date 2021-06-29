@@ -12,15 +12,15 @@ h1 {
 
 table {
 	display: flex;
-	border: 1px solid #333;
-	text-align: center;
+	border: 1px solid #333;	
+	justify-content: center;
 	flex-direction: column;
-	
 	
 }
 
 footer {
 	display: flex;
 	border: 1px solid #333;
-	text-align: center;
+	justify-content: center;
+	
 }
