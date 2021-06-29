@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./css/modificationProfil.css">
+<link rel="stylesheet" href="./css/styleModificationProfil.css">
 <title>ModificationProfil</title>
 </head>
 <body>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./css/inscription.css">
+<link rel="stylesheet" href="./css/styleInscription.css">
 <title>PageInscription</title>
 </head>
 <body>
