@@ -34,49 +34,38 @@
 			<form action="" method="POST">
 				<fieldset>
 					<legend>Filtres :</legend>
-					<c:choose>
-						<c:when test="${not empty param.zoneRecherche}">
-							<input type="text" id="zoneRecherche" name="zoneRecherche" value="${param.zoneRecherche}">
-						</c:when>
-						<c:otherwise>
-							<input type="text" id="zoneRecherche" name="zoneRecherche" value ="">
-						</c:otherwise>
-					</c:choose>
+					
+					<input type="text" id="zoneRecherche" name="zoneRecherche" value=${not empty param.zoneRecherche?param.zoneRecherche:''}>
+					
 					<label for="categorie">Catégories : </label>
 					<select name="categorie" id="categorie">
 							<option value="0">Toutes</option>
 						<c:forEach items="${lstCategories}" var="cat">
-							<c:choose>
-								<c:when test="${param.categorie eq cat.getId()}">
-									<option value="${cat.getId()}" selected="${cat.getLibelle()}">${cat.getLibelle()}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${cat.getId()}">${cat.getLibelle()}</option>
-								</c:otherwise>
-							</c:choose>
+							<option value="${cat.getId()}" ${param.categorie eq cat.getId()?'selected':''}>${cat.getLibelle()}</option>
 						</c:forEach>
 					</select>
+					
 					<fieldset>
-						<fieldset>
-							<input type="radio" id="optBtnAchats" name="achatsVente">
+						<fieldset>						
+							<input type="radio" id="optBtnAchats" name="achatsVente" value="achat" ${param.achatsVente eq 'achat'?'checked':''}>
 							<label for="optBtnAchats">Achats</label>
 							<br>
-							<input type="checkbox" id="chkEncheresOuvertes" name="chkEncheresOuvertes">
+							<input type="checkbox" id="chkEncheresOuvertes" name="chkEncheresOuvertes" ${param.chkEncheresOuvertes eq 'on'?'checked':''}>
 							<label for="chkEncheresOuvertes">Enchères ouvertes</label>
-							<input type="checkbox" id="chkMesEncheres" name="chkMesEncheres">
+							<input type="checkbox" id="chkMesEncheres" name="chkMesEncheres" ${param.chkMesEncheres eq 'on'?'checked':''}>
 							<label for="chkMesEncheres">Mes enchères</label>
-							<input type="checkbox" id="chkMesEncheresEmportees" name="chkMesEncheresEmportees">
+							<input type="checkbox" id="chkMesEncheresEmportees" name="chkMesEncheresEmportees" ${param.chkMesEncheresEmportees eq 'on'?'checked':''}>
 							<label for="chkMesEncheresEmportees">Mes enchères remportées</label>
 						</fieldset>
 						<fieldset>
-							<input type="radio" id="optBtnVentes" name="achatsVente">
+							<input type="radio" id="optBtnVentes" name="achatsVente" value="vente" ${param.achatsVente eq 'vente'?'checked':''}>
 							<label for="optBtnVentes">Mes ventes</label>
 							<br>
-							<input type="checkbox" id="chkMesVentesEnCours" name="chkMesVentesEnCours">
+							<input type="checkbox" id="chkMesVentesEnCours" name="chkMesVentesEnCours" ${param.chkMesVentesEnCours eq 'on'?'checked':''}>
 							<label for="chkMesVentesEnCours">Mes ventes en cours</label>
-							<input type="checkbox" id="chkVentesNonDebutees" name="chkVentesNonDebutees">
+							<input type="checkbox" id="chkVentesNonDebutees" name="chkVentesNonDebutees" ${param.chkVentesNonDebutees eq 'on'?'checked':''}>
 							<label for="chkVentesNonDebutees">Mes ventes non débutées</label>
-							<input type="checkbox" id="chkVentesTerminees" name="chkVentesTerminees">
+							<input type="checkbox" id="chkVentesTerminees" name="chkVentesTerminees" ${param.chkVentesTerminees eq 'on'?'checked':''}>
 							<label for="chkVentesTerminees">Mes ventes terminées</label>
 						</fieldset>
 					</fieldset>
@@ -87,9 +76,7 @@
 			</form>
 		</section>
 	</c:if>
-	
-	
-	
+
 	<c:choose>
 		<c:when test="${not empty listeArticle}">
 			<c:forEach items="${listeArticle}" var="article">
