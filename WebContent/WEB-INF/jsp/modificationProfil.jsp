@@ -5,15 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="./css/modificationProfil.css">
 <title>ModificationProfil</title>
 </head>
 <body>
+	<header>
+		<h1>Modification du profil</h1>
+	</header>
 
-<center>
-	<h1>Modification du profil</h1>
-</center>
-
-<a href="${pageContext.request.contextPath}/ServletPageAccueil"></a>
+	<main>
+	<a href="${pageContext.request.contextPath}/ServletPageAccueil"></a>
+	</main>
 
 </body>
 </html>
