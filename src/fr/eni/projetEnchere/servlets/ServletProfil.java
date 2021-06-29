@@ -14,7 +14,7 @@ import fr.eni.projetEnchere.bll.UtilisateurManager;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 
 
-@WebServlet(urlPatterns = {"/ServletProfil", "/ServletPageAccueil"})
+@WebServlet("/ServletProfil")
 public class ServletProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
