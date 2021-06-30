@@ -10,15 +10,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/ServletModificationProfil")
+@WebServlet(urlPatterns = {"/ServletModificationProfil", "/supprimer"})
 public class ServletModificationProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modificationProfil.jsp");
-		rd.forward(request, response);
+		// On regarde quelle url a été utilisée pour arriver dans la servlet
+		String urlUtilisee = request.getServletPath();
+		
+		// Si c'est l'url supprimer on désactive l'utilisateur en bdd puis on est redirigé vers la page d'accueil
+		if(urlUtilisee.equals("/supprimer")) {
+			int id = Integer.parseInt(request.getParameter("idProfil"));
+			System.out.println(id);
+			// On repart vers la servlet page d'accueil
+			response.sendRedirect("ServletPageAccueil");
+			
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modificationProfil.jsp");
+			rd.forward(request, response);
+		}
+		
+		
 	}
 
 	
