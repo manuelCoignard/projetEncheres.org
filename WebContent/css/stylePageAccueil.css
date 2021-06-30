@@ -10,9 +10,14 @@ h1 {
 	  	
 }
 
-nav {
+#connection-utilisateur {
 	display: flex;
 	border: 1px solid #333;
 	justify-content: flex-end;
-	flex-grow: 2;
+}
+
+#statut-connection {
+	display: flex;
+	border: 1px solid #333;
+	justify-content: flex-end;
 }

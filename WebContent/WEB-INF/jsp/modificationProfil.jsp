@@ -15,8 +15,8 @@
 
 	<main>
 	
-		<form action="<%=request.getContextPath()%>/ServletInscription" method="POST">
-			<section>
+		<form action="" method="POST">
+			<section id="champs-saisi">
 				<br>		
 					<div class="pseudo">
 						<label for="pseuso">Pseudo :</label>
@@ -75,11 +75,11 @@
 				<br>	        	
 	        </section>
 	        	<br>
-	        <nav>
-				<div class="boutonEnregistrer">
+	        <nav id="lien-utilisateur">
+				<div class="bouton-enregistrer">
 					<button type="submit" value="ok">Enregistrer</button><br>
 				</div>				
-				<div class="boutonSupprimer">
+				<div class="bouton-supprimer">
 					<button type="submit" value="delete">Supprimer</button><br>
 				</div>
 			</nav>			
