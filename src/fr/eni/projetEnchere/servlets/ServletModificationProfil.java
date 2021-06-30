@@ -39,21 +39,20 @@ public class ServletModificationProfil extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("idProfil"));
 			
 			try {
-				UtilisateurManager.getInstance().desactivationProfil(id);
-				
+				UtilisateurManager.getInstance().desactivationProfil(id);				
 			} catch (BusinessException be) {
 				be.printStackTrace();
 				List<String> listeMsgError = new ArrayList<>();
 				for (int code : be.getListeCodesErreur()) {
-					listeMsgError.add(LecteurMessage.getMessageErreur(code));
-						
-				}
+					listeMsgError.add(LecteurMessage.getMessageErreur(code));						
+				}				
 				//Envoi de la liste 
 				request.setAttribute("ListeMessageErreur",listeMsgError);
+			}
 			
 			// On repart vers la servlet page d'accueil
 			response.sendRedirect("ServletPageAccueil");
-			}
+			
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modificationProfil.jsp");
 			rd.forward(request, response);

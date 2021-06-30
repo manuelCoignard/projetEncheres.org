@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+html{
+	font-family: sans-serif;
+}
+
+h1 {
+	display: flex;
+	border: 1px solid #333;
+   	justify-content: center;
+    color: chartreuse;
+    
+}
+
+#lien-connection {
+	display: flex;
+	border: 1px solid #333;
+   	justify-content: center;
+   	
+}
+
+#connection{
+	display: flex;
+	border: 1px solid #333;
+   	flex-direction:column;
+   	justify-content: center;
+}
+
+#identifiant {
+	display: flex;
+	align-self: center;
+	
+}
+
+#motdepasse {
+	display: flex;
+	align-self: center;
+	
+}
