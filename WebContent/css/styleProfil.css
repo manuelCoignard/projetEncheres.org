@@ -7,21 +7,20 @@ html {
 h1 {
 	text-align: center;
 	border: 1px solid #333;
-	
-  	
+	  	
 }
 
-section {
+table {
 	display: flex;
-	border: 1px solid #333;
-	flex-direction: column;	
+	border: 1px solid #333;	
 	justify-content: center;
+	flex-direction: column;
 	
 }
 
-nav {
+footer {
 	display: flex;
 	border: 1px solid #333;
 	justify-content: center;
-	justify-content: space-around;
+	
 }

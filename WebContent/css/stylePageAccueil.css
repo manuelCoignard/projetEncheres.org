@@ -3,3 +3,21 @@
 html {
 	 font-family: sans-serif;
 }
+
+h1 {
+	text-align: center;
+	border: 1px solid #333;
+	  	
+}
+
+#connection-utilisateur {
+	display: flex;
+	border: 1px solid #333;
+	justify-content: flex-end;
+}
+
+#statut-connection {
+	display: flex;
+	border: 1px solid #333;
+	justify-content: flex-end;
+}

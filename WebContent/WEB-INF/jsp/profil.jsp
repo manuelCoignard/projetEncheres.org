@@ -5,57 +5,56 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="./css/styleProfil.css">
 <title>profil</title>
 </head>
 <body>
 
-<center>
+
 	<h1>Profil utilisateur</h1>
-</center>
+
 				
 				
 				<table>
 					<tr>
-						<td><strong>Pseudo</strong></td>
+						<td><strong>Pseudo :</strong></td>
 						<td><strong><c:out value="${profilConnecte.getPseudo()}" /></strong></td>
 					</tr>
 					<tr>
-						<td>Nom</td>
+						<td>Nom :</td>
 						<td><c:out value="${profilConnecte.getNom()}" /></td>
 					</tr>
 					<tr>
-						<td>Prénom</td>
+						<td>Prénom :</td>
 						<td><c:out value="${profilConnecte.getPrenom()}" /></td>
 					</tr>
 					<tr>
-						<td>Email</td>
+						<td>Email :</td>
 						<td><c:out value="${profilConnecte.getEmail()}" /></td>
 					</tr>
 					<tr>
-						<td>Telephone</td>
+						<td>Telephone :</td>
 						<td><c:out value="${profilConnecte.getTelephone()}" /></td>
 					</tr>
 					<tr>
-						<td>Rue</td>
+						<td>Rue :</td>
 						<td><c:out value="${profilConnecte.getRue()}" /></td>
 					</tr>
 					<tr>
-						<td>Code Postal</td>
+						<td>Code Postal :</td>
 						<td><c:out value="${profilConnecte.getCodePostal()}" /></td>
 					</tr>
 					<tr>
-						<td>Code Ville</td>
+						<td>Code Ville :</td>
 						<td><c:out value="${profilConnecte.getVille()}" /></td>
 					</tr>
 				</table>
-				
-		<br>
-	<c:if test="${not empty connectedUser}">
-		<form action="<%=request.getContextPath()%>/ServletProfil" method="POST">
-		<button type="submit" value="ok">Modifier le profil</button>
-		</form>
-	</c:if>
-
+				<br>
+	<footer>		
+		<c:if test="${not empty connectedUser}">
+			<a href="<%=request.getContextPath()%>/ServletModificationProfil">Modifier le profil</a>
+		</c:if>
+	</footer>
 			
 
 

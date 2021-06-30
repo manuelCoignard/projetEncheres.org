@@ -1,6 +1,13 @@
 @charset "UTF-8";
 
 html {
-	 font-family: sans-serif;
+	font-family: sans-serif;
 }
 
+h1 {
+	border: 1px solid #333;
+   	justify-content: center;
+    color: chartreuse;
+    
+}
+      

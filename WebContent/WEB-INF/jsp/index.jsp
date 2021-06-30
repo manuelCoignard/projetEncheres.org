@@ -9,26 +9,29 @@
 <link rel="stylesheet" href="./css/stylePageAccueil.css">
 <title>Accueil</title>
 </head>
+
 <body>
 
-	<h1>Page Accueil</h1>
-	<c:if test="${not empty connectedUser}">
-		<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
-	</c:if>
-
-	<nav>
+	<nav id="connection-utilisateur">
 		<c:choose>
 			<c:when test="${empty connectedUser}">
-				<a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a>
+				<div id="lien-connection"><a href="${pageContext.request.contextPath}/ServletConnection">S'inscrire - se connecter</a></div>
 			</c:when>
 			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a>
-				<a href="${pageContext.request.contextPath}/ServletProfil?pseudoProfil=${connectedUser.getPseudo()}">Profil</a>
-				<a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a>
+				<div id="vendre"><a href="${pageContext.request.contextPath}/ServletAjoutArticle">Vendre un article</a></div>
+				<div id="profil"><a href="${pageContext.request.contextPath}/ServletProfil?pseudoProfil=${connectedUser.getPseudo()}">Profil</a></div>
+				<div id="deconnexion"><a href="${pageContext.request.contextPath}/ServletDeconnexion">Déconnexion</a></div>				
 			</c:otherwise>
-
 		</c:choose> 
 	</nav>
+	
+	<div id="statut-connection">
+		<c:if test="${not empty connectedUser}">
+			<h3>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</h3>
+		</c:if>
+	</div>
+				
+	<h1>Page Accueil</h1>
 	
 	<c:if test="${not empty connectedUser}">
 		<section>
