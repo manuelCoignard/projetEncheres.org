@@ -79,14 +79,15 @@
 				<div class="bouton-enregistrer">
 					<button type="submit" value="ok">Enregistrer</button><br>
 				</div>				
-				<div class="bouton-supprimer">
-					<button type="submit" value="delete">Supprimer</button><br>
-				</div>
+				
+				<a href="${pageContext.request.contextPath }/supprimer?idProfil=${connectedUser.getNoUtilisateur()}" class="badge text-danger" title="Supprimer">Supprimer</a>
+				
 			</nav>			
 	    </form>
 	<br>
-	<a href="${pageContext.request.contextPath}/ServletPageAccueil">Retour à l'accueil</a>
 	
+	<a href="${pageContext.request.contextPath}/ServletPageAccueil">Retour à l'accueil</a>
+	            
 
 	</main>
 
