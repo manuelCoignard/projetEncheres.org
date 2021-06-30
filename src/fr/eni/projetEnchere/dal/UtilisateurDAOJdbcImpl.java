@@ -22,6 +22,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?;";
 	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
 	
+	private static final String DESACTIVATION_PROFIL = "UPDATE UTILISATEURS SET utilisateur_actif= 0 WHERE no_utilisateur=?";
+	
+	
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 	
@@ -31,57 +34,65 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	 */
 	@Override
 	public void insert(boUtilisateur nouvelUtilisateur) throws BusinessException {
-		BusinessException be = new BusinessException();
 		
-		try(Connection cnx = JdbcTools.getConnection()){
+		
+		try (Connection cnx = JdbcTools.getConnection()){
+			cnx.setAutoCommit(false);
 			
-			// 1.Verification si email deja en bdd
-			PreparedStatement verifMail = cnx.prepareStatement(SELECT_BY_EMAIL);						
-			verifMail.setString(1,nouvelUtilisateur.getEmail());			
-			ResultSet rs = verifMail.executeQuery();
-			if (rs.next()) {
-				be.ajouterErreur(CodesErreursDAL.INSERT_EMAIL_ERREUR);
-				throw be;
+			try{
+				BusinessException be = new BusinessException();
+				
+				// 1.Verification si email deja en bdd
+				PreparedStatement verifMail = cnx.prepareStatement(SELECT_BY_EMAIL);						
+				verifMail.setString(1,nouvelUtilisateur.getEmail());			
+				ResultSet rs = verifMail.executeQuery();
+				if (rs.next()) {
+					be.ajouterErreur(CodesErreursDAL.INSERT_EMAIL_ERREUR);
+					throw be;
+				}
+				
+				// 2. Verification si pseudo deja en bdd
+				PreparedStatement verifPseudo = cnx.prepareStatement(SELECT_BY_PSEUDO);
+				verifPseudo.setString(1,nouvelUtilisateur.getPseudo());			
+				ResultSet rSet = verifPseudo.executeQuery();
+				if (rSet.next()){
+					be.ajouterErreur(CodesErreursDAL.INSERT_PSEUDO_ERREUR);
+					throw be;
+				}		
+				
+				// 3. Si email et pseudo ne sont pas déjà en bdd, fait l'insert
+				PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+				
+				pstmt.setString(1, nouvelUtilisateur.getPseudo());
+				pstmt.setString(2, nouvelUtilisateur.getNom());
+				pstmt.setString(3, nouvelUtilisateur.getPrenom());
+				pstmt.setString(4, nouvelUtilisateur.getEmail());			
+				pstmt.setString(5, nouvelUtilisateur.getTelephone().equals("")?null:nouvelUtilisateur.getTelephone());
+				pstmt.setString(6, nouvelUtilisateur.getRue());
+				pstmt.setString(7, nouvelUtilisateur.getCodePostal());
+				pstmt.setString(8, nouvelUtilisateur.getVille());
+				pstmt.setString(9, nouvelUtilisateur.getMotDePpasse());
+				
+				pstmt.executeUpdate();
+				
+				ResultSet resultSet = pstmt.getGeneratedKeys();
+				
+				if(resultSet.next())
+				{
+					nouvelUtilisateur.setNoUtilisateur(rs.getInt(1));
+				}
+				cnx.commit();
 			}
-			
-			// 2. Verification si pseudo deja en bdd
-			PreparedStatement verifPseudo = cnx.prepareStatement(SELECT_BY_PSEUDO);
-			verifPseudo.setString(1,nouvelUtilisateur.getPseudo());			
-			ResultSet rSet = verifPseudo.executeQuery();
-			if (rSet.next()){
-				be.ajouterErreur(CodesErreursDAL.INSERT_PSEUDO_ERREUR);
-				throw be;
-			}		
-			
-			// 3. Si email et pseudo ne sont pas déjà en bdd, fait l'insert
-			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			
-			pstmt.setString(1, nouvelUtilisateur.getPseudo());
-			pstmt.setString(2, nouvelUtilisateur.getNom());
-			pstmt.setString(3, nouvelUtilisateur.getPrenom());
-			pstmt.setString(4, nouvelUtilisateur.getEmail());			
-			pstmt.setString(5, nouvelUtilisateur.getTelephone().equals("")?null:nouvelUtilisateur.getTelephone());
-			pstmt.setString(6, nouvelUtilisateur.getRue());
-			pstmt.setString(7, nouvelUtilisateur.getCodePostal());
-			pstmt.setString(8, nouvelUtilisateur.getVille());
-			pstmt.setString(9, nouvelUtilisateur.getMotDePpasse());
-			
-			pstmt.executeUpdate();
-			
-			ResultSet resultSet = pstmt.getGeneratedKeys();
-			
-			if(resultSet.next())
+			catch(SQLException e)
 			{
-				nouvelUtilisateur.setNoUtilisateur(rs.getInt(1));
+				cnx.rollback();
+				e.printStackTrace();
+				BusinessException be = new BusinessException();
+				be.ajouterErreur(CodesErreursDAL.INSERT_EMAIL_ERREUR);
 			}
-		}
-		catch(SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
-			BusinessException be1 = new BusinessException();
-			be1.ajouterErreur(CodesErreursDAL.INSERT_EMAIL_ERREUR);
 		}
-		
 	}
 	
 	
@@ -209,6 +220,26 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		return utilisateur;
 	}
 	
+	
+	@Override
+	public void desactivationUtilisateur(int noUtillisateur) throws BusinessException {
+		
+		try (
+				Connection cnx = JdbcTools.getConnection()
+			){
+			
+			PreparedStatement pStmt = cnx.prepareStatement(DESACTIVATION_PROFIL);
+			pStmt.setInt(1, noUtillisateur);
+			pStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesErreursDAL.SELECT_USER_ERROR);
+			throw be;
+		}
+	}
+	
+	
 	/**
 	 * Méthode permettant de connaître le nombre de ligne dans le résultat de la transaction SQL
 	 * @param rs résultat de la transaction SQL exécutée (ResultSet)
@@ -228,5 +259,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 		//Retourne le numéro de ligne récupérée
 		return nb;
 	}
+
+
+	
 
 }

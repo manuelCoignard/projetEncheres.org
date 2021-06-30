@@ -76,7 +76,9 @@ public class UtilisateurManager {
 	}
 	
 	
-	
+	public void desactivationProfil(int noUtilisateur) throws BusinessException {
+		utilisateurDAO.desactivationUtilisateur(noUtilisateur);
+	}
 	
 	
 	/**
@@ -189,7 +191,7 @@ public class UtilisateurManager {
 	}
 	
 	private void validerTelephone(boUtilisateur utilisateur, BusinessException businessException) {
-		String verifTelephone = "(\\+[0-9]{3}( [0-9][0-9])+)|([0-9]+)";
+		String verifTelephone = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$";
 		
 		if(!utilisateur.getTelephone().matches(verifTelephone)) {
 			businessException.ajouterErreur(CodesErreursBLL.TELEPHONE_REGEX_ERREUR);
