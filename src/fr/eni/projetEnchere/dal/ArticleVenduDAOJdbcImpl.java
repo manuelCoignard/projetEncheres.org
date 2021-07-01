@@ -22,7 +22,37 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			+ "ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie)"
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	
-	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur";
+	//SelectAll général pour le mode déconnecté reliant les tables ARTICLES_VENDUS, UTILISATEURS et CATEGORIES
+	private static final String SELECT_ALL = "SELECT no_article, nom_article,date_fin_encheres, prix_vente, UTILISATEURS.no_utilisateur, pseudo FROM ARTICLES_VENDUS "
+			+ "INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
+			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur "
+			+ "WHERE date_fin_encheres >= GETDATE()";
+	
+	//Select utilisé lors de la recherche avec filtres
+	private static final String SELECT_ACHAT_VENTE = "SELECT no_article, nom_article, date_fin_encheres, prix_vente, no_categorie, ARTICLES_VENDUS.no_utilisateur AS no_vendeur, VENDEUR.pseudo AS vendeur_pseudo FROM ARTICLES_VENDUS "
+			+ "INNER JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur";
+	
+	private static final String SELECT_FILTERS = "SELECT ARTICLES_VENDUS.no_article, nom_article, prix_vente, MAX(montant_enchere) as montant_enchere, date_fin_encheres, VENDEUR.pseudo as vendeur, ACHETEUR.pseudo as acheteur FROM ARTICLES_VENDUS "
+			+ "INNER JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article "
+			+ "INNER JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur "
+			+ "INNER JOIN UTILISATEURS AS ACHETEUR ON ENCHERES.no_utilisateur = ACHETEUR.no_utilisateur "
+			+ "GROUP BY ARTICLES_VENDUS.no_article, nom_article, prix_vente, date_fin_encheres, VENDEUR.pseudo, ACHETEUR.pseudo";
+	
+	private static final String WHERE = " WHERE ";
+	private static final String AND = " AND ";
+	
+	private static final String CONDITION_TEXTE_RECHERCHE = "nom_article LIKE ?";
+	
+	private static final String CONDITION_CATEGORIE = "no_categorie = ?";
+	
+	private static final String CONDITION_DATE_EN_COURS  = "date_fin_encheres >= GETDATE()";
+	private static final String CONDITION_DATE_TERMINEES = "date_fin_encheres < GETDATE()";
+	private static final String CONDITION_DATE_NON_DEBUTEES = "date_debut_encheres < CURRENT_TIMESTAMP";
+	
+	private static final String CONDITION_BY_ACHETEUR = "ACHETEUR.pseudo=?";
+	private static final String CONDITION_BY_VENDEUR = "VENDEUR.pseudo=?";
+	
+	
 	
 	
 	private static final String SELECT_BY_ID = "SELECT ARTICLES_VENDUS.no_article, nom_article,description, prix_initial, date_fin_encheres, CATEGORIES.no_categorie AS numCategorie, libelle, VENDEUR.no_utilisateur AS numVendeur , VENDEUR.pseudo as vendeur, VENDEUR.rue as vendeurRue, VENDEUR.code_postal as vendeurCp ,VENDEUR.ville as vendeurVille ,VENDEUR.credit as vendeurCredit, no_enchere, MAX(montant_enchere) as montant_enchere, ACHETEUR.no_utilisateur AS numAcheteur,ACHETEUR.pseudo AS acheteur FROM ARTICLES_VENDUS " + 
@@ -64,10 +94,12 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}
 	}
 	
-	
-	
+	/**
+	 * Méthode permettant de récupérer la liste des articles dont les enchères sous toujours en cours
+	 * à la date du jour. Les enchères closes ne sont pas récupérées !
+	 * @return une liste d'articles de la classe boArticleVendu
+	 */
 	public List<boArticleVendu> selectAll() throws BusinessException {
-		//System.out.println("je suis dans le select");
 		List<boArticleVendu> listeArticle = new ArrayList<>();
 			try(Connection cnx = JdbcTools.getConnection()){
 				Statement stmt = cnx.createStatement();
@@ -75,18 +107,14 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				while (rs.next()) {
 					int noArticle = rs.getInt("no_article");
 					String nomArticle = rs.getString("nom_article");
-					String description = rs.getString("description");
-					LocalDate dateDebutEncheres = rs.getDate("date_debut_encheres").toLocalDate();
 					LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
-					int prixInitial = rs.getInt("prix_initial");
 					int prixVente = rs.getInt("prix_vente");
-					int categorie = rs.getInt("no_categorie");
 					
 					int idVendeur = rs.getInt("no_utilisateur");
 					String pseudoVendeur = rs.getString("pseudo");
 
-				boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixInitial,new boUtilisateur(idVendeur,pseudoVendeur));
-				//boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, idUtilisateur, categorie);
+				boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
 				listeArticle.add(articleVendu);
 				}
 
@@ -141,4 +169,74 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				}
 		return articleId;
 	}
+
+	@Override
+	public List<boArticleVendu> selectEncheresOuvertes(String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
+		
+		String requete = SELECT_ACHAT_VENTE + WHERE + CONDITION_DATE_EN_COURS + AND + CONDITION_TEXTE_RECHERCHE + (noCategorie!=0? AND + CONDITION_CATEGORIE:"");
+		
+		try (Connection cnx = JdbcTools.getConnection()) {
+
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			
+			pstmt.setString(1, "%" + zoneRecherche + "%");
+
+			if(noCategorie!=0) {
+				pstmt.setInt(2, noCategorie);
+			}
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int noArticle = rs.getInt("no_article");
+				String nomArticle = rs.getString("nom_article");
+				LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixVente = rs.getInt("prix_vente");
+				
+				int idVendeur = rs.getInt("no_vendeur");
+				String pseudoVendeur = rs.getString("vendeur_pseudo");
+
+			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
+			lst.add(articleVendu);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+		}
+		return lst;
+	}
+
+	@Override
+	public List<boArticleVendu> selectMesEncheres(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;	
+	}
+
+	@Override
+	public List<boArticleVendu> selectEncheresEmportees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;	
+	}
+
+	@Override
+	public List<boArticleVendu> selectMesVentesEnCours(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;	
+	}
+
+	@Override
+	public List<boArticleVendu> selectMesVentesNonDebutees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;	
+	}
+
+	@Override
+	public List<boArticleVendu> selectMesVentesTerminees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;	
+	}
+
 }
