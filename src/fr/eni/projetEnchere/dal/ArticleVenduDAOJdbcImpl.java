@@ -56,8 +56,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String CONDITION_ENCHERES_EMPORTEES = "montant_enchere = prix_vente";
 	
 	
-	
-	
 	private static final String SELECT_BY_ID = "SELECT ARTICLES_VENDUS.no_article, nom_article,description, prix_initial, date_fin_encheres, CATEGORIES.no_categorie AS numCategorie, libelle, VENDEUR.no_utilisateur AS numVendeur , VENDEUR.pseudo as vendeur, VENDEUR.rue as vendeurRue, VENDEUR.code_postal as vendeurCp ,VENDEUR.ville as vendeurVille ,VENDEUR.credit as vendeurCredit, no_enchere, MAX(montant_enchere) as montant_enchere, ACHETEUR.no_utilisateur AS numAcheteur,ACHETEUR.pseudo AS acheteur FROM ARTICLES_VENDUS " + 
 			"LEFT JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article " + 
 			"LEFT JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur " + 
@@ -432,6 +430,5 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 			lstArticles.add(article);
 		}
 		
-	}
-	
+	}		
 }

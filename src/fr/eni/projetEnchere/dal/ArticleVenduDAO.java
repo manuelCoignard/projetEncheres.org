@@ -8,16 +8,26 @@ import fr.eni.projetEnchere.bo.boUtilisateur;
 
 public interface ArticleVenduDAO {
 	
+	/**
+	 * Méthode permettant l'ajout en bdd d'un nouvel article
+	 * @param nvlArticle objet de type {@link boUtilisateur}
+	 * @throws BusinessException
+	 */
 	void insert(boArticleVendu nvlArticle) throws BusinessException;
 	
 	/**
 	 * Méthode permettant de récupérer la liste des articles dont les enchères sous toujours en cours
 	 * à la date du jour. Les enchères closes ne sont pas récupérées !
-	 * @return une liste d'articles de la classe boArticleVendu
+	 * @return une liste d'articles de la classe {@link ArticleVenduDAO}
 	 * @throws BusinessException
 	 */
 	List<boArticleVendu> selectAll() throws BusinessException;
 	
+	/**
+	 * Méthode affichant un article présent en bdd en fonction de son numéro
+	 * @param noArticle 
+	 * @return un objet de type {@link boArticleVendu}
+	 */
 	boArticleVendu selectById(int noArticle);
 
 	/**
@@ -85,5 +95,4 @@ public interface ArticleVenduDAO {
 	 * @throws BusinessException
 	 */
 	List<boArticleVendu> selectMesVentesTerminees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException;
-	
 }
