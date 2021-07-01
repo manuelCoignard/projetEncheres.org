@@ -9,9 +9,9 @@
 <title>Vente</title>
 </head>
 <body>
-<center>
+
 	<h1>Détail de vente</h1>
-</center>
+
 	
 
 
@@ -57,6 +57,6 @@
 				<label for="enchere">Ma proposition:</label>
 				<input type="number" name="enchere" id="enchere">
 				<button type="submit">Enchérir</button>
-
+		</form>
 </body>
 </html>
