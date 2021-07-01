@@ -51,7 +51,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		LocalDate dateFinEnchere = LocalDate.parse(request.getParameter("dateFinEncheres"));
 		int prixInitial = Integer.parseInt(request.getParameter("prixInitial"));
 		//TODO a modifier en session
-		int idUtilisateur = (int) session.getAttribute("connectedUser");
+		int idUtilisateur = (int) ((boUtilisateur)session.getAttribute("connectedUser")).getNoUtilisateur();
 		int categorie = Integer.parseInt(request.getParameter("categorie"));
 		
 		System.out.println(idUtilisateur);
