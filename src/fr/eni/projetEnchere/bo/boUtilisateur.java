@@ -210,6 +210,7 @@ public class boUtilisateur {
 		this.credit = credit;
 	}
 
+	
 	//Affichage des données de l'utilisateur
 	@Override
 	public String toString() {

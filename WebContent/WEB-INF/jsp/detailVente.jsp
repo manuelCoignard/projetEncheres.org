@@ -9,11 +9,16 @@
 <title>Vente</title>
 </head>
 <body>
+<center>
+	<h1>Détail de vente</h1>
+</center>
+	
 
-	<h1>Détail de la vente</h1>
 
 				
-				
+		<form action="<%=request.getContextPath()%>/ServletDetailVente" method="post">
+		<input type="text" value ="${article.getNoArticle()}" name="id" hidden>	
+		<!-- <input type="text" value ="${profilConnecte.getNoUtilisateur()}" name="idUtilisateur" hidden> -->	
 				<table>
 					<tr>
 						<td><strong>${article.getNomArticle()}</strong></td>
@@ -27,8 +32,13 @@
 						<td><c:out value="${article.getCategorie().getLibelle()}" /></td>
 					</tr>
 					<tr>
+						<td>Meilleur offre: </td>
+						<td><c:out value="${article.getEnchere().montantEnchere} par : ${article.getEnchere().getUtilisateurId().getPseudo() }" /></td>
+					</tr>
+					<tr>
 						<td>Mise à prix: </td>
-						<td><c:out value="${article.getPrixInitial()}" /></td>
+						<!-- <td><c:out value="${article.getPrixInitial()}" /></td> -->
+						<td><c:out value="${not empty tata? tata : article.getPrixInitial()}" /></td>
 					</tr>
 					<tr>
 						<td>Fin de l'enchère : </td>
