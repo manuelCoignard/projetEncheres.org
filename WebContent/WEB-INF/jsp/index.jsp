@@ -35,7 +35,7 @@
 	
 	<c:if test="${not empty connectedUser}">
 		<section>
-			<form action="${pageContext.request.contextPath}/Rechercher" method="POST">
+			<form action="${pageContext.request.contextPath}/ServletPageAccueil" method="POST">
 				<fieldset>
 					<legend>Filtres :</legend>
 					<input type="text" list="lstChoix" id="zoneRecherche" name="zoneRecherche" value=${not empty param.zoneRecherche?param.zoneRecherche:''}>
