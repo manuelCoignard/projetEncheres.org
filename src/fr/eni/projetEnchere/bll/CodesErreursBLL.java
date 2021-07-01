@@ -34,4 +34,19 @@ public abstract class CodesErreursBLL {
 	 * Mauvais mot de passe renseigné
 	 */
 	public static final int CONNECT_WRONG_PASSWORD = 21000;
+	
+	/**
+	 * Catégorie inconnue
+	 */
+	public static final int CATEGORIE_INCONNUE = 22000;
+	
+	public static final int CHK_ENCHERES_OUVERTES_ERROR = 23000;
+	public static final int CHK_ENCHERES_MES_ENCHERES_ERROR = 23001;
+	public static final int CHK_ENCHERES_EMPORTEES_ERROR = 23002;
+	public static final int CHK_VENTES_EN_COURS_ERROR = 23003;
+	public static final int CHK_VENTES_NON_DEBUTEES_ERROR = 23004;
+	public static final int CHK_VENTES_TERMINEES_ERROR = 23005;
+	public static final int LST_CATEGORIE_ERROR = 23006;
+	public static final int CHK_ACHAT_VENTE_ERROR = 23007;
+	
 }
