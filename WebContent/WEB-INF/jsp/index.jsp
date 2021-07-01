@@ -118,8 +118,12 @@
 					<tr>
 						<td>Vendeur</td>
 						<td><a href="${pageContext.request.contextPath}/ServletProfil?pseudoProfil=${article.getVendeur().getPseudo()}"><c:out value="${article.getVendeur().getPseudo()}" /></a></td>
-			
 					</tr>
+					
+					<c:if test="${not empty connectedUser}">
+						<td></td>
+						<td>Filtre : </td>
+					</c:if>
 				</table>
 				</fieldset>
 			</c:forEach>
