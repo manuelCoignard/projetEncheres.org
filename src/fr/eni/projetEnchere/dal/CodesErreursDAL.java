@@ -63,4 +63,6 @@ public class CodesErreursDAL {
 	
 	public static final int SELECT_VENTES_TERMINEES_ERROR = 13005;
 	
+	public static final int MODIF_PRIX_VENTE_ERROR = 14000;
+	public static final int MODIF_PRIX_VENTE_ECHEC = 14001;
 }
