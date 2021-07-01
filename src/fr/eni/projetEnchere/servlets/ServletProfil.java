@@ -19,12 +19,6 @@ public class ServletProfil extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	/**
-	 * 	// Je recupère de la servlet le profil utilisateur en session
-		HttpSession session = request.getSession();		
-		boUtilisateur profilConnecte = (boUtilisateur) session.getAttribute("connectedUser");
-	 */
 			
 		// Je crée un utilisateur "profilUtilisateur" initialisé avec les données cherchées en bdd via méthode connectionPseudo()
 		boUtilisateur profilUtilisateur = new boUtilisateur();

@@ -76,7 +76,9 @@ public class UtilisateurManager {
 	}
 	
 	
-	
+	public void desactivationProfil(int noUtilisateur) throws BusinessException {
+		utilisateurDAO.desactivationUtilisateur(noUtilisateur);
+	}
 	
 	
 	/**
@@ -181,7 +183,7 @@ public class UtilisateurManager {
 	}
 	
 	private void validerEmail(boUtilisateur utilisateur, BusinessException businessException) {
-		String verifEmail = "^[\\w+.-]+@\\w+.\\w{2,5}$";
+		String verifEmail = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$";
 		
 		if(!utilisateur.getEmail().matches(verifEmail)) {
 			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_ERREUR);
@@ -189,9 +191,9 @@ public class UtilisateurManager {
 	}
 	
 	private void validerTelephone(boUtilisateur utilisateur, BusinessException businessException) {
-		String verifTelephone = "(\\+[0-9]{3}( [0-9][0-9])+)|([0-9]+)";
+		String verifTelephone = "^(?:(?:\\+|00)33|0)\\s*[1-9](?:[\\s.-]*\\d{2}){4}$";
 		
-		if(!utilisateur.getEmail().matches(verifTelephone)) {
+		if(!utilisateur.getTelephone().matches(verifTelephone)) {
 			businessException.ajouterErreur(CodesErreursBLL.TELEPHONE_REGEX_ERREUR);
 		}
 	}
@@ -199,7 +201,7 @@ public class UtilisateurManager {
 	private void validerCodePostal(boUtilisateur utilisateur, BusinessException businessException) {
 		String verifCodePostal = "[0-9]{5}";
 		
-		if(!utilisateur.getEmail().matches(verifCodePostal)) {
+		if(!utilisateur.getCodePostal().matches(verifCodePostal)) {
 			businessException.ajouterErreur(CodesErreursBLL.CODEPOSTAL_REGEX_ERREUR);
 		}
 	}
