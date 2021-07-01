@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.el.util.Validation;
-
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boArticleVendu;
 import fr.eni.projetEnchere.bo.boUtilisateur;
@@ -102,11 +100,11 @@ public class ArticleVenduManager {
 		 * Vente
 		 * 1 - mesVentesEnCours													: tous les articles dont les enchères sont encore ouvertes et dont je suis le vendeur
 		 * 2 - mesVentesNonDebutees												: tous les articles dont les enchères n'ont pas débutées et dont je suis le vendeur
-		 * 3 - mesVentesEnCours + mesVentesNonDebutees							:
+		 * 3 - mesVentesEnCours + mesVentesNonDebutees							: 1 + 2
 		 * 4 - mesVentesTerminees												: tous les articles dont les enchères sont terminées et dont je suis le vendeur
-		 * 5 - mesVentesEnCours + mesVentesTerminees							:
-		 * 6 - mesVentesNonDebutees + mesVentesTerminees						:
-		 * 7 - mesVentesEnCours + mesVentesNonDebutees +  mesVentesTerminees	:
+		 * 5 - mesVentesEnCours + mesVentesTerminees							: 1 + 4
+		 * 6 - mesVentesNonDebutees + mesVentesTerminees						: 2 + 4
+		 * 7 - mesVentesEnCours + mesVentesNonDebutees +  mesVentesTerminees	: 1 + 2 + 4
 		 */
 		if(achatsVente.equals("achat")) {
 			switch (sumAchat) {
@@ -183,7 +181,7 @@ public class ArticleVenduManager {
 				break;
 			}	
 		}
-		
+				
 		return lstArticles;
 		
 	}
