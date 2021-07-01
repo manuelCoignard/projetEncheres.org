@@ -115,38 +115,68 @@ public class ArticleVenduManager {
 				break;
 		
 			case 2:
-				
+				lstArticles = articleVenduDAO.selectMesEncheres(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
 				
 			case 3:
 				lstArticles = articleVenduDAO.selectEncheresOuvertes(zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesEncheres(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
 				
 			case 4:
-				
+				lstArticles = articleVenduDAO.selectEncheresEmportees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
-
+				
+			case 5:
+				lstArticles = articleVenduDAO.selectEncheresOuvertes(zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectEncheresEmportees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				break;
+				
+			case 6:
+				lstArticles = articleVenduDAO.selectMesEncheres(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectEncheresEmportees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				break;
+				
+			case 7:
+				lstArticles = articleVenduDAO.selectEncheresOuvertes(zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesEncheres(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectEncheresEmportees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				break;
+				
 			default:
 				break;
 			}	
 		}
 		
 		if(achatsVente.equals("vente")) {
-			switch (sumAchat) {
+			switch (sumVente) {
 			case 1:
-				
+				lstArticles = articleVenduDAO.selectMesVentesEnCours(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
-		
 			case 2:
-				
+				lstArticles = articleVenduDAO.selectMesVentesNonDebutees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
 				
 			case 3:
-				
+				lstArticles = articleVenduDAO.selectMesVentesEnCours(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesVentesNonDebutees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
 				
 			case 4:
-				
+				lstArticles = articleVenduDAO.selectMesVentesTerminees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				break;
+			case 5:
+				lstArticles = articleVenduDAO.selectMesVentesEnCours(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesVentesTerminees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				break;
+			case 6:
+				lstArticles = articleVenduDAO.selectMesVentesNonDebutees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesVentesTerminees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				break;
+			case 7:
+				lstArticles = articleVenduDAO.selectMesVentesEnCours(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesVentesNonDebutees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
+				lstArticles = articleVenduDAO.selectMesVentesTerminees(utilisateur, zoneRecherche, valCategorie, lstArticles, be);
 				break;
 
 			default:

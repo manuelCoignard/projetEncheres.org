@@ -26,31 +26,34 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_ALL = "SELECT no_article, nom_article,date_fin_encheres, prix_vente, UTILISATEURS.no_utilisateur, pseudo FROM ARTICLES_VENDUS "
 			+ "INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
 			+ "INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur "
-			+ "WHERE date_fin_encheres >= GETDATE()";
+			+ "WHERE date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
 	
 	//Select utilisé lors de la recherche avec filtres
 	private static final String SELECT_ACHAT_VENTE = "SELECT no_article, nom_article, date_fin_encheres, prix_vente, no_categorie, ARTICLES_VENDUS.no_utilisateur AS no_vendeur, VENDEUR.pseudo AS vendeur_pseudo FROM ARTICLES_VENDUS "
 			+ "INNER JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur";
 	
-	private static final String SELECT_FILTERS = "SELECT ARTICLES_VENDUS.no_article, nom_article, prix_vente, MAX(montant_enchere) as montant_enchere, date_fin_encheres, VENDEUR.pseudo as vendeur, ACHETEUR.pseudo as acheteur FROM ARTICLES_VENDUS "
+	private static final String SELECT_FILTERS = "SELECT ARTICLES_VENDUS.no_article AS num_article, nom_article, prix_vente, MAX(montant_enchere) as montant_enchere, date_fin_encheres, ARTICLES_VENDUS.no_utilisateur AS no_vendeur, VENDEUR.pseudo AS vendeur, ACHETEUR.pseudo AS acheteur FROM ARTICLES_VENDUS "
 			+ "INNER JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article "
 			+ "INNER JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur "
-			+ "INNER JOIN UTILISATEURS AS ACHETEUR ON ENCHERES.no_utilisateur = ACHETEUR.no_utilisateur "
-			+ "GROUP BY ARTICLES_VENDUS.no_article, nom_article, prix_vente, date_fin_encheres, VENDEUR.pseudo, ACHETEUR.pseudo";
+			+ "INNER JOIN UTILISATEURS AS ACHETEUR ON ENCHERES.no_utilisateur = ACHETEUR.no_utilisateur ";
 	
 	private static final String WHERE = " WHERE ";
 	private static final String AND = " AND ";
+	
+	private static final String GROUP_BY = " GROUP BY ARTICLES_VENDUS.no_article, nom_article, prix_vente, date_fin_encheres,ARTICLES_VENDUS.no_utilisateur, VENDEUR.pseudo, ACHETEUR.pseudo";
 	
 	private static final String CONDITION_TEXTE_RECHERCHE = "nom_article LIKE ?";
 	
 	private static final String CONDITION_CATEGORIE = "no_categorie = ?";
 	
-	private static final String CONDITION_DATE_EN_COURS  = "date_fin_encheres >= GETDATE()";
+	private static final String CONDITION_DATE_EN_COURS  = "date_debut_encheres <= GETDATE() AND date_fin_encheres >= GETDATE()";
 	private static final String CONDITION_DATE_TERMINEES = "date_fin_encheres < GETDATE()";
-	private static final String CONDITION_DATE_NON_DEBUTEES = "date_debut_encheres < CURRENT_TIMESTAMP";
+	private static final String CONDITION_DATE_NON_DEBUTEES = "date_debut_encheres > CURRENT_TIMESTAMP";
 	
 	private static final String CONDITION_BY_ACHETEUR = "ACHETEUR.pseudo=?";
 	private static final String CONDITION_BY_VENDEUR = "VENDEUR.pseudo=?";
+	
+	private static final String CONDITION_ENCHERES_EMPORTEES = "montant_enchere = prix_vente";
 	
 	
 	
@@ -211,32 +214,207 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 	@Override
 	public List<boArticleVendu> selectMesEncheres(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;	
+		
+		String requete = SELECT_FILTERS + WHERE + CONDITION_BY_ACHETEUR + AND + CONDITION_TEXTE_RECHERCHE + (noCategorie!=0? AND + CONDITION_CATEGORIE:"") + GROUP_BY;
+		
+		try (Connection cnx = JdbcTools.getConnection()) {
+			
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			
+			pstmt.setString(1, utilisateur.getPseudo());
+			
+			pstmt.setString(2, "%" + zoneRecherche + "%");
+			
+			if(noCategorie!=0) {
+				pstmt.setInt(3, noCategorie);
+			}
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int noArticle = rs.getInt("num_article");
+				String nomArticle = rs.getString("nom_article");
+				LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixVente = rs.getInt("prix_vente");
+				
+				int idVendeur = rs.getInt("no_vendeur");
+				String pseudoVendeur = rs.getString("vendeur");
+
+			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
+			lst.add(articleVendu);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+		}
+		return lst;	
 	}
 
 	@Override
 	public List<boArticleVendu> selectEncheresEmportees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;	
+		
+		String requete = SELECT_FILTERS + WHERE + CONDITION_DATE_TERMINEES + AND + CONDITION_BY_ACHETEUR + AND + CONDITION_ENCHERES_EMPORTEES + AND + CONDITION_TEXTE_RECHERCHE + (noCategorie!=0? AND + CONDITION_CATEGORIE:"") + GROUP_BY;
+		
+		try (Connection cnx = JdbcTools.getConnection()) {
+			
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			
+			pstmt.setString(1, utilisateur.getPseudo());
+			
+			pstmt.setString(2, "%" + zoneRecherche + "%");
+			
+			if(noCategorie!=0) {
+				pstmt.setInt(3, noCategorie);
+			}
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int noArticle = rs.getInt("num_article");
+				String nomArticle = rs.getString("nom_article");
+				LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixVente = rs.getInt("prix_vente");
+				
+				int idVendeur = rs.getInt("no_vendeur");
+				String pseudoVendeur = rs.getString("vendeur");
+
+			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
+			lst.add(articleVendu);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+		}
+		return lst;	
 	}
 
 	@Override
 	public List<boArticleVendu> selectMesVentesEnCours(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;	
+		
+		String requete = SELECT_ACHAT_VENTE + WHERE + CONDITION_DATE_EN_COURS + AND + CONDITION_BY_VENDEUR + AND + CONDITION_TEXTE_RECHERCHE + (noCategorie!=0? AND + CONDITION_CATEGORIE:"");
+		
+		try (Connection cnx = JdbcTools.getConnection()) {
+
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			
+			pstmt.setString(1, utilisateur.getPseudo());
+			
+			pstmt.setString(2, "%" + zoneRecherche + "%");
+
+			if(noCategorie!=0) {
+				pstmt.setInt(2, noCategorie);
+			}
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int noArticle = rs.getInt("no_article");
+				String nomArticle = rs.getString("nom_article");
+				LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixVente = rs.getInt("prix_vente");
+				
+				int idVendeur = rs.getInt("no_vendeur");
+				String pseudoVendeur = rs.getString("vendeur_pseudo");
+
+			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
+			lst.add(articleVendu);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+		}
+		return lst;	
 	}
 
 	@Override
 	public List<boArticleVendu> selectMesVentesNonDebutees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;	
+		
+		String requete = SELECT_ACHAT_VENTE + WHERE + CONDITION_DATE_NON_DEBUTEES + AND + CONDITION_BY_VENDEUR + AND + CONDITION_TEXTE_RECHERCHE + (noCategorie!=0? AND + CONDITION_CATEGORIE:"");
+		
+		try (Connection cnx = JdbcTools.getConnection()) {
+
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			
+			pstmt.setString(1, utilisateur.getPseudo());
+			
+			pstmt.setString(2, "%" + zoneRecherche + "%");
+
+			if(noCategorie!=0) {
+				pstmt.setInt(2, noCategorie);
+			}
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int noArticle = rs.getInt("no_article");
+				String nomArticle = rs.getString("nom_article");
+				LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixVente = rs.getInt("prix_vente");
+				
+				int idVendeur = rs.getInt("no_vendeur");
+				String pseudoVendeur = rs.getString("vendeur_pseudo");
+
+			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
+			lst.add(articleVendu);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+		}
+		return lst;		
 	}
 
 	@Override
 	public List<boArticleVendu> selectMesVentesTerminees(boUtilisateur utilisateur, String zoneRecherche, int noCategorie, List<boArticleVendu> lst, BusinessException be) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;	
+		
+		String requete = SELECT_ACHAT_VENTE + WHERE + CONDITION_DATE_TERMINEES + AND + CONDITION_BY_VENDEUR + AND + CONDITION_TEXTE_RECHERCHE + (noCategorie!=0? AND + CONDITION_CATEGORIE:"");
+		
+		try (Connection cnx = JdbcTools.getConnection()) {
+
+			PreparedStatement pstmt = cnx.prepareStatement(requete);
+			
+			pstmt.setString(1, utilisateur.getPseudo());
+			
+			pstmt.setString(2, "%" + zoneRecherche + "%");
+
+			if(noCategorie!=0) {
+				pstmt.setInt(2, noCategorie);
+			}
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int noArticle = rs.getInt("no_article");
+				String nomArticle = rs.getString("nom_article");
+				LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
+				int prixVente = rs.getInt("prix_vente");
+				
+				int idVendeur = rs.getInt("no_vendeur");
+				String pseudoVendeur = rs.getString("vendeur_pseudo");
+
+			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+
+			lst.add(articleVendu);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+		}
+		return lst;	
 	}
 
 }
