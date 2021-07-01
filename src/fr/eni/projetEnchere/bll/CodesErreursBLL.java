@@ -30,6 +30,7 @@ public abstract class CodesErreursBLL {
 	public static final int ARTICLE_INSERT_ERREUR = 20104;
 	
 	
+	public static final int ENCHERE_CREDIT_INSUFFISANT = 20500;
 	/**
 	 * Mauvais mot de passe renseigné
 	 */

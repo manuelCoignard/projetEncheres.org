@@ -9,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import fr.eni.projetEnchere.bll.ArticleVenduManager;
+import fr.eni.projetEnchere.bo.boUtilisateur;
 
 /**
  * Servlet implementation class ServletAjoutArticle
@@ -40,6 +43,7 @@ public class ServletAjoutArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();	
 		
 		String nomArticle = request.getParameter("nomArticle");
 		String description = request.getParameter("description");
@@ -47,9 +51,10 @@ public class ServletAjoutArticle extends HttpServlet {
 		LocalDate dateFinEnchere = LocalDate.parse(request.getParameter("dateFinEncheres"));
 		int prixInitial = Integer.parseInt(request.getParameter("prixInitial"));
 		//TODO a modifier en session
-		int idUtilisateur = 1;
+		int idUtilisateur = (int) ((boUtilisateur)session.getAttribute("connectedUser")).getNoUtilisateur();
 		int categorie = Integer.parseInt(request.getParameter("categorie"));
 		
+		System.out.println(idUtilisateur);
 		//
 		try {
 			ArticleVenduManager.getInstance().ajoutArticle(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, idUtilisateur, categorie);

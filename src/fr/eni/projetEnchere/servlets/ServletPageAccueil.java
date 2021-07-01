@@ -51,12 +51,13 @@ public class ServletPageAccueil extends HttpServlet {
 			}
 			
 			request.setAttribute("listeMessagesErreur", lstMsgError);
+
 		}
 		
 		//Affichage de la .jsp
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		rd.forward(request, response);
-
+		
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class ServletPageAccueil extends HttpServlet {
 		 *	si categorie renvoie 0, selectAll
 		 */
 		
-		boUtilisateur idUtilisateur = (boUtilisateur) request.getSession().getAttribute("connectedUser");
+		boUtilisateur Utilisateur = (boUtilisateur) request.getSession().getAttribute("connectedUser");
 		
 		String zoneRecherche = request.getParameter("zoneRecherche");
 		String categorie = request.getParameter("categorie");
@@ -103,7 +104,7 @@ public class ServletPageAccueil extends HttpServlet {
 		
 		try {
 			List<boArticleVendu> listeArticle = new ArrayList<>();
-			listeArticle = ArticleVenduManager.getInstance().selectWithFilters(idUtilisateur, zoneRecherche,categorie,achatsVente,encheresOuvertes,mesEncheres,encheresEmportees,mesVentesEnCours,mesVentesNonDebutees,mesVentesTerminees);
+			listeArticle = ArticleVenduManager.getInstance().selectWithFilters(Utilisateur, zoneRecherche,categorie,achatsVente,encheresOuvertes,mesEncheres,encheresEmportees,mesVentesEnCours,mesVentesNonDebutees,mesVentesTerminees);
 			request.setAttribute("listeArticle", listeArticle);
 			
 			//Affichage de la .jsp
