@@ -22,7 +22,7 @@
 			<div class="pseudo">
 				<label for="pseuso">Pseudo :<span style="color: darkred;">*</span></label><br>
 				<label for="pseudo" id="pseudo-description">entre 4 et 15 caractères au maximum</label>
-		        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?" pattern="^[a-z0-9_-]{4,15}$" required><br>
+		        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?" required><br>
 		    </div>		           
 		<br>		
 			<div class="nom">    
@@ -62,7 +62,7 @@
 		<br>	
 			<div class="password">
 				<label for="password">Mot de passe :<span style="color: darkred;">*</span></label><br>
-				<label for="password" id="password-description">(minimum 8 caracteres minimum, une minuscule, une majuscule, un chiffre, un caractere special)</label><br>
+				<label for="password" id="password-description">(8 caracteres minimum, une minuscule, une majuscule, un chiffre, un caractere special)</label><br>
 		        <input type="password" name="password" id="password" size="30" minlength="6" required><br>
 			</div>	
 		<br>

@@ -65,6 +65,8 @@ public class ServletModificationProfil extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<String> listeMsgError = new ArrayList<>();
+		
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
@@ -77,7 +79,55 @@ public class ServletModificationProfil extends HttpServlet {
 		String mdpModifie = request.getParameter("password");
 		String mdpBis = request.getParameter("passwordbis");
 		
-		doGet(request, response);
+		try {
+			UtilisateurManager.getInstance().updateUtilisateur(pseudo, nom, prenom, email, telephone, rue,
+					codePostal, ville, mdpModifie);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// test de savoir si le mot de passe bis est le meme que le premier
+				if (mdpModifie.equals(mdpBis)) {
+
+					// 2. on envoie le tout à la BLL
+					try {
+
+						UtilisateurManager.getInstance().ajoutNouvelUtilisateur(pseudo, nom, prenom, email, telephone, rue,
+								codePostal, ville, mdpModifie);
+
+						// 3. Si l'update s'est bien passée je réaffiche la page avec message
+						String messageOk = "Les modifications sur le profil ont bien été prises en compte";
+						request.setAttribute("messageok", messageOk);
+						
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modificationProfil.jsp");
+						rd.forward(request, response);
+
+					} catch (BusinessException be) {				
+						for (int code : be.getListeCodesErreur()) {
+							listeMsgError.add(LecteurMessage.getMessageErreur(code));
+						}
+					
+					}
+
+				} else {
+					// si mdp ne correspondent pas envoi l'erreur ds la liste
+					BusinessException be = new BusinessException();
+					be.ajouterErreur(CodesErreursServlets.PASSWORD_CONFIRMATION_ERREUR);			
+					for (int code : be.getListeCodesErreur()) {
+						listeMsgError.add(LecteurMessage.getMessageErreur(code));
+					}
+
+				}
+				// Envoi de la liste d'erreur
+				request.setAttribute("ListeMessageErreur", listeMsgError);
+
+				// 4. Si pb lors de l'update réaffiche le formulaire
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modificationProfil.jsp");
+				rd.forward(request, response);
+		
+		
+		
 	}
 
 }

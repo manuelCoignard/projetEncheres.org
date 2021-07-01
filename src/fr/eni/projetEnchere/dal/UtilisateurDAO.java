@@ -12,4 +12,6 @@ public interface UtilisateurDAO {
 	boUtilisateur connectionPseudo(String pseudo) throws BusinessException;
 
 	void desactivationUtilisateur(int noUtillisateur) throws BusinessException;
+
+	void update(boUtilisateur nvlUtilisateur) throws BusinessException;
 }

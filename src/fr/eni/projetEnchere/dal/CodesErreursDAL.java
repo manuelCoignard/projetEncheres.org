@@ -41,6 +41,11 @@ public class CodesErreursDAL {
 	public static final int SELECT_PROFIL_DESACTIVE = 11003;
 	
 	/**
+	 * Erreur lors de l'update du profil
+	 */
+	public static final int UPDATE_PROFIL_ERROR = 11004;
+	
+	/**
 	 * Erreur majeure dans la recherche des catégories
 	 */
 	public static final int SELECT_CATEGORIE_ERROR = 12000;

@@ -80,6 +80,23 @@ public class UtilisateurManager {
 		utilisateurDAO.desactivationUtilisateur(noUtilisateur);
 	}
 	
+	public void updateUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdpModifie) throws BusinessException {
+		BusinessException be = new BusinessException();
+		
+		// Creation de l'utilisateur modifié
+		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdpModifie);
+		
+		// Vérification des données provenant du formulaire
+		methodeGestionErreur(nvlUtilisateur,be);
+		
+		if (be.hasErreurs()) {
+			throw be;
+		}
+		// Si pas erreur : Update dans la BDD
+		utilisateurDAO.update(nvlUtilisateur);
+		
+	}
+	
 	
 	/**
 	 * Méthode permettant de retourner un utilisateur présent dans la base de données via un identifiant et un mot de passe
@@ -215,6 +232,8 @@ public class UtilisateurManager {
 		}
 				
 	}
+
+	
 	
 	
 }

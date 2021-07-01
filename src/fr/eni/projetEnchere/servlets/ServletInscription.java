@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.UtilisateurManager;
-import fr.eni.projetEnchere.dal.CodesErreursDAL;
 import fr.eni.projetEnchere.exceptions.LecteurMessage;
 
 @WebServlet("/ServletInscription")
@@ -31,9 +30,10 @@ public class ServletInscription extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");// permet de gerer les accents
 		List<String> listeMsgError = new ArrayList<>();
+		
+		request.setCharacterEncoding("UTF-8");// permet de gerer les accents
+		
 		// quand on rentre ds le formulaire reviens sur la page d'accueil
 
 		// 1. je crée mes variables implémentées par les infos de l'utilisateur
