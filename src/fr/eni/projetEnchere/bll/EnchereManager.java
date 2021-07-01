@@ -27,29 +27,45 @@ public class EnchereManager {
 		return instance;
 	}
 
-// attribut d'instance
+	// attribut d'instance
 
 	private EnchereDAO enchereDAO = DAOFactory.getEnchere();
-	
-	
-	public void ajoutEnchere(int montantEnchere, boUtilisateur utilisateurId, boArticleVendu articleId) throws BusinessException {
+
+	public void ajoutEnchere(int montantEnchere, boUtilisateur utilisateurId, boArticleVendu articleId)
+			throws BusinessException {
 		BusinessException be = new BusinessException();
 
 		// Création de l'enchère
-					boEnchere nvlEnchere = new boEnchere(montantEnchere, utilisateurId, articleId);
-					
-					// Vérification des données provenant du formulaire
-					
-					//methodeGestionErreur(nvlEnchere,be);
-					
-					if (be.hasErreurs()) {
-						throw be;
-					}
-					// Si pas erreur : Ajout dans la BDD
-					enchereDAO.insert(nvlEnchere);
+		boEnchere nvlEnchere = new boEnchere(montantEnchere, utilisateurId, articleId);
+
+		// Vérification des données provenant du formulaire
+
+		// methodeGestionErreur(nvlEnchere,be);
+
+		if (be.hasErreurs()) {
+			throw be;
+		}
+		// Si pas erreur : Ajout dans la BDD
+		enchereDAO.insert(nvlEnchere);
 	}
-	
-		public boEnchere selectDateArticleId(LocalDate dateEnchere, boArticleVendu articleid) throws SQLException {
-			return enchereDAO.selectDateArticleId(dateEnchere, articleid);
+
+	public boEnchere selectDateArticleId(LocalDate dateEnchere, boArticleVendu articleid) throws SQLException {
+		return enchereDAO.selectDateArticleId(dateEnchere, articleid);
+	}
+
+	/*******************************************************************************
+	 *
+	 * ENSEMBLE DES MÉTHODES INDÉPENDANTES DE VERIFICATION DE CHAMPS
+	 *
+	 *******************************************************************************/
+
+	private void gestionErreurEnchere(boEnchere enchere, BusinessException businessException) {
+		creditInsuffisant(enchere, businessException);
+	}
+
+	private void creditInsuffisant(boEnchere enchere, BusinessException businessException) {
+		if (enchere.getMontantEnchere() < enchere.getUtilisateurId().getCredit()) {
+			businessException.ajouterErreur(CodesErreursBLL.ENCHERE_CREDIT_INSUFFISANT);
+		}
 	}
 }
