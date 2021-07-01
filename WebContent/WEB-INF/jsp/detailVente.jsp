@@ -11,8 +11,13 @@
 <center>
 	<h1>Détail de vente</h1>
 </center>
+	
+
+
 				
-				
+		<form action="<%=request.getContextPath()%>/ServletDetailVente" method="post">
+		<input type="text" value ="${article.getNoArticle()}" name="id" hidden>	
+		<!-- <input type="text" value ="${profilConnecte.getNoUtilisateur()}" name="idUtilisateur" hidden> -->	
 				<table>
 					<tr>
 						<td><strong>${article.getNomArticle()}</strong></td>
@@ -26,8 +31,13 @@
 						<td><c:out value="${article.getCategorie().getLibelle()}" /></td>
 					</tr>
 					<tr>
+						<td>Meilleur offre: </td>
+						<td><c:out value="${article.getEnchere().montantEnchere} par : ${article.getEnchere().getUtilisateurId().getPseudo() }" /></td>
+					</tr>
+					<tr>
 						<td>Mise à prix: </td>
-						<td><c:out value="${article.getPrixInitial()}" /></td>
+						<!-- <td><c:out value="${article.getPrixInitial()}" /></td> -->
+						<td><c:out value="${not empty tata? tata : article.getPrixInitial()}" /></td>
 					</tr>
 					<tr>
 						<td>Fin de l'enchère : </td>
@@ -41,11 +51,13 @@
 					<tr>
 						<td>Vendeur :</td>
 						<td><c:out value="${article.getVendeur().getPseudo()}" /></td>
+						
 					</tr>
 				</table>
 				<label for="enchere">Ma proposition:</label>
-				<input type="number" name="enchere" id="enchere">
-				<button type="submit">Enchérir</button>
-
+				<input type="number" name="enchere" id="enchere" min="${article.getEnchere().montantEnchere + 5}" value="${article.getEnchere().montantEnchere + 5}">
+				<button type="submit" value="encherir">Enchérir</button>Votre solde est de : ${connectedUser.getCredit()}
+				
+</form>
 </body>
 </html>

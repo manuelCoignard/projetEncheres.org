@@ -12,6 +12,7 @@ import java.util.List;
 import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bo.boArticleVendu;
 import fr.eni.projetEnchere.bo.boCategorie;
+import fr.eni.projetEnchere.bo.boEnchere;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.dal.jdbcTools.JdbcTools;
 
@@ -24,9 +25,14 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur";
 	
 	
-	private static final String SELECT_BY_ID = "SELECT * FROM ARTICLES_VENDUS INNER JOIN UTILISATEURS ON ARTICLES_VENDUS.no_utilisateur = UTILISATEURS.no_utilisateur  "
-											+ "	INNER JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie "
-											+ "	WHERE no_article =?" ;
+	private static final String SELECT_BY_ID = "SELECT ARTICLES_VENDUS.no_article, nom_article,description, prix_initial, date_fin_encheres, CATEGORIES.no_categorie AS numCategorie, libelle, VENDEUR.no_utilisateur AS numVendeur , VENDEUR.pseudo as vendeur, VENDEUR.rue as vendeurRue, VENDEUR.code_postal as vendeurCp ,VENDEUR.ville as vendeurVille ,VENDEUR.credit as vendeurCredit, no_enchere, MAX(montant_enchere) as montant_enchere, ACHETEUR.no_utilisateur AS numAcheteur,ACHETEUR.pseudo AS acheteur FROM ARTICLES_VENDUS " + 
+			"LEFT JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article " + 
+			"LEFT JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur " + 
+			"LEFT JOIN UTILISATEURS AS ACHETEUR ON ENCHERES.no_utilisateur = ACHETEUR.no_utilisateur " + 
+			"LEFT JOIN CATEGORIES ON ARTICLES_VENDUS.no_categorie = CATEGORIES.no_categorie " + 
+			"WHERE ARTICLES_VENDUS.no_article = ? " + 
+			"GROUP BY ARTICLES_VENDUS.no_article, nom_article,  description, prix_initial, date_fin_encheres, CATEGORIES.no_categorie, CATEGORIES.libelle, VENDEUR.no_utilisateur , VENDEUR.pseudo, VENDEUR.rue, VENDEUR.code_postal, VENDEUR.ville,VENDEUR.credit, no_enchere, ACHETEUR.pseudo, ACHETEUR.no_utilisateur " + 
+			"ORDER BY montant_enchere DESC" ;
 	
 	@Override
 	public void insert(boArticleVendu nvlArticle) throws BusinessException {
@@ -79,7 +85,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 					int idVendeur = rs.getInt("no_utilisateur");
 					String pseudoVendeur = rs.getString("pseudo");
 
-				boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
+				boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixInitial,new boUtilisateur(idVendeur,pseudoVendeur));
 				//boArticleVendu articleVendu = new boArticleVendu(noArticle, nomArticle, description, dateDebutEncheres, dateFinEncheres, prixInitial, prixVente, idUtilisateur, categorie);
 				listeArticle.add(articleVendu);
 				}
@@ -108,16 +114,24 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 						String description = rs.getString("description");
 						LocalDate dateFinEncheres = rs.getDate("date_fin_encheres").toLocalDate();
 						int prixInitial = rs.getInt("prix_initial");
-						int categorie = rs.getInt("no_categorie");
+						int categorie = rs.getInt("numCategorie");
 						String libelle = rs.getString("libelle");
-						int idVendeur = rs.getInt("no_utilisateur");
-						String pseudoVendeur = rs.getString("pseudo");
-						String adresse = rs.getString("rue");
-						String codePostal = rs.getString("code_postal");
-						String ville = rs.getString("ville");
-						int credit = rs.getInt("credit");
-
-						articleId = new boArticleVendu(noArticle, nomArticle, description, dateFinEncheres,prixInitial,new boCategorie(categorie, libelle), new boUtilisateur(idVendeur, pseudoVendeur, adresse, codePostal, ville, credit));
+						int idVendeur = rs.getInt("numVendeur");
+						String pseudoVendeur = rs.getString("vendeur");
+						String adresse = rs.getString("vendeurRue");
+						String codePostal = rs.getString("vendeurCp");
+						String ville = rs.getString("vendeurVille");
+						int credit = rs.getInt("vendeurCredit");
+						int noEnchere = rs.getInt("no_enchere");
+						int montantEnchere = rs.getInt("montant_enchere");
+						int idAcheteur = rs.getInt("numAcheteur");
+						String pseudoAcheteur = rs.getString("acheteur");
+						
+						boUtilisateur acheteur = new boUtilisateur(idAcheteur, pseudoAcheteur);
+						articleId = new boArticleVendu(noArticle, nomArticle, description, dateFinEncheres,prixInitial,
+								new boCategorie(categorie, libelle), 
+								new boUtilisateur(idVendeur, pseudoVendeur, adresse, codePostal, ville, credit), 
+								new boEnchere(noEnchere, montantEnchere, acheteur ));
 					}
 
 				} catch (Exception e) {

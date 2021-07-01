@@ -12,4 +12,5 @@ public interface ArticleVenduDAO {
 	List<boArticleVendu> selectAll() throws BusinessException;
 	
 	boArticleVendu selectById(int noArticle);
+	
 }
