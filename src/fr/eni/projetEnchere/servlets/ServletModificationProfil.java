@@ -30,7 +30,7 @@ public class ServletModificationProfil extends HttpServlet {
 		
 		// J'envoi l'objet utilisateur "profilConnecte" vers la jsp
 		request.setAttribute("profilConnecte", profilConnecte);
-		
+	
 		// On regarde quelle url a été utilisée pour arriver dans la servlet
 		String urlUtilisee = request.getServletPath();
 		
@@ -46,7 +46,7 @@ public class ServletModificationProfil extends HttpServlet {
 				for (int code : be.getListeCodesErreur()) {
 					listeMsgError.add(LecteurMessage.getMessageErreur(code));						
 				}				
-				//Envoi de la liste 
+				//Si pb envoi de la liste d'erreur
 				request.setAttribute("ListeMessageErreur",listeMsgError);
 			}
 			
@@ -54,6 +54,7 @@ public class ServletModificationProfil extends HttpServlet {
 			response.sendRedirect("ServletPageAccueil");
 			
 		}else {
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modificationProfil.jsp");
 			rd.forward(request, response);
 		}
@@ -63,6 +64,18 @@ public class ServletModificationProfil extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String pseudo = request.getParameter("pseudo");
+		String nom = request.getParameter("nom");
+		String prenom = request.getParameter("prenom");
+		String email = request.getParameter("email");
+		String telephone = request.getParameter("telephone");
+		String rue = request.getParameter("rue");
+		String codePostal = request.getParameter("codepostal");
+		String ville = request.getParameter("ville");
+		String mdpActuel = request.getParameter("passwordActuel");
+		String mdpModifie = request.getParameter("password");
+		String mdpBis = request.getParameter("passwordbis");
 		
 		doGet(request, response);
 	}

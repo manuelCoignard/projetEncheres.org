@@ -157,13 +157,13 @@ public class UtilisateurManager {
 	
 	
 	private	void validerPseudo(boUtilisateur utilisateur, BusinessException businessException) {
-		String verifPseudoAlphanumeric = "/[A-Za-z][0-9]";
+		String verifPseudo = "^[a-z0-9_-]{3,15}$";
 				
 		if(utilisateur.getPseudo().length() < 3 && utilisateur.getPseudo().length() > 20 ) {
 			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_TAILLE_ERREUR);
 		}
 		
-		if(utilisateur.getPseudo().matches(verifPseudoAlphanumeric)) {
+		if(utilisateur.getPseudo().matches(verifPseudo)) {
 			businessException.ajouterErreur(CodesErreursBLL.PSEUDO_ALPHANUMERIC_ERREUR);
 		}		
 	}
@@ -183,7 +183,7 @@ public class UtilisateurManager {
 	}
 	
 	private void validerEmail(boUtilisateur utilisateur, BusinessException businessException) {
-		String verifEmail = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$";
+		String verifEmail = "^([\\w-\\.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$";
 		
 		if(!utilisateur.getEmail().matches(verifEmail)) {
 			businessException.ajouterErreur(CodesErreursBLL.EMAIL_REGEX_ERREUR);

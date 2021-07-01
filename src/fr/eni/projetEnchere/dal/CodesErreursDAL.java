@@ -18,6 +18,8 @@ public class CodesErreursDAL {
 	 */	
 	public static final int INSERT_PSEUDO_ERREUR = 10002;
 	
+	
+	
 	/**
 	 * Erreur majeure dans la recherche de l'utilisateur
 	 */
@@ -32,6 +34,11 @@ public class CodesErreursDAL {
 	 * Plusieurs utilisateurs retournés lors de la recherche
 	 */
 	public static final int MULTIPLE_USERS_FOUND = 11002;
+	
+	/**
+	 * Erreur quand tentative connection avec profil desactivé(supprimé)
+	 */
+	public static final int SELECT_PROFIL_DESACTIVE = 11003;
 	
 	/**
 	 * Erreur majeure dans la recherche des catégories

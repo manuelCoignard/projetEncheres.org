@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="./css/styleDetailVente.css">
+<title>Vente</title>
 </head>
 <body>
-<center>
-	<h1>Détail de vente</h1>
-</center>
+
+	<h1>Détail de la vente</h1>
+
 				
 				
 				<table>
