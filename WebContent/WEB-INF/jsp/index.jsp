@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./css/stylePageAccueil.css">
+<link rel="stylesheet" href="./css/styleIndex.css">
 <title>Accueil</title>
 </head>
 
