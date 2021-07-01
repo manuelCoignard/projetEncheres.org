@@ -11,6 +11,11 @@ h1 {
   	
 }
 
+#tag-connection {
+	font-style: oblique;
+	font-size: 0.8em
+}
+
 #connection-utilisateur {
 	display: flex;
 	border: 1px solid #333;

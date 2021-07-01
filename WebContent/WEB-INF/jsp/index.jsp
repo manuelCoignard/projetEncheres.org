@@ -27,7 +27,7 @@
 	
 	<div id="statut-connection">
 		<c:if test="${not empty connectedUser}">
-			<strong>Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</strong>
+			<p id="tag-connection">Vous êtes connecté en tant que : ${connectedUser.getPseudo()}</p>
 		</c:if>
 	</div>
 				
