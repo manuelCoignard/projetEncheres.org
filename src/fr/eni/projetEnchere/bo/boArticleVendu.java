@@ -108,7 +108,7 @@ public class boArticleVendu {
 		
 	}
 	/**
-	 * Constructeur ajout de l'article
+	 * Constructeur ajout de l'article. Dans ce cas précis, le prix initial est également le prix de vente
 	 * @param nomArticle
 	 * @param description
 	 * @param dateDebutEncheres
@@ -117,7 +117,6 @@ public class boArticleVendu {
 	 * @param noUtilisateur
 	 * @param noCategorie
 	 */
-	
 	public boArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate finDebutEncheres, int prixInitial, int noUtilisateur, int noCategorie) {
 		super();
@@ -127,6 +126,7 @@ public class boArticleVendu {
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.finDebutEncheres = finDebutEncheres;
 		this.prixInitial = prixInitial;
+		this.prixVente = prixInitial;
 		this.noUtilisateur = noUtilisateur;
 		this.noCategorie = noCategorie;
 	}
