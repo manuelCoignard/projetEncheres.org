@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+html {
+	font-family: sans-serif;
+}
+
+h1 {
+	display: flex;
+	border: 1px solid #333;
+   	justify-content: center;
+    color: chartreuse;
+}

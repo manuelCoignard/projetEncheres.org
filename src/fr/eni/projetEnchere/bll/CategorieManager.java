@@ -28,12 +28,16 @@ public class CategorieManager {
 
 	///////////////////////////////////////// METHODES PUBLICS/////////////////////////////////
 	
+	/**
+	 * Méthode retournant la liste des catégories existantes
+	 * @return une liste de catégorie (boCategorie)
+	 * @throws BusinessException
+	 */
 	public List<boCategorie> selectAllCategories() throws BusinessException{
 		List<boCategorie> lstCategorie= new ArrayList<>();
 		
 		lstCategorie = categorieDAO.selectAll();
 		
 		return lstCategorie;
-	}
-	
+	}	
 }

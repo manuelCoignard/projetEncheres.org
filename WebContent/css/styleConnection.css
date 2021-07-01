@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-html {
+html{
 	font-family: sans-serif;
 }
 
@@ -11,25 +11,29 @@ h1 {
     color: chartreuse;
     
 }
-      
-#champs-saisie {
+
+#lien-connection {
 	display: flex;
 	border: 1px solid #333;
    	justify-content: center;
+   	
 }
 
-#btn-annuler {
+#connection{
 	display: flex;
 	border: 1px solid #333;
+   	flex-direction:column;
    	justify-content: center;
 }
 
-#pseudo-description {
-	font-style: oblique;
-	font-size: 0.7em
+#identifiant {
+	display: flex;
+	align-self: center;
+	
 }
 
-#password-description {
-	font-style: oblique;
-	font-size: 0.7em
+#motdepasse {
+	display: flex;
+	align-self: center;
+	
 }

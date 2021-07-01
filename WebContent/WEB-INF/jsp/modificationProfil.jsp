@@ -72,7 +72,11 @@
 				        <label for="passwordbis">Confirmation du mot de passe:<span style="color: darkred;">*</span></label>
 				        <input type="password" name="passwordbis" id="passwordbis" size="30" minlength="6" ><br>
 					</div>   
-				<br>	        	
+				<br>
+					<div class="points">
+						<label for="point">Votre Crédit : ${profilConnecte.getCredit() }</label>
+						
+					</div>	        	
 	        </section>
 	        	<br>
 	        <nav id="lien-utilisateur">

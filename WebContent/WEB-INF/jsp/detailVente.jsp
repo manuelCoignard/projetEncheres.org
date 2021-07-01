@@ -5,12 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="./css/styleDetailVente.css">
+<title>Vente</title>
 </head>
 <body>
-<center>
+
 	<h1>Détail de vente</h1>
-</center>
+
 	
 
 
@@ -51,13 +52,11 @@
 					<tr>
 						<td>Vendeur :</td>
 						<td><c:out value="${article.getVendeur().getPseudo()}" /></td>
-						
 					</tr>
 				</table>
 				<label for="enchere">Ma proposition:</label>
-				<input type="number" name="enchere" id="enchere" min="${article.getEnchere().montantEnchere + 5}" value="${article.getEnchere().montantEnchere + 5}">
-				<button type="submit" value="encherir">Enchérir</button>Votre solde est de : ${connectedUser.getCredit()}
-				
-</form>
+				<input type="number" name="enchere" id="enchere">
+				<button type="submit">Enchérir</button>
+		</form>
 </body>
 </html>

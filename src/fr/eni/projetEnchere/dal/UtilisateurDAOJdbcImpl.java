@@ -130,22 +130,31 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				
 				//Positionne le curseur sur la 1ère ligne de résultat du ResultSet
 				rs.absolute(1);
+				boolean utilisateurActif = rs.getBoolean("utilisateur_actif");
 				
-				//Récupération des données de l'utilisateur 
-				int noId = rs.getInt("no_utilisateur");
-				String pseudo = rs.getString("pseudo");
-				String nom = rs.getString("nom");
-				String prenom = rs.getString("prenom");
-				String tel = rs.getString("telephone");
-				String mdp = rs.getString("mot_de_passe");
-				String adresse = rs.getString("rue");
-				String cp = rs.getString("code_postal");
-				String ville = rs.getString("ville");
-				int credit = rs.getInt("credit");
-				boolean admin = rs.getBoolean("administrateur");
+				// Si tentative de connection a un profil desactivé, message erreur adequat
+				if (utilisateurActif == false) {
+					BusinessException be = new BusinessException();
+					be.ajouterErreur(CodesErreursDAL.SELECT_PROFIL_DESACTIVE);
+					throw be;
+				}else {		// Sinon construction de l'utilisateur			
+	
+					//Récupération des données de l'utilisateur 
+					int noId = rs.getInt("no_utilisateur");
+					String pseudo = rs.getString("pseudo");
+					String nom = rs.getString("nom");
+					String prenom = rs.getString("prenom");
+					String tel = rs.getString("telephone");
+					String mdp = rs.getString("mot_de_passe");
+					String adresse = rs.getString("rue");
+					String cp = rs.getString("code_postal");
+					String ville = rs.getString("ville");
+					int credit = rs.getInt("credit");
+					boolean admin = rs.getBoolean("administrateur");
 					
-				//Construction de l'utilisateur
-				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
+					utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
+				}		
+				
 		}
 		catch(SQLException e)
 		{
@@ -192,22 +201,30 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				
 				//Positionne le curseur sur la 1ère ligne de résultat du ResultSet
 				rs.absolute(1);
+				boolean utilisateurActif = rs.getBoolean("utilisateur_actif");
 				
-				//Récupération des données de l'utilisateur 
-				int noId = rs.getInt("no_utilisateur");
-				String email = rs.getString("email");
-				String nom = rs.getString("nom");
-				String prenom = rs.getString("prenom");
-				String tel = rs.getString("telephone");
-				String mdp = rs.getString("mot_de_passe");
-				String adresse = rs.getString("rue");
-				String cp = rs.getString("code_postal");
-				String ville = rs.getString("ville");
-				int credit = rs.getInt("credit");
-				boolean admin = rs.getBoolean("administrateur");
+				// Si tentative de connection a un profil desactivé, message erreur adequat
+				if (utilisateurActif == false) {
+					BusinessException be = new BusinessException();
+					be.ajouterErreur(CodesErreursDAL.SELECT_PROFIL_DESACTIVE);
+					throw be;
+				}else {		// Sinon construction de l'utilisateur			
+	
+					//Récupération des données de l'utilisateur 
+					int noId = rs.getInt("no_utilisateur");
+					String email = rs.getString("email");
+					String nom = rs.getString("nom");
+					String prenom = rs.getString("prenom");
+					String tel = rs.getString("telephone");
+					String mdp = rs.getString("mot_de_passe");
+					String adresse = rs.getString("rue");
+					String cp = rs.getString("code_postal");
+					String ville = rs.getString("ville");
+					int credit = rs.getInt("credit");
+					boolean admin = rs.getBoolean("administrateur");
 					
-				//Construction de l'utilisateur
-				utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
+					utilisateur =new boUtilisateur(noId, pseudo, nom, prenom, email, tel, adresse, cp, ville, mdp, credit, admin);
+				}		
 		}
 		catch(SQLException e)
 		{
