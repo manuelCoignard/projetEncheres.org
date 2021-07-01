@@ -5,16 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="./css/styleAjoutArticle.css">
 <title>AjoutArticle</title>
 </head>
 <body>
 
 <main>
+<h1>Vendre un article</h1>
 
 	<form action="<%=request.getContextPath()%>/ServletAjoutArticle" method="POST">
-	<center>
-		<h2>Vendre un article</h2>
-	</center>	
+		
+	
 		<br>
 		<div>
 			<label for="nomArticle">Nom de l'article :</label><br>
