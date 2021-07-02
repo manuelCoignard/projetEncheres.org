@@ -24,7 +24,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 	
 	private static final String DESACTIVATION_PROFIL = "UPDATE UTILISATEURS SET utilisateur_actif= 0 WHERE no_utilisateur=?";
 	
-	private static final String UPDATE_PROFIL = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+	private static final String UPDATE_PROFIL = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=?, credit=100, administrateur=0 WHERE no_utilisateur=?";
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 	
@@ -267,13 +267,15 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO{
 				pStmt.setString(6, modificationUtilisateur.getRue());
 				pStmt.setString(7, modificationUtilisateur.getCodePostal());
 				pStmt.setString(8, modificationUtilisateur.getVille());
-				pStmt.setString(9, modificationUtilisateur.getMotDePpasse());				
+				pStmt.setString(9, modificationUtilisateur.getMotDePpasse());
+				pStmt.setInt(10, modificationUtilisateur.getNoUtilisateur());
 				pStmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			BusinessException bException = new BusinessException();
 			bException.ajouterErreur(CodesErreursDAL.UPDATE_PROFIL_ERROR);
+			throw bException;
 		}
 
 	}

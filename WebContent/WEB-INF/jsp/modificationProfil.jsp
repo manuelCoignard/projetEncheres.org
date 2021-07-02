@@ -59,13 +59,13 @@
 					</div>
 				<br>	
 					<div class="passwordActuel">
-						<label for="passwordActuel">Rentrez votre mot de passe actuel :</label>
-				        <input type="password" name="passwordActuel" id="passwordActuel" size="30" minlength="6" ><br>
+						<label for="passwordActuel">Rentrez votre mot de passe actuel :<span style="color: darkred;">*</span></label>
+				        <input type="password" name="passwordActuel" id="passwordActuel" size="30"  ><br>
 					</div>
 				<br>
 					<div class="password">
-				        <label for="password">Tapez votre nouveau mot de passe :</label>
-				        <input type="password" name="password" id="password" size="30" ><br>
+				        <label for="password">Tapez votre nouveau mot de passe :<span style="color: darkred;">*</span></label>
+				        <input type="password" name="password" id="password" size="30" minlength="6" ><br>
 					</div> 	
 				<br>
 					<div class="passwordbis">
@@ -90,6 +90,10 @@
 	    </form>
 	<br>
 	
+	
+	<p id="modif-reussie">${requestScope.messageOk }</p>	
+	
+		
 	<c:if test="${!empty requestScope.listeMessagesErreur }">
 		<ul>
 			<c:forEach var="msg" items="${requestScope.listeMessagesErreur }">

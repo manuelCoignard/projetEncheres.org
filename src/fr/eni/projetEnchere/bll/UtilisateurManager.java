@@ -80,7 +80,7 @@ public class UtilisateurManager {
 		utilisateurDAO.desactivationUtilisateur(noUtilisateur);
 	}
 	
-	public void updateUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdpModifie) throws BusinessException {
+	public boUtilisateur updateUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdpModifie) throws BusinessException {
 		BusinessException be = new BusinessException();
 		
 		// Creation de l'utilisateur modifié
@@ -95,6 +95,7 @@ public class UtilisateurManager {
 		// Si pas erreur : Update dans la BDD
 		utilisateurDAO.update(nvlUtilisateur);
 		
+		return nvlUtilisateur;
 	}
 	
 	
