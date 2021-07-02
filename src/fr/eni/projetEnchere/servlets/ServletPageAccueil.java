@@ -66,8 +66,6 @@ public class ServletPageAccueil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
 		
 		/*1.vérifier si utilisateur connecté;
 		 *	si nok, direction accueil non connecté (doGet) 
@@ -97,10 +95,6 @@ public class ServletPageAccueil extends HttpServlet {
 		String mesVentesEnCours = request.getParameter("chkMesVentesEnCours");
 		String mesVentesNonDebutees = request.getParameter("chkVentesNonDebutees");
 		String mesVentesTerminees = request.getParameter("chkVentesTerminees");
-		
-		/*
-		 * NE PAS OUBLIER DE METTRE UN CHAMP SUR L'ARTICLE POUR STIPULER LE FILTRE APPLIQUE !!!!!!!
-		 */
 		
 		try {
 			List<boArticleVendu> listeArticle = new ArrayList<>();
