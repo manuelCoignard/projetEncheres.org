@@ -81,8 +81,6 @@ public class ServletDetailVente extends HttpServlet {
 				System.out.println("enchere if :" + enchereArticle);
 				request.setAttribute("tata", enchereArticle);
 			}*/
-			System.out.println("enchere" + montantEnchere);
-		System.out.println(prixInitialArticle);
 		}catch (Exception e) {
 			//TODO gerer validation erreur
 			e.printStackTrace();
