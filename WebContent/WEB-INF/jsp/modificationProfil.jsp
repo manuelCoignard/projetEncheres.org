@@ -20,42 +20,42 @@
 				<br>		
 					<div class="pseudo">
 						<label for="pseuso">Pseudo :</label>
-				        <input type="text" id="pseudo" name="pseudo" placeholder="${profilConnecte.getPseudo() }"><br>
+				        <input type="text" id="pseudo" name="pseudo" value="${profilConnecte.getPseudo() }"><br>
 				    </div>		           
 				<br>		
 					<div class="nom">    
 					    <label for="nom">Nom :</label>
-					    <input type="text" id="nom" name="nom" placeholder="${profilConnecte.getNom() }"><br>	    
+					    <input type="text" id="nom" name="nom" value="${profilConnecte.getNom() }"><br>	    
 				    </div>
 				<br>    
 				    <div class="prenom">
 					    <label for="prenom">Prenom :</label>
-					    <input type="text" id="prenom" name="prenom" placeholder="${profilConnecte.getPrenom() }"><br>	    
+					    <input type="text" id="prenom" name="prenom" value="${profilConnecte.getPrenom() }"><br>	    
 					</div>    
 				<br>
 					<div class="email">    
 					    <label for="email">Email :</label>   	    
-				        <input type="email" name="email" id="email" placeholder="${profilConnecte.getEmail() }" size="25" pattern="^[\w+.-]+@\w+.\w{2,5}$"><br>	        
+				        <input type="email" name="email" id="email" value="${profilConnecte.getEmail() }" size="25" pattern="^[\w+.-]+@\w+.\w{2,5}$"><br>	        
 			        </div>
 			    <br>    
 			        <div class="telephone">
 				        <label for="phone">Téléphone :</label>
-				        <input type="phone" name="telephone" id="telephone" placeholder="${profilConnecte.getTelephone() }" size="15"><br>
+				        <input type="phone" name="telephone" id="telephone" value="${profilConnecte.getTelephone() }" size="15"><br>
 					</div>	
 				<br>
 					<div class="rue">
 						<label for="rue">Rue :</label>
-						<input type="text" name="rue" id="rue" placeholder="${profilConnecte.getRue() }"><br>
+						<input type="text" name="rue" id="rue" value="${profilConnecte.getRue() }"><br>
 					</div>
 				<br>		
 					<div class="codePostal">
 						<label for="cp">Code postal :</label>
-						<input type="text" name="codepostal" id="codepostal" placeholder="${profilConnecte.getCodePostal() }"><br>
+						<input type="text" name="codepostal" id="codepostal" value="${profilConnecte.getCodePostal() }"><br>
 					</div>	
 				<br>
 					<div class="ville">	
 						<label for="ville">Ville :</label>
-						<input type="text" name="ville" id="ville" placeholder="${profilConnecte.getVille() }"><br>		
+						<input type="text" name="ville" id="ville" value="${profilConnecte.getVille() }"><br>		
 					</div>
 				<br>	
 					<div class="passwordActuel">
