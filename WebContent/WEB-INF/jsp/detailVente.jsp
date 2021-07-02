@@ -54,9 +54,12 @@
 						<td><c:out value="${article.getVendeur().getPseudo()}" /></td>
 					</tr>
 				</table>
+				<c:if test="${not empty connectedUser && article.getVendeur().getPseudo() != connectedUser.getPseudo()}">
 				<label for="enchere">Ma proposition:</label>
 				<input type="number" name="enchere" id="enchere">
 				<button type="submit">Enchérir</button>
+				</c:if>
 		</form>
+		<a href="${pageContext.request.contextPath}/ServletPageAccueil">Retour à l'accueil</a>
 </body>
 </html>

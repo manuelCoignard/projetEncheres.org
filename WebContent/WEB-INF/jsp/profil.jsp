@@ -51,9 +51,10 @@
 				</table>
 				<br>
 	<footer>		
-		<c:if test="${not empty connectedUser}">
+		<c:if test="${not empty connectedUser && profilConnecte.getPseudo() == connectedUser.getPseudo()}">
 			<a href="<%=request.getContextPath()%>/ServletModificationProfil">Modifier le profil</a>
 		</c:if>
+		<a href="${pageContext.request.contextPath}/ServletPageAccueil">Retour à l'accueil</a>
 	</footer>
 			
 
