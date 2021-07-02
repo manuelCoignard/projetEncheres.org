@@ -28,7 +28,7 @@ public interface ArticleVenduDAO {
 	 * @param noArticle 
 	 * @return un objet de type {@link boArticleVendu}
 	 */
-	boArticleVendu selectById(int noArticle);
+	boArticleVendu selectById(int noArticle) throws BusinessException;
 
 	/**
 	 * Méthode affichant la liste des articles dont les enchères sont en cours

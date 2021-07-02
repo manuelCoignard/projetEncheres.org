@@ -124,7 +124,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	}
 	
 	@Override
-	public boArticleVendu selectById(int noArticle) {
+	public boArticleVendu selectById(int noArticle) throws BusinessException{
 		boArticleVendu articleId = null;
 				try (Connection cnx = JdbcTools.getConnection()) {
 

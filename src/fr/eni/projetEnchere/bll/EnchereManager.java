@@ -38,10 +38,7 @@ public class EnchereManager {
 		// Création de l'enchère
 		boEnchere nvlEnchere = new boEnchere(montantEnchere, utilisateurId, articleId);
 
-		// Vérification des données provenant du formulaire
-
-		// methodeGestionErreur(nvlEnchere,be);
-
+		gestionErreurEnchere(nvlEnchere, be);
 		if (be.hasErreurs()) {
 			throw be;
 		}
@@ -64,7 +61,7 @@ public class EnchereManager {
 	}
 
 	private void creditInsuffisant(boEnchere enchere, BusinessException businessException) {
-		if (enchere.getMontantEnchere() < enchere.getUtilisateurId().getCredit()) {
+		if (enchere.getUtilisateurId().getCredit() < enchere.getMontantEnchere()) {
 			businessException.ajouterErreur(CodesErreursBLL.ENCHERE_CREDIT_INSUFFISANT);
 		}
 	}

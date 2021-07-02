@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.projetEnchere.BusinessException;
 import fr.eni.projetEnchere.bll.ArticleVenduManager;
 import fr.eni.projetEnchere.bll.EnchereManager;
 import fr.eni.projetEnchere.bo.boArticleVendu;
 import fr.eni.projetEnchere.bo.boEnchere;
 import fr.eni.projetEnchere.bo.boUtilisateur;
+import fr.eni.projetEnchere.exceptions.LecteurMessage;
 
 /**
  * Servlet implementation class ServletDetailVente
@@ -39,21 +41,28 @@ public class ServletDetailVente extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		if (request.getAttribute("listeErreur") != null) {
+			request.setAttribute("listeErreur",request.getAttribute("listeErreur"));
+		}
 		int articleId = Integer.parseInt(request.getParameter("id"));
 		//int utilisateurId = Integer.parseInt(request.getParameter("idUtilisateur"));
-		boArticleVendu toto =ArticleVenduManager.getInstance().selectById(articleId);
+		boArticleVendu toto;
+		try {
+			toto = ArticleVenduManager.getInstance().selectById(articleId);
+			request.setAttribute("article", toto);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
-		request.setAttribute("article", toto);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailVente.jsp");
 		rd.forward(request, response);
 		
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();		
 		boUtilisateur profilConnecte = (boUtilisateur) session.getAttribute("connectedUser");
@@ -69,31 +78,18 @@ public class ServletDetailVente extends HttpServlet {
 			int montantEnchere = Integer.parseInt(request.getParameter("enchere"));
 			//request.setAttribute("tata", montantEnchere);
 			EnchereManager.getInstance().ajoutEnchere(montantEnchere,profilConnecte, selectById );
-			int creditUtilisateur = profilConnecte.getCredit();
-			int prixInitialArticle = selectById.getPrixInitial();
-			int enchere =0;
-	
-			/*if(prixInitialArticle > montantEnchere) {
-				
-				request.setAttribute("tata", prixInitialArticle);
-			} else {
-				
-				int enchereArticle = montantEnchere;
-				System.out.println("enchere if :" + enchereArticle);
-				request.setAttribute("tata", enchereArticle);
-			}*/
+		
 			System.out.println("enchere" + montantEnchere);
-		System.out.println(prixInitialArticle);
-		}catch (Exception e) {
-			//TODO gerer validation erreur
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		
-		
+			
+		}catch (BusinessException be) {
+			List<String> listeMsgError = new ArrayList<>();
+			for (int code : be.getListeCodesErreur()) {
+				listeMsgError.add(LecteurMessage.getMessageErreur(code));
+			}
+			request.setAttribute("listeErreur", listeMsgError);
+			
+		} 
 		doGet(request, response);
+	
 	}
 }

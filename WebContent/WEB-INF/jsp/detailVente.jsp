@@ -47,16 +47,30 @@
 					<tr>
 						<td>Retrait :</td>
 						<td><c:out value="${article.getVendeur().getRue()}" /></td>
-						<td><c:out value="${article.getVendeur().getCodePostal()}" /></td><td><c:out value="${article.getVendeur().getVille()}" /></td>
+						<td><c:out value="${article.getVendeur().getCodePostal()}" /></td>
+						<td><c:out value="${article.getVendeur().getVille()}" /></td>
 					</tr>
 					<tr>
 						<td>Vendeur :</td>
 						<td><c:out value="${article.getVendeur().getPseudo()}" /></td>
 					</tr>
 				</table>
-				<label for="enchere">Ma proposition:</label>
+				<label for="enchere">Ma proposition: </label> 
 				<input type="number" name="enchere" id="enchere">
-				<button type="submit">Enchérir</button>
+				<button type="submit">Enchérir</button><label for="enchere"> Mes crédits : ${connectedUser.getCredit()}</label>
+				<a href="${pageContext.request.contextPath}/ServletPageAccueil">Retour</a>
 		</form>
+		
+		
+		<div id="messageErreur">
+			<c:if test="${!empty requestScope.listeErreur }">
+			<br>		
+				<ul>			
+					<c:forEach var="msg" items="${requestScope.listeErreur }">
+						<li>${msg }</li>					
+					</c:forEach>
+				</ul>
+			</c:if>
+		</div>
 </body>
 </html>
