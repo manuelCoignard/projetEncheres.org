@@ -65,7 +65,7 @@
 				<br>
 					<div class="password">
 				        <label for="password">Tapez votre nouveau mot de passe :</label>
-				        <input type="password" name="password" id="password" size="30" minlength="6" ><br>
+				        <input type="password" name="password" id="password" size="30" ><br>
 					</div> 	
 				<br>
 					<div class="passwordbis">

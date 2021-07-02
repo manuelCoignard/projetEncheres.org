@@ -21,7 +21,7 @@
 		<br>		
 			<div class="pseudo">
 				<label for="pseuso">Pseudo :<span style="color: darkred;">*</span></label><br>
-				<label for="pseudo" id="pseudo-description">entre 4 et 15 caractères au maximum</label>
+				<label for="pseudo" id="pseudo-description">entre 4 et 15 caractères au maximum</label><br>
 		        <input type="text" id="pseudo" name="pseudo" placeholder="votre pseudo ?" required><br>
 		    </div>		           
 		<br>		
