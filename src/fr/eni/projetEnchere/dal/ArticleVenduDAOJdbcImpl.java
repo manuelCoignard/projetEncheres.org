@@ -56,8 +56,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 	private static final String CONDITION_ENCHERES_EMPORTEES = "montant_enchere = prix_vente";
 	
 	
-	
-	
 	private static final String SELECT_BY_ID = "SELECT ARTICLES_VENDUS.no_article, nom_article,description, prix_initial, date_fin_encheres, CATEGORIES.no_categorie AS numCategorie, libelle, VENDEUR.no_utilisateur AS numVendeur , VENDEUR.pseudo as vendeur, VENDEUR.rue as vendeurRue, VENDEUR.code_postal as vendeurCp ,VENDEUR.ville as vendeurVille ,VENDEUR.credit as vendeurCredit, no_enchere, MAX(montant_enchere) as montant_enchere, ACHETEUR.no_utilisateur AS numAcheteur,ACHETEUR.pseudo AS acheteur FROM ARTICLES_VENDUS " + 
 			"LEFT JOIN ENCHERES ON ARTICLES_VENDUS.no_article = ENCHERES.no_article " + 
 			"LEFT JOIN UTILISATEURS AS VENDEUR ON ARTICLES_VENDUS.no_utilisateur = VENDEUR.no_utilisateur " + 
@@ -97,11 +95,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 		}
 	}
 	
-	/**
-	 * Méthode permettant de récupérer la liste des articles dont les enchères sous toujours en cours
-	 * à la date du jour. Les enchères closes ne sont pas récupérées !
-	 * @return une liste d'articles de la classe boArticleVendu
-	 */
+	@Override
 	public List<boArticleVendu> selectAll() throws BusinessException {
 		List<boArticleVendu> listeArticle = new ArrayList<>();
 			try(Connection cnx = JdbcTools.getConnection()){
@@ -201,13 +195,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
 
-			lst.add(articleVendu);
+			isExist(articleVendu, lst);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+			businessException.ajouterErreur(CodesErreursDAL.SELECT_ENCHERES_OUVERTES_ERROR);
 		}
 		return lst;
 	}
@@ -242,13 +236,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
 
-			lst.add(articleVendu);
+			isExist(articleVendu, lst);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+			businessException.ajouterErreur(CodesErreursDAL.SELECT_MES_ENCHERES_ERROR);
 		}
 		return lst;	
 	}
@@ -283,13 +277,13 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
 
-			lst.add(articleVendu);
+			isExist(articleVendu, lst);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+			businessException.ajouterErreur(CodesErreursDAL.SELECT_ENCHERES_EMPORTEES_ERROR);
 		}
 		return lst;	
 	}
@@ -323,14 +317,14 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				String pseudoVendeur = rs.getString("vendeur_pseudo");
 
 			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
-
-			lst.add(articleVendu);
+			
+			isExist(articleVendu, lst);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+			businessException.ajouterErreur(CodesErreursDAL.SELECT_VENTES_EC_ERROR);
 		}
 		return lst;	
 	}
@@ -364,14 +358,14 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 				String pseudoVendeur = rs.getString("vendeur_pseudo");
 
 			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
-
-			lst.add(articleVendu);
+			
+			isExist(articleVendu, lst);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+			businessException.ajouterErreur(CodesErreursDAL.SELECT_VENTES_NON_DEBUTEES_ERROR);
 		}
 		return lst;		
 	}
@@ -406,15 +400,35 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
 			boArticleVendu articleVendu = new boArticleVendu(noArticle,nomArticle,dateFinEncheres,prixVente,new boUtilisateur(idVendeur,pseudoVendeur));
 
-			lst.add(articleVendu);
+			isExist(articleVendu, lst);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
-			businessException.ajouterErreur(CodesErreursDAL.ARTICLE_INSERT_ERREUR);
+			businessException.ajouterErreur(CodesErreursDAL.SELECT_VENTES_TERMINEES_ERROR);
 		}
 		return lst;	
 	}
-
+	
+	/**
+	 * Méthode permettant de vérifier si un article existe déjà dans la liste des articles afin d'éviter les doublons
+	 * @param article article que l'on souhaite ajouter dans la liste des articles
+	 * @param lstArticles liste des articles existantes
+	 */
+	private void isExist(boArticleVendu article, List<boArticleVendu> lstArticles) {
+		
+		boolean exist = false;
+		
+		for (boArticleVendu itemInLstArticles : lstArticles) {
+			if(itemInLstArticles.getNoArticle() == article.getNoArticle()) {
+				exist = true;
+			}
+		}
+		
+		if(!exist) {
+			lstArticles.add(article);
+		}
+		
+	}		
 }

@@ -50,10 +50,24 @@ public class CodesErreursDAL {
 	 */
 	public static final int SELECT_CATEGORIE_ERROR = 12000;
 	
+	
+	
 	public static final int ARTICLE_INSERT_ERREUR = 10100;
 
 	public static final int ARTICLE_SELECTALL_ERREUR = 10101;
 	
+	public static final int SELECT_ENCHERES_OUVERTES_ERROR = 13000;
 	
+	public static final int SELECT_MES_ENCHERES_ERROR = 13001;
 	
+	public static final int SELECT_ENCHERES_EMPORTEES_ERROR = 13002;
+	
+	public static final int SELECT_VENTES_EC_ERROR = 13003;
+	
+	public static final int SELECT_VENTES_NON_DEBUTEES_ERROR = 13004;
+	
+	public static final int SELECT_VENTES_TERMINEES_ERROR = 13005;
+	
+	public static final int MODIF_PRIX_VENTE_ERROR = 14000;
+	public static final int MODIF_PRIX_VENTE_ECHEC = 14001;
 }
