@@ -80,11 +80,11 @@ public class UtilisateurManager {
 		utilisateurDAO.desactivationUtilisateur(noUtilisateur);
 	}
 	
-	public boUtilisateur updateUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdpModifie) throws BusinessException {
+	public boUtilisateur updateUtilisateur(int idUser, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdpModifie) throws BusinessException {
 		BusinessException be = new BusinessException();
 		
 		// Creation de l'utilisateur modifié
-		boUtilisateur nvlUtilisateur = new boUtilisateur(pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdpModifie);
+		boUtilisateur nvlUtilisateur = new boUtilisateur(idUser, pseudo,nom,prenom,email,telephone,rue,codePostal,ville,mdpModifie);
 		
 		// Vérification des données provenant du formulaire
 		methodeGestionErreur(nvlUtilisateur,be);

@@ -71,6 +71,7 @@ public class ServletModificationProfil extends HttpServlet {
 		boUtilisateur profilConnecte = (boUtilisateur) session.getAttribute("connectedUser");
 		String mdpProfilEnBase = profilConnecte.getMotDePpasse();
 		
+		int idUser = profilConnecte.getNoUtilisateur();
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
@@ -90,7 +91,7 @@ public class ServletModificationProfil extends HttpServlet {
 					// 2. on envoie le tout à la BLL
 					try {
 
-						boUtilisateur userModifie = UtilisateurManager.getInstance().updateUtilisateur(pseudo, nom, prenom, email, telephone, rue,
+						boUtilisateur userModifie = UtilisateurManager.getInstance().updateUtilisateur(idUser, pseudo, nom, prenom, email, telephone, rue,
 								codePostal, ville, mdpModifie);
 
 						if (userModifie != null) {
