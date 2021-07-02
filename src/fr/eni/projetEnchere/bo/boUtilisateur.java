@@ -211,6 +211,35 @@ public class boUtilisateur {
 	}
 
 	
+	/**
+	 * construcvteur pour le update utilisateur
+	 * @param noUtilisateur
+	 * @param pseudo
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param telephone
+	 * @param rue
+	 * @param codePostal
+	 * @param ville
+	 * @param motDePpasse
+	 */
+
+	public boUtilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePpasse) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePpasse = motDePpasse;
+	}
+
 	//Affichage des données de l'utilisateur
 	@Override
 	public String toString() {

@@ -54,7 +54,6 @@ public class ServletAjoutArticle extends HttpServlet {
 		int idUtilisateur = (int) ((boUtilisateur)session.getAttribute("connectedUser")).getNoUtilisateur();
 		int categorie = Integer.parseInt(request.getParameter("categorie"));
 		
-		System.out.println(idUtilisateur);
 		//
 		try {
 			ArticleVenduManager.getInstance().ajoutArticle(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, idUtilisateur, categorie);
