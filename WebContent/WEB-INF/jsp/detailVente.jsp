@@ -59,6 +59,7 @@
 				<input type="number" name="enchere" id="enchere">
 				<button type="submit">Enchérir</button><label for="enchere"> Mes crédits : ${connectedUser.getCredit()}</label>
 				<a href="${pageContext.request.contextPath}/ServletPageAccueil">Retour</a>
+				</c:if>
 		</form>
 		
 		
