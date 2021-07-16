@@ -75,11 +75,30 @@ public class UtilisateurManager {
 		return profilParPseudo;
 	}
 	
-	
+	/**
+	 * Methode permettant à un utilisateur de supprimer son profil
+	 * @param noUtilisateur
+	 * @throws BusinessException
+	 */
 	public void desactivationProfil(int noUtilisateur) throws BusinessException {
 		utilisateurDAO.desactivationUtilisateur(noUtilisateur);
 	}
 	
+	/**
+	 * Methode permettant à un utilisateur de modifier le profil 
+	 * @param idUser
+	 * @param pseudo
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param telephone
+	 * @param rue
+	 * @param codePostal
+	 * @param ville
+	 * @param mdpModifie
+	 * @return
+	 * @throws BusinessException
+	 */
 	public boUtilisateur updateUtilisateur(int idUser, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdpModifie) throws BusinessException {
 		BusinessException be = new BusinessException();
 		

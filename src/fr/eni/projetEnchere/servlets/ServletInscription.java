@@ -58,8 +58,8 @@ public class ServletInscription extends HttpServlet {
 						codePostal, ville, mdp);
 
 				// 3. Si L'inscription s'est bien passée je pars vers l'accueil
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
-				rd.forward(request, response);
+				response.sendRedirect("/WEB-INF/jsp/index.jsp");
+				
 
 			} catch (BusinessException be) {				
 				for (int code : be.getListeCodesErreur()) {

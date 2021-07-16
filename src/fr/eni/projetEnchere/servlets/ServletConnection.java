@@ -18,25 +18,19 @@ import fr.eni.projetEnchere.bll.UtilisateurManager;
 import fr.eni.projetEnchere.bo.boUtilisateur;
 import fr.eni.projetEnchere.exceptions.LecteurMessage;
 
-/**
- * Servlet implementation class servletConnection
- */
+
 @WebServlet("/ServletConnection")
 public class ServletConnection extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/connection.jsp");
 		rd.forward(request, response);
 		}
 	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Impose l'UTF-8 lors de la lecture des données
 		request.setCharacterEncoding("UTF-8");

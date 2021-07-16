@@ -1,17 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!-- ajoute la librairie JSTL à la page -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="./css/styleAjoutArticle.css">
-<title>AjoutArticle</title>
-</head>
-<body>
+<%@include file="./fragments/header.jsp" %>
 
 <main>
-<h1>Vendre un article</h1>
 
 	<form action="<%=request.getContextPath()%>/ServletAjoutArticle" method="POST">
 		
@@ -33,24 +22,24 @@
 	    <br>
 	    </div>
 	    <div>
-		    <label for="dateDebutEncheres">Date du debut des encheres :<span style="color: darkred;">*</span></label><br>
+		    <label for="dateDebutEncheres">Date du début des enchères :<span style="color: darkred;">*</span></label><br>
 		    <input type="date" id="dateDebutEncheres" name="dateDebutEncheres" required><br>	    
 		    <br>
-		    <label for="dateFinEncheres">Date de la fin des encheres :<span style="color: darkred;">*</span></label><br>	    	    
+		    <label for="dateFinEncheres">Date de la fin des enchères :<span style="color: darkred;">*</span></label><br>	    	    
 	        <input type="date" name="dateFinEncheres" id="dateFinEncheres" required><br>
 	        <br>
         </div>
         <div>
-	        <label for="prixInitial">Prix initial de l'enchere :<span style="color: darkred;">*</span></label><br>
+	        <label for="prixInitial">Prix initial de l'enchère :<span style="color: darkred;">*</span></label><br>
 	        <input type="number" name="prixInitial" id="prixInitial"required><br>
 			<br>
 		</div>
 		
 	    <div>
-	        <button type="submit" value="ok">Ajouter</button><br>
+	        <button type="submit" value="ok" class="bt">Ajouter</button><br>
 	        <br>
 
-	        <a href="${pageContext.request.contextPath}/ServletPageAccueil">Annuler</a>
+	        <a href="${pageContext.request.contextPath}/ServletPageAccueil" class="bt">Annuler</a>
 
         </div> 	     
     </form>
